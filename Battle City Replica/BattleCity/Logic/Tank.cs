@@ -56,16 +56,16 @@ namespace BattleCity.Entities
                 var originY = (int)(Position.UpperLeftCorner ().Y - Position.Origin.Y);
 
                 var muzzlePos = GetMuzzleRotatedRectangle ();
-                var rect = new RotatedRectangle (
-                               new Rectangle (
-                                   muzzlePos.CollisionRectangle.X,
-                                   muzzlePos.CollisionRectangle.Y,
-                                   projectile.DefaultSize.X,
-                                   projectile.DefaultSize.Y), Position.Rotation);                
+
+                var rect = new RotatedRectangle (new Rectangle ((int)muzzlePos.CollisionRectangle.Center.X - projectile.DefaultSize.X / 2,
+                                                                (int)muzzlePos.CollisionRectangle.Center.Y - projectile.DefaultSize.Y / 2,
+                                                                projectile.DefaultSize.X,
+                                                                projectile.DefaultSize.Y), Position.Rotation);
 
                 projectile.Position = rect;
 
                 ParentMap.QueueAddition (projectile);
+                Cooldown = new TimeSpan (0, 0, 0, 0, 100);
                 //Cooldown = projectile.CooltimePenalty;
 
                 #if DEBUG
@@ -113,19 +113,21 @@ namespace BattleCity.Entities
         public static RotatedRectangle OffsetRotatedRectangle(RotatedRectangle rect,
                                                               Point offsetBy)
         {
-            var newRect = rect;  
+            var newRect = new RotatedRectangle (rect.CollisionRectangle, rect.Rotation);  
             var rads = rect.Rotation;
 
             var deltaX = new Point (
                              (int)(Math.Cos (rads) * offsetBy.X),
                              (int)(Math.Sin (rads) * offsetBy.X));
             var deltaY = new Point (
-                (int)(Math.Sin (rads) * -offsetBy.Y),
+                             (int)(Math.Sin (rads) * -offsetBy.Y),
                              (int)(Math.Cos (rads) * offsetBy.Y)
-            ));
-
+                         );
+            
             newRect.CollisionRectangle.Offset (deltaX);
             newRect.CollisionRectangle.Offset (deltaY);
+
+            return newRect;
         }
 
         public RotatedRectangle GetMuzzleRotatedRectangle()

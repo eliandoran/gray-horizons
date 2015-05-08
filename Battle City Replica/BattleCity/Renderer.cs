@@ -41,7 +41,7 @@ namespace BattleCity
         {
             this.gameData = gameData;
 
-            dirtTexture = gameData.ContentManager.Load<Texture2D> ("dirt");
+            dirtTexture = gameData.ContentManager.Load<Texture2D> ("Dirt");
             blankTexture = gameData.ContentManager.Load<Texture2D> ("blank");
 
             MappedTextures attr = new MappedTextures (new [] { "Dirt\\01" });
