@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>{5233519B-059F-4442-88C2-CE20800707B8}</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>BattleCity</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)AIs\VanillaAI.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Screens\BattlefieldScreen.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Logic\AIBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Logic\Coordinate.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Logic\DamageInfo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Logic\Entity.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Logic\Map.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Logic\ObjectBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Logic\Segment.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Logic\StaticObject.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)MonoGame.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Logic\Rotation.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Renderer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)StaticObjects\Wall.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ThirdParty\RotatedRectangle.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ThirdParty\GameStateManagement\GameScreen.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ThirdParty\GameStateManagement\InputState.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ThirdParty\GameStateManagement\ScreenManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Logic\Attributes.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Entities\Tank01.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Entities\Tank02.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Entities\Tank03.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Entities\Tank04.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Entities\Tank05.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Entities\Tank06.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Entities\Tank07.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Entities\Tank08.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Logic\Projectile.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Logic\Tank.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\StringExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)StaticObjects\Explosion.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Logic\GameData.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Input\InputBinding.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Input\KeyBinding.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Logic\GameAction.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Logic\Player.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Input\Actions\PlayerActions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Input\Actions\DebuggingActions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Logic\DebuggingSettings.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Input\Actions\GameActions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Attributes\DefaultKeyAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Attributes\MappedTexturesAttribute.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="$(MSBuildThisFileDirectory)AIs\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Screens\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Logic\" />
+    <Folder Include="$(MSBuildThisFileDirectory)StaticObjects\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Entities\" />
+    <Folder Include="$(MSBuildThisFileDirectory)ThirdParty\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Extensions\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Input\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Input\Actions\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Attributes\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="$(MSBuildThisFileDirectory)Content\Content.mgcb" />
+  </ItemGroup>
+</Project>
