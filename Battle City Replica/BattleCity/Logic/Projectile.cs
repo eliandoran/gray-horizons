@@ -49,8 +49,8 @@ namespace BattleCity.Entities
 
         public override void Update(TimeSpan gameTime)
         {
-            const int step = 2;
-            var rads = Rotation.FromRadians (Position.Rotation).OffsetBy (90).ToRadians ();
+            const int step = 1;
+            var rads = Position.Rotation;
             Point delta = GetDelta (rads, step);
             Position.CollisionRectangle.Offset (delta);
 

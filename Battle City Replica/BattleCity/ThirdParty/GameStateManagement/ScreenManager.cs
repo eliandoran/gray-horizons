@@ -193,14 +193,14 @@ namespace BattleCity.ThirdParty.GameStateManagement
                 }
             }
 
-            // Print debug trace?
+            // Print Trace trace?
             if (traceEnabled)
                 TraceScreens ();
         }
 
 
         /// <summary>
-        /// Prints a list of all the screens, for debugging.
+        /// Prints a list of all the screens, for Traceging.
         /// </summary>
         void TraceScreens()
         {

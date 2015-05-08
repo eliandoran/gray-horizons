@@ -12,8 +12,13 @@ namespace BattleCity.ThirdParty
         public float Rotation;
         public Vector2 Origin;
 
+        public RotatedRectangle () : this (Rectangle.Empty,
+                                        0)
+        {
+        }
+
         public RotatedRectangle (Rectangle theRectangle,
-                           float theInitialRotation)
+                                 float theInitialRotation)
         {
             CollisionRectangle = theRectangle;
             Rotation = theInitialRotation;
@@ -29,7 +34,7 @@ namespace BattleCity.ThirdParty
         /// <param name="theXPositionAdjustment"></param>
         /// <param name="theYPositionAdjustment"></param>
         public void ChangePosition(int theXPositionAdjustment,
-                              int theYPositionAdjustment)
+                                   int theYPositionAdjustment)
         {
             CollisionRectangle.X += theXPositionAdjustment;
             CollisionRectangle.Y += theYPositionAdjustment;
@@ -86,7 +91,7 @@ namespace BattleCity.ThirdParty
         /// <param name="aAxis"></param>
         /// <returns></returns>
         private bool IsAxisCollision(RotatedRectangle theRectangle,
-                                Vector2 aAxis)
+                                     Vector2 aAxis)
         {
             //Project the corners of the Rectangle we are checking on to the Axis and
             //get a scalar value of that project we can then use for comparison
@@ -132,7 +137,7 @@ namespace BattleCity.ThirdParty
         /// <param name="theAxis"></param>
         /// <returns></returns>
         private int GenerateScalar(Vector2 theRectangleCorner,
-                              Vector2 theAxis)
+                                   Vector2 theAxis)
         {
             //Using the formula for Vector projection. Take the corner being passed in
             //and project it onto the given Axis
@@ -156,8 +161,8 @@ namespace BattleCity.ThirdParty
         /// <param name="theRotation"></param>
         /// <returns></returns>
         private Vector2 RotatePoint(Vector2 thePoint,
-                               Vector2 theOrigin,
-                               float theRotation)
+                                    Vector2 theOrigin,
+                                    float theRotation)
         {
             Vector2 aTranslatedPoint = new Vector2 ();
             aTranslatedPoint.X = (float)(theOrigin.X + (thePoint.X - theOrigin.X) * Math.Cos (theRotation)

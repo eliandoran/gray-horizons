@@ -99,6 +99,25 @@ namespace BattleCity.Logic
             if (noClip || CanMoveIn (newPosition))
             {
                 Position = newPosition;
+
+                if (ParentMap.Viewport.X + ParentMap.Viewport.Width < newPosition.X)
+                {
+                    ParentMap.Viewport = new Rectangle (ParentMap.Viewport.X + 20,
+                                                        ParentMap.Viewport.Y,
+                                                        ParentMap.Viewport.Width,
+                                                        ParentMap.Viewport.Height);
+                    Debug.WriteLine ("Viewport shifted.");
+                }
+                else if (ParentMap.Viewport.X > newPosition.X)
+                {
+                    ParentMap.Viewport = new Rectangle (ParentMap.Viewport.X - 20,
+                                                        ParentMap.Viewport.Y,
+                                                        ParentMap.Viewport.Width,
+                                                        ParentMap.Viewport.Height);
+                }
+
+                Debug.WriteLine (ParentMap.Viewport.ToString () + " - " + newPosition.ToString (), "VIEWPORT");
+
                 return true;
             }
 

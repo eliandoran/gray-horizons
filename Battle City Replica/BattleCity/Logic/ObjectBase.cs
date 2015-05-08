@@ -59,7 +59,7 @@ namespace BattleCity.Logic
         public Point DefaultSize
         {
             get;
-            protected set;
+            set;
         }
 
         /// <summary>

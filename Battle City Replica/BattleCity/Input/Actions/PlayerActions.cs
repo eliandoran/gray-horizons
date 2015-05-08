@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace BattleCity.Input.Actions
 {
+    [AllowContinousPress ()]
     public abstract class TankMovementAction: GameAction
     {
         protected TankMovementAction (Player player,
@@ -44,6 +45,9 @@ namespace BattleCity.Input.Actions
                                   InputBinding parentInputBinding) : base (player,
                                                                            parentInputBinding) { }
 
+        public MoveForwardAction () : this (null,
+                                            null) { }
+
         public override void Execute()
         {
             Player.AssignedTank.IsMoving = true;
@@ -57,6 +61,9 @@ namespace BattleCity.Input.Actions
         public MoveBackwardAction (Player player,
                                    InputBinding parentInputBinding) : base (player,
                                                                             parentInputBinding) { }
+
+        public MoveBackwardAction () : this (null,
+                                             null) { }
 
         public override void Execute()
         {
@@ -72,6 +79,9 @@ namespace BattleCity.Input.Actions
                                InputBinding parentInputBinding) : base (player,
                                                                         parentInputBinding) { }
 
+        public TurnLeftAction () : this (null,
+                                         null) { }
+
         public override void Execute()
         {
             Player.AssignedTank.IsMoving = true;
@@ -86,6 +96,9 @@ namespace BattleCity.Input.Actions
                                 InputBinding parentInputBinding) : base (player,
                                                                          parentInputBinding) { }
 
+        public TurnRightAction () : this (null,
+                                          null) { }
+
         public override void Execute()
         {
             Player.AssignedTank.IsMoving = true;
@@ -97,6 +110,8 @@ namespace BattleCity.Input.Actions
     public class ShootAction: GameAction
     {
         public ShootAction (Player player) : base (player) {}
+
+        public ShootAction () : this (null) { }
 
         public override void Execute()
         {

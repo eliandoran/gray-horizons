@@ -42,12 +42,13 @@ namespace BattleCity.Screens
 
         Map GetTestMap()
         {
-            var map = new Map (new Vector2 (764, 764));
+            var map = new Map (new Vector2 (2000, 2000));
 
             playerTank.Position = new RotatedRectangle (new Rectangle (6 * 64,
                                                                        6 * 64,
                                                                        playerTank.DefaultSize.X,
                                                                        playerTank.DefaultSize.Y), 0);
+            map.Viewport = new Rectangle (0, 0, 768, 768);
 
             var ur = playerTank.Position.UpperRightCorner ();
             var lr = playerTank.Position.LowerRightCorner ();
@@ -82,12 +83,18 @@ namespace BattleCity.Screens
                 turnRightKeyBinding,
                 new KeyBinding (gameData, new ShootAction (player), allowContinousPress: true),
 
-                new KeyBinding (gameData, new ToggleGuidesDebugAction (gameData)),
+                new KeyBinding (gameData, new ToggleGuidesTraceAction (gameData)),
                 new KeyBinding (gameData, new MetamorphosizeTank (gameData, player)),
                 new KeyBinding (gameData, new ToggleFullScreenAction (gameData))
             });                
 
             gameData.Players.Add (player);
+
+            var config = new Configuration ();
+            foreach (KeyBinding binding in gameData.InputBindings)
+                config.InputBindings.Add (binding);
+
+            config.Save (@"C:\Users\Elian\Desktop\config.xml");
 
             return map;
         }

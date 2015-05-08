@@ -1,9 +1,8 @@
 ﻿<Properties StartupConfiguration="{AF1C98A4-A002-4B92-A1F3-B93467557E86}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="BattleCity/Renderer.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="BattleCity/MonoGame.cs">
     <Files>
-      <File FileName="BattleCity/MonoGame.cs" Line="22" Column="1" />
-      <File FileName="BattleCity/ThirdParty/GameStateManagement/ScreenManager.cs" Line="119" Column="1" />
-      <File FileName="BattleCity/Renderer.cs" Line="44" Column="70" />
+      <File FileName="BattleCity/Logic/Configuration.cs" Line="44" Column="1" />
+      <File FileName="BattleCity/MonoGame.cs" Line="31" Column="13" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />

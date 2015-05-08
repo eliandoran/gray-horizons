@@ -1,6 +1,4 @@
-﻿using System;
-using System.Windows;
-using System.Xml.Serialization;
+﻿using System.Xml.Serialization;
 using BattleCity.Logic;
 using BattleCity.StaticObjects;
 

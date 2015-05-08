@@ -10,6 +10,8 @@ namespace BattleCity.Input.Actions
     {
         public ToggleFullScreenAction (GameData gameData) : base (gameData) { }
 
+        public ToggleFullScreenAction () : this (null) { }
+
         public override void Execute()
         {
             GameData.GraphicsDeviceManager.ToggleFullScreen ();

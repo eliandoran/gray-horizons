@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Input;
 using System.Diagnostics;
 using System.Reflection;
 using BattleCity.Attributes;
+using System.Xml.Serialization;
 
 namespace BattleCity.Input
 {
@@ -17,9 +18,16 @@ namespace BattleCity.Input
         public event KeyDownEventHandler KeyDown;
         public event KeyUpEventHandler KeyUp;
 
+        [XmlAttribute ("key")]
         public Keys Key { get; set; }
 
+        [XmlIgnore ()]
         public bool IsPressed { get; set; }
+
+        public KeyBinding () : this (null)
+        {
+            
+        }
 
         public KeyBinding (GameData gameData,
                            GameAction action = null,
@@ -30,7 +38,7 @@ namespace BattleCity.Input
         {
             if (key == Keys.None && action != null)
             {
-                foreach (Attribute attr in action.GetType ().GetCustomAttributes ())
+                foreach (Attribute attr in action.GetType ().GetCustomAttributes (true))
                 {
                     var defaultKeyAttr = attr as DefaultKey;
                     if (defaultKeyAttr != null)
@@ -114,7 +122,10 @@ namespace BattleCity.Input
 
         public override string ToString()
         {
-            return string.Format ("[KeyBinding: Key={0}, Action={1}]", Key, BoundAction);
+            return string.Format ("[KeyBinding: Key={0}, Action={1}, AllowContinousPress={2}]",
+                                  Key,
+                                  BoundAction,
+                                  AllowContinousPress);
         }
     }
 }

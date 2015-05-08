@@ -41,7 +41,7 @@ namespace BattleCity
         {
             this.gameData = gameData;
 
-            dirtTexture = gameData.ContentManager.Load<Texture2D> ("Dirt");
+            dirtTexture = gameData.ContentManager.Load<Texture2D> ("dirt");
             blankTexture = gameData.ContentManager.Load<Texture2D> ("blank");
 
             MappedTextures attr = new MappedTextures (new [] { "Dirt\\01" });
@@ -58,11 +58,12 @@ namespace BattleCity
             var namespaces = new List<string> () { "BattleCity.Entities", "BattleCity.StaticObjects" };
 
             var query = from type in Assembly.GetExecutingAssembly ().GetTypes ()
-                                 where (type.IsClass && namespaces.Contains (type.Namespace) && (type.GetCustomAttributes (typeof(MappedTextures)).FirstOrDefault () != null))
+                                 where (type.IsClass && namespaces.Contains (type.Namespace) && (type.GetCustomAttributes (typeof(MappedTextures),
+                                                                                                                           true).FirstOrDefault () != null))
                                  select type;
             query.ToList ().ForEach (type =>
             { 
-                var attr = (MappedTextures)type.GetCustomAttributes (typeof(MappedTextures)).First ();
+                var attr = (MappedTextures)type.GetCustomAttributes (typeof(MappedTextures), true).First ();
                 var textureName = attr.GetRandomTexture ();
 
                 try
@@ -112,7 +113,7 @@ namespace BattleCity
         /// <param name="obj">Object.</param>
         public void DrawGuides(ObjectBase obj)
         {
-//            if (!gameData.DebuggingSettings.ShowGuides)
+//            if (!gameData.TracegingSettings.ShowGuides)
 //                return;
 
             var rotation = obj.Position.Rotation;
@@ -151,7 +152,7 @@ namespace BattleCity
                         texture,
                         position: entity.Position.CollisionRectangle.Center.ToVector2 (),
 					    //destinationRectangle: new Rectangle (entity.RotatedPos.X, entity.RotatedPos.Y, entity.RotatedPos.Width, entity.RotatedPos.Height),
-                        origin: new Vector2 (texture.Width / 2, texture.Height / 2),					    
+                        origin: new Vector2 (texture.Width / 2, texture.Height / 2),
                         rotation: entity.Position.Rotation
                     );
 
@@ -171,14 +172,17 @@ namespace BattleCity
         {
             foreach (StaticObject staticObject in staticObjects)
             {
-                var texture = MappedTextures [staticObject.GetType ()];
+                if (staticObject.Position.Intersects (new RotatedRectangle (gameData.Map.Viewport, 0)))
+                {
+                    var texture = MappedTextures [staticObject.GetType ()];
 
-                if (staticObject.GetType () == typeof(Explosion))
-                    RenderExplosion ((Explosion)staticObject);
-                else
-                    gameData.SpriteBatch.Draw (texture, staticObject.Position.UpperLeftCorner ());
+                    if (staticObject.GetType () == typeof(Explosion))
+                        RenderExplosion ((Explosion)staticObject);
+                    else
+                        gameData.SpriteBatch.Draw (texture, staticObject.Position.UpperLeftCorner ());
 
-                DrawGuides (staticObject);
+                    DrawGuides (staticObject);
+                }
             }
         }
 

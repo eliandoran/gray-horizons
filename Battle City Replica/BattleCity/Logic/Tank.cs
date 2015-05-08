@@ -52,20 +52,20 @@ namespace BattleCity.Entities
         {
             if (Cooldown == TimeSpan.Zero)
             {
-                var originX = (int)(Position.UpperLeftCorner ().X - Position.Origin.X);
-                var originY = (int)(Position.UpperLeftCorner ().Y - Position.Origin.Y);
+                var originX = (int)(Position.LowerLeftCorner ().X - Position.Origin.X);
+                var originY = (int)(Position.LowerLeftCorner ().Y - Position.Origin.Y);
 
                 var muzzlePos = GetMuzzleRotatedRectangle ();
-
-                var rect = new RotatedRectangle (new Rectangle ((int)muzzlePos.CollisionRectangle.Center.X - projectile.DefaultSize.X / 2,
-                                                                (int)muzzlePos.CollisionRectangle.Center.Y - projectile.DefaultSize.Y / 2,
-                                                                projectile.DefaultSize.X,
-                                                                projectile.DefaultSize.Y), Position.Rotation);
+                var rect = new RotatedRectangle (
+                               new Rectangle (
+                                   muzzlePos.CollisionRectangle.Center.X,
+                                   muzzlePos.CollisionRectangle.Center.Y + projectile.DefaultSize.Y / 2,
+                                   projectile.DefaultSize.X,
+                                   projectile.DefaultSize.Y), Position.Rotation);
 
                 projectile.Position = rect;
 
                 ParentMap.QueueAddition (projectile);
-                Cooldown = new TimeSpan (0, 0, 0, 0, 100);
                 //Cooldown = projectile.CooltimePenalty;
 
                 #if DEBUG
@@ -123,10 +123,9 @@ namespace BattleCity.Entities
                              (int)(Math.Sin (rads) * -offsetBy.Y),
                              (int)(Math.Cos (rads) * offsetBy.Y)
                          );
-            
+
             newRect.CollisionRectangle.Offset (deltaX);
             newRect.CollisionRectangle.Offset (deltaY);
-
             return newRect;
         }
 

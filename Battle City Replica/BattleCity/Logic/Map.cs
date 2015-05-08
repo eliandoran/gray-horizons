@@ -32,6 +32,8 @@ namespace BattleCity.Logic
         [XmlElement ("Size")]
         public Vector2 MapSize { get; set; }
 
+        public Rectangle Viewport { get; set; }
+
         /// <summary>
         /// Gets a matrix containing static objects on the map.
         /// </summary>

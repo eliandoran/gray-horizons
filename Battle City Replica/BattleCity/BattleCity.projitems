@@ -51,6 +51,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)Input\Actions\GameActions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Attributes\DefaultKeyAttribute.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Attributes\MappedTexturesAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Logic\Configuration.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Attributes\AllowContinousPressAttribute.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)AIs\" />

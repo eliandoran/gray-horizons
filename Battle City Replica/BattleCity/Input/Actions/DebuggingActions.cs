@@ -13,9 +13,11 @@ using Microsoft.Xna.Framework.Input;
 namespace BattleCity.Input.Actions
 {
     [DefaultKey (Keys.F1)]
-    public class ToggleGuidesDebugAction: GameAction
+    public class ToggleGuidesTraceAction: GameAction
     {
-        public ToggleGuidesDebugAction (GameData gameData) : base (gameData) { }
+        public ToggleGuidesTraceAction (GameData gameData) : base (gameData) { }
+
+        public ToggleGuidesTraceAction () : this (null) { }
 
         public override void Execute()
         {
@@ -36,6 +38,10 @@ namespace BattleCity.Input.Actions
         public MetamorphosizeTank (GameData gameData,
                                    Player player) : base (gameData,
                                                           player) { }
+
+
+        public MetamorphosizeTank () : this (null,
+                                             null) { }
 
         public override void Execute()
         {
