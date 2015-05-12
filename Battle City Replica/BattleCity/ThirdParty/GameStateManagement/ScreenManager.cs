@@ -87,8 +87,10 @@ namespace BattleCity.ThirdParty.GameStateManagement
         /// <summary>
         /// Constructs a new screen manager component.
         /// </summary>
-        public ScreenManager (Game game)
-            : base (game)
+        public ScreenManager (
+            Game game)
+            : base (
+                game)
         {
             // we must set EnabledGestures before we can query for them, but
             // we don't assume the game wants to read them.
@@ -99,7 +101,7 @@ namespace BattleCity.ThirdParty.GameStateManagement
         /// <summary>
         /// Initializes the screen manager component.
         /// </summary>
-        public override void Initialize()
+        public override void Initialize ()
         {
             base.Initialize ();
 
@@ -110,14 +112,14 @@ namespace BattleCity.ThirdParty.GameStateManagement
         /// <summary>
         /// Load your graphics content.
         /// </summary>
-        protected override void LoadContent()
+        protected override void LoadContent ()
         {
             // Load content belonging to the screen manager.
             ContentManager content = Game.Content;
 
             spriteBatch = new SpriteBatch (GraphicsDevice);
-            font = content.Load<SpriteFont> ("ArcadeFont");
-            blankTexture = content.Load<Texture2D> ("blank");
+            font = content.Load<SpriteFont> (@"Fonts\Standard");
+            blankTexture = content.Load<Texture2D> ("Blank");
 
             // Tell each of the screens to load their content.
             foreach (GameScreen screen in screens)
@@ -130,7 +132,7 @@ namespace BattleCity.ThirdParty.GameStateManagement
         /// <summary>
         /// Unload your graphics content.
         /// </summary>
-        protected override void UnloadContent()
+        protected override void UnloadContent ()
         {
             // Tell each of the screens to unload their content.
             foreach (GameScreen screen in screens)
@@ -148,7 +150,8 @@ namespace BattleCity.ThirdParty.GameStateManagement
         /// <summary>
         /// Allows each screen to run logic.
         /// </summary>
-        public override void Update(GameTime gameTime)
+        public override void Update (
+            GameTime gameTime)
         {
             // Read the keyboard and gamepad.
             input.Update ();
@@ -202,7 +205,7 @@ namespace BattleCity.ThirdParty.GameStateManagement
         /// <summary>
         /// Prints a list of all the screens, for Traceging.
         /// </summary>
-        void TraceScreens()
+        void TraceScreens ()
         {
             List<string> screenNames = new List<string> ();
 
@@ -216,7 +219,8 @@ namespace BattleCity.ThirdParty.GameStateManagement
         /// <summary>
         /// Tells each screen to draw itself.
         /// </summary>
-        public override void Draw(GameTime gameTime)
+        public override void Draw (
+            GameTime gameTime)
         {
             foreach (GameScreen screen in screens)
             {
@@ -236,8 +240,9 @@ namespace BattleCity.ThirdParty.GameStateManagement
         /// <summary>
         /// Adds a new screen to the screen manager.
         /// </summary>
-        public void AddScreen(GameScreen screen,
-                              PlayerIndex? controllingPlayer)
+        public void AddScreen (
+            GameScreen screen,
+            PlayerIndex? controllingPlayer)
         {
             screen.ControllingPlayer = controllingPlayer;
             screen.ScreenManager = this;
@@ -262,7 +267,8 @@ namespace BattleCity.ThirdParty.GameStateManagement
         /// the screen can gradually transition off rather than just being
         /// instantly removed.
         /// </summary>
-        public void RemoveScreen(GameScreen screen)
+        public void RemoveScreen (
+            GameScreen screen)
         {
             // If we have a graphics device, tell the screen to unload content.
             if (isInitialized)
@@ -287,7 +293,7 @@ namespace BattleCity.ThirdParty.GameStateManagement
         /// than the real master list, because screens should only ever be added
         /// or removed using the AddScreen and RemoveScreen methods.
         /// </summary>
-        public GameScreen[] GetScreens()
+        public GameScreen[] GetScreens ()
         {
             return screens.ToArray ();
         }
@@ -297,15 +303,16 @@ namespace BattleCity.ThirdParty.GameStateManagement
         /// Helper draws a translucent black fullscreen sprite, used for fading
         /// screens in and out, and for darkening the background behind popups.
         /// </summary>
-        public void FadeBackBufferToBlack(float alpha)
+        public void FadeBackBufferToBlack (
+            float alpha)
         {
             Viewport viewport = GraphicsDevice.Viewport;
 
             spriteBatch.Begin ();
 
             spriteBatch.Draw (blankTexture,
-                              new Rectangle (0, 0, viewport.Width, viewport.Height),
-                              Color.Black * alpha);
+                new Rectangle (0, 0, viewport.Width, viewport.Height),
+                Color.Black * alpha);
 
             spriteBatch.End ();
         }

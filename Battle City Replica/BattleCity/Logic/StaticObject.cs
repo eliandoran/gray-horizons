@@ -1,6 +1,7 @@
 ﻿using System.Xml.Serialization;
 using BattleCity.Logic;
 using BattleCity.StaticObjects;
+using BattleCity.ThirdParty;
 
 namespace BattleCity.Logic
 {
@@ -16,6 +17,18 @@ namespace BattleCity.Logic
         public StaticObject ()
         {
 
+        }
+
+        public override void Render()
+        {
+            if (Position.Intersects (new RotatedRectangle (GameData.Map.Viewport, 0)))
+            {
+                var texture = GameData.MappedTextures [GetType ()];
+                var viewportPosition = GameData.Map.CalculateViewportCoordinates (Position.UpperLeftCorner (),
+                                                                                  GameData.Scale);
+
+                GameData.SpriteBatch.Draw (texture, viewportPosition, scale: GameData.Scale);
+            }
         }
     }
 }

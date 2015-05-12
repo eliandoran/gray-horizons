@@ -14,11 +14,7 @@ namespace BattleCity.Logic
         /// <value>The controlling tank.</value>
         public Tank ControllingTank { get; set; }
 
-        /// <summary>
-        /// Gets or sets the map containing the tank.
-        /// </summary>
-        /// <value>The parent map.</value>
-        public Map ParentMap { get; set; }
+        public GameData GameData;
 
         /// <summary>
         /// It should be called when the game requires the AI to make the next step.

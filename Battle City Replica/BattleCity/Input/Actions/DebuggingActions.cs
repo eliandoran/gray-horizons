@@ -1,13 +1,13 @@
 ﻿using System;
-using BattleCity.Logic;
 using System.Diagnostics;
-using BattleCity.Entities;
-using System.Reflection;
 using System.Linq;
-using BattleCity.Extensions;
-using Microsoft.Xna.Framework;
-using BattleCity.ThirdParty;
+using System.Reflection;
 using BattleCity.Attributes;
+using BattleCity.Entities;
+using BattleCity.Extensions;
+using BattleCity.Logic;
+using BattleCity.ThirdParty;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
 namespace BattleCity.Input.Actions
@@ -15,11 +15,17 @@ namespace BattleCity.Input.Actions
     [DefaultKey (Keys.F1)]
     public class ToggleGuidesTraceAction: GameAction
     {
-        public ToggleGuidesTraceAction (GameData gameData) : base (gameData) { }
+        public ToggleGuidesTraceAction (
+            GameData gameData) : base (
+                gameData) { }
 
-        public ToggleGuidesTraceAction () : this (null) { }
+        /// <summary>
+        /// Initializes a new instance of the <see cref="BattleCity.Input.Actions.ToggleGuidesTraceAction"/> class.
+        /// </summary>
+        public ToggleGuidesTraceAction () : this (
+                null) { }
 
-        public override void Execute()
+        public override void Execute ()
         {
             GameData.DebuggingSettings.ShowGuides = !GameData.DebuggingSettings.ShowGuides;
 
@@ -32,18 +38,25 @@ namespace BattleCity.Input.Actions
         }
     }
 
+
     [DefaultKey (Keys.F2)]
     public class MetamorphosizeTank: GameAction
     {
-        public MetamorphosizeTank (GameData gameData,
-                                   Player player) : base (gameData,
-                                                          player) { }
+        public MetamorphosizeTank (
+            GameData gameData,
+            Player player) : base (
+                gameData,
+                player) { }
 
 
-        public MetamorphosizeTank () : this (null,
-                                             null) { }
+        /// <summary>
+        /// Initializes a new instance of the <see cref="BattleCity.Input.Actions.MetamorphosizeTank"/> class.
+        /// </summary>
+        public MetamorphosizeTank () : this (
+                null,
+                null) { }
 
-        public override void Execute()
+        public override void Execute ()
         {
             var query = from type in Assembly.GetExecutingAssembly ().GetTypes ()
                                  where (type.BaseType == typeof(Tank))
@@ -53,24 +66,33 @@ namespace BattleCity.Input.Actions
             var newTank = (Tank)tankType.GetConstructor (new Type[] { }).Invoke (new Type[] { });
 
             newTank.Position = new RotatedRectangle (new Rectangle (
-                Player.AssignedTank.Position.CollisionRectangle.X,
-                Player.AssignedTank.Position.CollisionRectangle.Y,
+                Player.AssignedEntity.Position.CollisionRectangle.X,
+                Player.AssignedEntity.Position.CollisionRectangle.Y,
                 newTank.DefaultSize.X,
-                newTank.DefaultSize.Y), Player.AssignedTank.Position.Rotation
+                newTank.DefaultSize.Y), Player.AssignedEntity.Position.Rotation
             );
-            
-            newTank.MuzzlePosition = Player.AssignedTank.MuzzlePosition;
-            newTank.ParentMap = GameData.Map;              
 
-            GameData.Map.Entities.Remove (Player.AssignedTank);
-            Player.AssignedTank = newTank;
+            var playerTank = Player.AssignedEntity as Tank;
+            //newTank.MuzzlePosition = newTank.GetMuzzleRotatedRectangle ();
+
+            newTank.GameData = GameData;
+
+            GameData.Map.Entities.Remove (Player.AssignedEntity);
+
+            if (Player == GameData.ActivePlayer)
+                GameData.ActivePlayer.AssignedEntity = newTank;
+
+            Player.AssignedEntity = newTank;
+            Player.AssignedEntity.Moved += (
+                sender,
+                e) => GameData.Map.CenterViewportAt (Player.AssignedEntity);
 
             #if DEBUG
-            Debug.WriteLine ("{0} changed to <{1}>.".FormatWith (Player.AssignedTank.ToString (), newTank),
-                             "METAMORPHOSIZE");
+            Debug.WriteLine ("{0} changed to <{1}>.".FormatWith (Player.AssignedEntity.ToString (), newTank),
+                "METAMORPHOSIZE");
             #endif
 
-            GameData.Map.Entities.Add (Player.AssignedTank);
+            GameData.Map.Entities.Add (Player.AssignedEntity);
         }
     }
 }

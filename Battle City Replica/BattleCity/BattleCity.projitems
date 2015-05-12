@@ -28,14 +28,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)ThirdParty\GameStateManagement\InputState.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ThirdParty\GameStateManagement\ScreenManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Logic\Attributes.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Entities\Tank01.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Entities\Tank02.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Entities\Tank03.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Entities\Tank04.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Entities\Tank05.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Entities\Tank06.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Entities\Tank07.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Entities\Tank08.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Logic\Projectile.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Logic\Tank.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\StringExtensions.cs" />
@@ -53,6 +45,41 @@
     <Compile Include="$(MSBuildThisFileDirectory)Attributes\MappedTexturesAttribute.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Logic\Configuration.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Attributes\AllowContinousPressAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Logic\Size.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\RectangleExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Input\Actions\ScalingActions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Input\MouseAxisBinding.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Input\AxisBinding.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Input\Actions\PlayerTurretActions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Entities\TankE100.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Entities\TankKV2.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Entities\TankM6.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Entities\TankVK3601h.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Entities\TankTigerII.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Entities\TankT34.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Entities\TankPzKpfwB.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Entities\TankPzKpfwA.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Entities\MineLayerPickup.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Sound\TankSounds.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Attributes\SoundAutoLoadAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Sound\SoundEffect.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Loader.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Screens\MainMenuScreen.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\MenuItem.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\Menu.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Input\Actions\MenuActions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Sound\UISounds.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\GameExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Screens\SettingsMenuScreen.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Screens\PauseScreen.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Attributes\DefaultMouseButtonAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Logic\MouseButtonState.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Logic\Vehicle.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Attributes\MappedSoundsAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Sound\ExplosionSounds.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Logic\ControllableEntity.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Entities\Soldier.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Sound\SoldierSounds.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)AIs\" />
@@ -65,8 +92,12 @@
     <Folder Include="$(MSBuildThisFileDirectory)Input\" />
     <Folder Include="$(MSBuildThisFileDirectory)Input\Actions\" />
     <Folder Include="$(MSBuildThisFileDirectory)Attributes\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Sound\" />
+    <Folder Include="$(MSBuildThisFileDirectory)UI\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="$(MSBuildThisFileDirectory)Content\Content.mgcb" />
+    <None Include="$(MSBuildThisFileDirectory)xinput1_3.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 </Project>

@@ -40,7 +40,8 @@ namespace BattleCity.StaticObjects
         /// <summary>
         /// Initializes a new instance of the <see cref="BattleCity.Logic.Wall"/> class with all segments intact.
         /// </summary>
-        public Wall () : this (new List<Segment> ())
+        public Wall () : this (
+                new List<Segment> ())
         {
 
         }
@@ -49,7 +50,8 @@ namespace BattleCity.StaticObjects
         /// Initializes a new instance of the <see cref="BattleCity.Logic.Wall"/> class.
         /// </summary>
         /// <param name="segments">A matrix containing the segments integrity of this wall.</param>
-        public Wall (List<Segment> segments)
+        public Wall (
+            List<Segment> segments)
         {
             Segments = segments;
             HasCollision = true;
@@ -57,14 +59,16 @@ namespace BattleCity.StaticObjects
             Health = 1;
         }
 
-        public override void WasHitByProjectile(Projectile hitter)
+        public override void WasHitByProjectile (
+            Projectile hitter)
         {
             base.WasHitByProjectile (hitter);
         }
 
-        public override void Update(TimeSpan gameTime)
+        public override void Explode ()
         {
-
+            Sound.ExplosionSounds.WallExplosion.Play ();
+            base.Explode ();
         }
     }
 }

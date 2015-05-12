@@ -1,6 +1,7 @@
 ﻿using System;
 using BattleCity.Logic;
 using BattleCity.Attributes;
+using Microsoft.Xna.Framework;
 
 namespace BattleCity.StaticObjects
 {
@@ -34,9 +35,27 @@ namespace BattleCity.StaticObjects
             IsInvincible = true;
         }
 
-        public override void Update(TimeSpan gameTime)
+        public override void Update (
+            TimeSpan gameTime)
         {
             CurrentState += 1;
+        }
+
+        public override void Render ()
+        {
+            var texture = GameData.MappedTextures [GetType ()];
+            var position = GameData.Map.CalculateViewportCoordinates (Position.UpperLeftCorner (), GameData.Scale);
+
+            GameData.SpriteBatch.Draw (
+                texture,
+                origin: new Vector2 (0, 0),
+                destinationRectangle: new Rectangle ((int)position.X,
+                    (int)position.Y,
+                    Position.CollisionRectangle.Width,
+                    Position.CollisionRectangle.Height),
+                sourceRectangle: Renderer.GetSpriteFromSpriteImage (texture, CurrentState, 5, 5),
+                scale: GameData.Scale
+            );
         }
     }
 }

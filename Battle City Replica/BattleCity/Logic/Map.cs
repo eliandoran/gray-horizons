@@ -9,6 +9,8 @@ using BattleCity.StaticObjects;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using BattleCity.Extensions;
+using Microsoft.Xna.Framework.Graphics;
+using System.Xml.Xsl;
 
 namespace BattleCity.Logic
 {
@@ -22,7 +24,7 @@ namespace BattleCity.Logic
     {
         readonly List<ObjectBase> objectRemovalList = new List<ObjectBase> (0);
         readonly List<ObjectBase> objectAdditionList = new List<ObjectBase> (0);
-        readonly Collection<StaticObject> objects = new Collection<StaticObject> ();
+        readonly Collection<StaticObject> staticObjects = new Collection<StaticObject> ();
         readonly Collection<Entity> entities = new Collection<Entity> ();
 
         /// <summary>
@@ -34,16 +36,22 @@ namespace BattleCity.Logic
 
         public Rectangle Viewport { get; set; }
 
+        public Rectangle ScaledViewport { get; set; }
+
+        public Texture2D Texture { get; set; }
+
+        public GameData GameData { get; set; }
+
         /// <summary>
         /// Gets a matrix containing static objects on the map.
         /// </summary>
         /// <value>The list of static objects.</value>
         [XmlElement ("StaticObjects")]
-        public Collection<StaticObject> Objects
+        public Collection<StaticObject> StaticObjects
         {
             get
             {
-                return objects;
+                return staticObjects;
             }
         }
 
@@ -62,15 +70,20 @@ namespace BattleCity.Logic
         /// <summary>
         /// Initializes a new instance of the <see cref="BattleCity.Logic.Map"/> class.
         /// </summary>
-        public Map (Vector2 mapSize)
+        public Map (
+            Vector2 mapSize,
+            GameData gameData)
         {
             MapSize = mapSize;
+            GameData = gameData;
         }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="BattleCity.Logic.Map"/> class with the default size.
         /// </summary>
-        public Map () : this (new Vector2 (13, 13))
+        public Map () : this (
+                new Vector2 (13, 13),
+                null)
         {
 
         }
@@ -79,13 +92,14 @@ namespace BattleCity.Logic
         /// Add the specified object to the map.
         /// </summary>
         /// <param name="obj">The object to be added.</param>
-        public void Add(ObjectBase obj)
+        public void Add (
+            ObjectBase obj)
         {
             var entity = obj as Entity;
 
             if (entity != null)
             {
-                entity.ParentMap = this;
+                entity.GameData = GameData;
                 Entities.Add (entity);
             }
             else
@@ -94,8 +108,8 @@ namespace BattleCity.Logic
 
                 if (staticObject != null)
                 {
-                    staticObject.ParentMap = this;
-                    Objects.Add (staticObject);
+                    staticObject.GameData = GameData;
+                    StaticObjects.Add (staticObject);
                 }
             }
         }
@@ -104,7 +118,8 @@ namespace BattleCity.Logic
         /// Removes the specified object from the map.
         /// </summary>
         /// <param name="obj">The object to be removed.</param>
-        public void Remove(ObjectBase obj)
+        public void Remove (
+            ObjectBase obj)
         {
             var entity = obj as Entity;
             if (entity != null)
@@ -114,7 +129,7 @@ namespace BattleCity.Logic
                 var staticObject = obj as StaticObject;
 
                 if (staticObject != null)
-                    Objects.Remove (staticObject);
+                    StaticObjects.Remove (staticObject);
             }
         }
 
@@ -122,7 +137,8 @@ namespace BattleCity.Logic
         /// Adds the specified object to the map's removal queue.
         /// </summary>
         /// <param name="obj">The object to be removed.</param>
-        public void QueueRemoval(ObjectBase obj)
+        public void QueueRemoval (
+            ObjectBase obj)
         {
             objectRemovalList.Add (obj);
         }
@@ -131,16 +147,17 @@ namespace BattleCity.Logic
         /// Adds the specified object to the map's addition queue.
         /// </summary>
         /// <param name="obj">The object to be added.</param>
-        public void QueueAddition(ObjectBase obj)
+        public void QueueAddition (
+            ObjectBase obj)
         {
-            obj.ParentMap = this;
+            obj.GameData = GameData;
             objectAdditionList.Add (obj);
         }
 
         /// <summary>
         /// Removes the objects queued for removal and adds the objects queued for addition.
         /// </summary>
-        public void FlushQueues()
+        public void FlushQueues ()
         {
             // Remove the objects queued for removal.
             foreach (ObjectBase obj in objectRemovalList)
@@ -156,33 +173,38 @@ namespace BattleCity.Logic
         /// <summary>
         /// Updates all child entities belonging to this map.
         /// </summary>
-        public void Update(TimeSpan timePassed)
+        public void Update (
+            TimeSpan timePassed)
         {
             foreach (Entity entity in Entities)
                 entity.Update (timePassed);
 
             FlushQueues ();
 
-            foreach (StaticObject obj in Objects)
+            foreach (StaticObject obj in StaticObjects)
                 obj.Update (timePassed);
         }
 
-        public bool IntersectsMap(RotatedRectangle rect)
+        public bool IntersectsMap (
+            RotatedRectangle rect)
         {
             return rect.Intersects (new Rectangle (0, 0, (int)MapSize.X, (int)MapSize.Y));
         }
 
-        public List<StaticObject> SearchStaticObject(RotatedRectangle rect)
+        public List<ObjectBase> SearchMapObjects (
+            RotatedRectangle rect)
         {
-            var result = new List<StaticObject> ();
+            var result = new List<ObjectBase> ();
 
-            foreach (StaticObject obj in Objects)
+            foreach (StaticObject obj in StaticObjects)
                 if (obj.Position.Intersects (rect))
                 {
-                    #if DEBUG
-                    Debug.WriteLine ("Found {0}.".FormatWith (obj.ToString ()), "SEARCH");
-                    #endif
+                    result.Add (obj);
+                }
 
+            foreach (Entity obj in Entities)
+                if (obj.Position.Intersects (rect))
+                {
                     result.Add (obj);
                 }
 
@@ -194,7 +216,8 @@ namespace BattleCity.Logic
         /// </summary>
         /// <returns><c>true</c> if the given rectangle is within bounds; otherwise, <c>false</c>.</returns>
         /// <param name="rect">The rotated rectangle.</param>
-        public bool IsWithinBounds(RotatedRectangle rect)
+        public bool IsWithinBounds (
+            RotatedRectangle rect)
         {
             //return (new RotatedRectangle (new Rect(MapSize.Width, MapSize.Height).ToRectangle(), 0).Intersects(rect));
             Vector2 upperLeft = rect.UpperLeftCorner ();
@@ -213,6 +236,54 @@ namespace BattleCity.Logic
                 return false;
 
             return true;
+        }
+
+        public void CenterViewportAt (
+            ObjectBase obj)
+        {
+            var pos = obj.Position.CollisionRectangle.Center;
+            var x = pos.X - (Viewport.Size.X / 2 + obj.Position.Width / 2);
+            var y = pos.Y - (Viewport.Size.Y / 2 + obj.Position.Height / 2);
+
+            if (x < 0)
+                x = 0;
+            if (y < 0)
+                y = 0;
+
+            var right = x + Viewport.Size.X;
+            if (right > MapSize.X)
+                x -= (int)(right - MapSize.X);
+
+            var bottom = y + Viewport.Size.Y;
+            if (bottom > MapSize.Y)
+                y -= (int)(bottom - MapSize.Y);
+
+            Viewport = new Rectangle (
+                x, y,
+                Viewport.Width, Viewport.Height
+            );
+        }
+
+        public List<ObjectBase> GetObjects ()
+        {
+            var result = new List<ObjectBase> ();
+
+            foreach (StaticObject obj in StaticObjects)
+                result.Add (obj);
+            foreach (Entity entity in Entities)
+                result.Add (entity);
+
+            return result;
+        }
+
+        public Vector2 CalculateViewportCoordinates (
+            Vector2 realPosition,
+            Vector2 scale)
+        {
+            return new Vector2 (
+                scale.X * (realPosition.X - Viewport.X),
+                scale.Y * (realPosition.Y - Viewport.Y)
+            );
         }
     }
 }

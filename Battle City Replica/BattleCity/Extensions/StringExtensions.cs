@@ -2,7 +2,10 @@
 
 namespace BattleCity.Extensions
 {
-    static class StringExtensions
+    /// <summary>
+    /// Represents a set of formatting method extensions for the <see cref="System.String"/> class, in which the instance acts as the format specifier.
+    /// </summary>
+    static class StringFormattingExtensions
     {
         /// <summary>
         /// Replaces one or more format items in a specified string with the string representation of the specified object.

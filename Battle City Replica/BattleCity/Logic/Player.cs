@@ -5,16 +5,18 @@ namespace BattleCity.Logic
 {
     public class Player
     {
-        public Tank AssignedTank { get; set; }
+        public ControllableEntity AssignedEntity { get; set; }
 
         public int Score { get; set; }
 
-        public Player (Tank assignedTank)
+        public Player (
+            ControllableEntity assignedEntity)
         {
-            AssignedTank = assignedTank;
+            AssignedEntity = assignedEntity;
         }
 
-        public Player () : this (null)
+        public Player () : this (
+                null)
         {
             
         }

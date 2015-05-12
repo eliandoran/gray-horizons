@@ -3,17 +3,17 @@
 namespace BattleCity.Attributes
 {
     /// <summary>
-    /// Represents the texture that will be used by the <see cref="BattleCity.Renderer"/> to display an <see cref="BattleCity.Logic.ObjectBase"/>.
+    /// Represents a set texture names that will be loaded by the <see cref="BattleCity.Renderer"/> and then used to display an <see cref="BattleCity.Logic.ObjectBase"/>.
     /// </summary>
     [AttributeUsage (AttributeTargets.Class)]
-    public class MappedTextures: Attribute
+    public class MappedTexturesAttribute: Attribute
     {
         readonly string[] textureNames;
 
         /// <summary>
-        /// Gets the name of the texture.
+        /// Gets the name of the textures.
         /// </summary>
-        /// <value>The name of the texture that will be passed on to <see cref="Microsoft.Xna.Framework.Content.ContentManager"/>.</value>
+        /// <value>An array of texture names that will be loaded by with a <see cref="Microsoft.Xna.Framework.Content.ContentManager"/>.</value>
         public string[] TextureNames
         {
             get
@@ -23,31 +23,32 @@ namespace BattleCity.Attributes
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="BattleCity.Logic.MappedTextures"/> class.
+        /// Initializes a new instance of the <see cref="BattleCity.Attributes.MappedTexturesAttribute"/> class.
         /// </summary>
         /// <param name="textureName">The name of the texture that will be passed on to <see cref="Microsoft.Xna.Framework.Content.ContentManager"/>.</param>
-        public MappedTextures (string textureName)
+        public MappedTexturesAttribute (
+            string textureName)
         {
             textureNames = new [] { textureName };
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="BattleCity.Logic.MappedTextures"/> class.
+        /// Initializes a new instance of the <see cref="BattleCity.Attributes.MappedTexturesAttribute"/> class.
         /// </summary>
-        /// <param name="textureNames">The name of the textures that will be randomly passed on to <see cref="Microsoft.Xna.Framework.Content.ContentManager"/>.</param>
-        public MappedTextures (string[] textureNames)
+        /// <param name="textureNames">An array containing the names of the textures that will be randomly passed on to <see cref="Microsoft.Xna.Framework.Content.ContentManager"/>.</param>
+        public MappedTexturesAttribute (
+            string[] textureNames)
         {
             this.textureNames = textureNames;
         }
 
         /// <summary>
-        /// Gets a random texture from the list of mapped textures.
+        /// Gets a random texture name from the list of mapped textures.
         /// </summary>
-        /// <returns>The random texture.</returns>
-        public string GetRandomTexture()
+        /// <returns>The random texture name.</returns>
+        public string GetRandomTexture ()
         {
-            var random = new Random ();
-            return TextureNames [random.Next (TextureNames.Length)];
+            return TextureNames [new Random ().Next (TextureNames.Length)];
         }
     }
 }

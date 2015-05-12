@@ -1,18 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
+using BattleCity.Attributes;
 using BattleCity.Entities;
+using BattleCity.Extensions;
 using BattleCity.Logic;
-using BattleCity.StaticObjects;
+using BattleCity.ThirdParty;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using System.Diagnostics;
-using BattleCity.Extensions;
-using BattleCity.Attributes;
-using BattleCity.ThirdParty;
 
 namespace BattleCity
 {
@@ -21,31 +19,15 @@ namespace BattleCity
     /// </summary>
     public class Renderer
     {
-        GameData gameData;
-
-        readonly Dictionary<Type, Texture2D> mappedTextures = new Dictionary<Type, Texture2D> ();
-        Texture2D dirtTexture, blankTexture;
-
-        public Dictionary<Type, Texture2D> MappedTextures
-        {
-            get
-            {
-                return mappedTextures;
-            }
-        }
+        readonly GameData gameData;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="BattleCity.Renderer"/> class.
         /// </summary>
-        public Renderer (GameData gameData)
+        public Renderer (
+            GameData gameData)
         {
             this.gameData = gameData;
-
-            dirtTexture = gameData.ContentManager.Load<Texture2D> ("dirt");
-            blankTexture = gameData.ContentManager.Load<Texture2D> ("blank");
-
-            MappedTextures attr = new MappedTextures (new [] { "Dirt\\01" });
-            dirtTexture = gameData.ContentManager.Load<Texture2D> (attr.GetRandomTexture ());
 
             LoadMappedTextures ();
         }
@@ -53,166 +35,208 @@ namespace BattleCity
         /// <summary>
         /// Loads the mapped textures.
         /// </summary>
-        void LoadMappedTextures()
+        void LoadMappedTextures (
+            bool fullReload = false)
         {
             var namespaces = new List<string> () { "BattleCity.Entities", "BattleCity.StaticObjects" };
 
             var query = from type in Assembly.GetExecutingAssembly ().GetTypes ()
-                                 where (type.IsClass && namespaces.Contains (type.Namespace) && (type.GetCustomAttributes (typeof(MappedTextures),
-                                                                                                                           true).FirstOrDefault () != null))
+                                 where (type.IsClass && namespaces.Contains (type.Namespace) && (type.GetCustomAttributes (
+                                         typeof(MappedTexturesAttribute),
+                                         true).FirstOrDefault () != null))
                                  select type;
-            query.ToList ().ForEach (type =>
-            { 
-                var attr = (MappedTextures)type.GetCustomAttributes (typeof(MappedTextures), true).First ();
-                var textureName = attr.GetRandomTexture ();
 
-                try
-                {
-                    var texture = gameData.ContentManager.Load<Texture2D> (textureName);
-                    MappedTextures.Add (type, texture);
-                }
-                catch (ContentLoadException e)
-                {
+            #if DEBUG
+            Debug.WriteLine ("MAPPED TEXTURES:");
+            Debug.Indent ();
+            #endif
+
+            query.ToList ().ForEach (
+                    type =>
+                { 
+                    if (!fullReload && gameData.MappedTextures.ContainsKey (type))
+                        return;
+
+                    var attr = (MappedTexturesAttribute)type.GetCustomAttributes (
+                                   typeof(MappedTexturesAttribute),
+                                   true).First ();
+                    var textureName = attr.GetRandomTexture ();
+
+                    try
+                    {
+                        var texture = gameData.ContentManager.Load<Texture2D> (textureName);
+                        gameData.MappedTextures.Add (type, texture);
+                    }
+                    catch (ContentLoadException e)
+                    {
+                        #if DEBUG
+                        Debug.WriteLine ("Unable to map type <{0}> with \"{1}\". Texture load error:\n{2}".FormatWith (
+                            type.Name,
+                            textureName,
+                            e.Message));                    
+                        #endif
+
+                        throw;
+                    }
+
                     #if DEBUG
-                    Debug.WriteLine ("Unable to map type <{0}> with \"{1}\". Texture load error:\n{2}".FormatWith (type.Name,
-                                                                                                                   textureName,
-                                                                                                                   e.Message),
-                                     "MAPPED TEXTURE");                    
+                    Debug.WriteLine ("Mapped the type of <{0}> with \"{1}\".".FormatWith (type.Name,
+                        textureName));
                     #endif
+                });
 
-                    throw;
-                }
-
-                #if DEBUG
-                Debug.WriteLine ("Mapped the type of <{0}> with \"{1}\".".FormatWith (type.Name,
-                                                                                      textureName),
-                                 "MAPPED TEXTURE");
-                #endif
-            });
+            #if DEBUG
+            Debug.Unindent ();
+            #endif
         }
 
         /// <summary>
         /// Renders the terrain.
         /// </summary>
         /// <param name="mapSize">Map size.</param>
-        public void RenderTerrain(Vector2 mapSize)
+        public void RenderTerrain (
+            Vector2 mapSize)
         {            
-            int rows = (int)mapSize.X / dirtTexture.Width;
-            int cols = (int)mapSize.Y / dirtTexture.Height;
+            var texture = gameData.Map.Texture;
+            if (texture == null)
+            {
+                MappedTexturesAttribute attr = new MappedTexturesAttribute (new [] { "Dirt\\01" });
+                texture = gameData.ContentManager.Load<Texture2D> (attr.GetRandomTexture ());
+            }
 
-            for (var row = 0; row <= rows; row++)
-                for (var col = 0; col <= cols; col++)
-                    gameData.SpriteBatch.Draw (dirtTexture,
-                                               new Vector2 (row * dirtTexture.Width,
-                                                            col * dirtTexture.Height));
+            if (texture.Width >= mapSize.X && texture.Height >= mapSize.Y)
+            {
+                var pos = gameData.Map.CalculateViewportCoordinates (Vector2.Zero, gameData.Scale);
+                gameData.SpriteBatch.Draw (texture, pos);
+            }
+            else
+            {
+                int rows = (int)(Math.Ceiling (mapSize.Y / texture.Height));
+                int cols = (int)(Math.Ceiling (mapSize.X / texture.Width));
+
+                for (var row = 0; row <= rows; row++)
+                    for (var col = 0; col <= cols; col++)
+                    {
+                        var rect = new Rectangle (
+                                       col * texture.Width,
+                                       row * texture.Height,
+                                       texture.Width,
+                                       texture.Height
+                                   );
+
+                        var pos = gameData.Map.CalculateViewportCoordinates (new Vector2 (
+                                      rect.X,
+                                      rect.Y
+                                  ), gameData.Scale);
+
+                        gameData.SpriteBatch.Draw (texture, pos, scale: gameData.Scale);
+                    }
+            }
+        }
+
+        public static void DrawRotatedRect (
+            GameData gameData,
+            RotatedRectangle rect)
+        {
+            var rotation = rect.Rotation;
+            var lowerLeft = rect.LowerLeftCorner ();
+            var lowerRight = rect.LowerRightCorner ();
+            var upperLeft = rect.UpperLeftCorner ();
+            var upperRight = rect.UpperRightCorner ();
+
+            var blankTexture = gameData.ContentManager.Load<Texture2D> ("blank");
+
+            gameData.SpriteBatch.Draw (blankTexture,
+                gameData.Map.CalculateViewportCoordinates (lowerLeft, gameData.Scale),
+                rotation: rotation,
+                scale: gameData.Scale);
+            gameData.SpriteBatch.Draw (blankTexture,
+                gameData.Map.CalculateViewportCoordinates (lowerRight, gameData.Scale),
+                rotation: rotation,
+                scale: gameData.Scale);
+            gameData.SpriteBatch.Draw (blankTexture,
+                gameData.Map.CalculateViewportCoordinates (upperLeft, gameData.Scale),
+                rotation: rotation,
+                scale: gameData.Scale);
+            gameData.SpriteBatch.Draw (blankTexture,
+                gameData.Map.CalculateViewportCoordinates (upperRight, gameData.Scale),
+                rotation: rotation,
+                scale: gameData.Scale);
         }
 
         /// <summary>
         /// Draws the guides.
         /// </summary>
         /// <param name="obj">Object.</param>
-        public void DrawGuides(ObjectBase obj)
+        public static void DrawGuides (
+            GameData gameData,
+            ObjectBase obj)
         {
-//            if (!gameData.TracegingSettings.ShowGuides)
-//                return;
+            if (!gameData.DebuggingSettings.ShowGuides)
+                return;//return;
 
-            var rotation = obj.Position.Rotation;
-            var lowerLeft = obj.Position.LowerLeftCorner ();
-            var lowerRight = obj.Position.LowerRightCorner ();
-            var upperLeft = obj.Position.UpperLeftCorner ();
-            var upperRight = obj.Position.UpperRightCorner ();
-
-            gameData.SpriteBatch.Draw (blankTexture, lowerLeft, rotation: rotation);
-            gameData.SpriteBatch.Draw (blankTexture, lowerRight, rotation: rotation);
-            gameData.SpriteBatch.Draw (blankTexture, upperLeft, rotation: rotation);
-            gameData.SpriteBatch.Draw (blankTexture, upperRight, rotation: rotation);
+            DrawRotatedRect (gameData, obj.Position);
 
             var tank = obj as Tank;
-            if (tank != null)
+            if (tank != null && tank.MuzzlePosition != null)
             {
+                if (tank.TurretRect == null)
+                    return;
+
                 var muzzlePos = tank.GetMuzzleRotatedRectangle ();
+                var muzzleX = muzzlePos.CollisionRectangle.X;
+                var muzzleY = muzzlePos.CollisionRectangle.Y;
+
+                var muzzleViewportPos = gameData.Map.CalculateViewportCoordinates (new Vector2 (muzzleX, muzzleY),
+                                            gameData.Scale);
+                var rect = new Rectangle ((int)muzzleViewportPos.X,
+                               (int)muzzleViewportPos.Y,
+                               muzzlePos.CollisionRectangle.Width,
+                               muzzlePos.CollisionRectangle.Height);
+
+                var blankTexture = gameData.ContentManager.Load<Texture2D> ("blank");
 
                 gameData.SpriteBatch.Draw (blankTexture,
-                                           destinationRectangle: muzzlePos.CollisionRectangle,
-                                           rotation: muzzlePos.Rotation);
+                    destinationRectangle: rect,
+                    rotation: muzzlePos.Rotation,
+                    scale: gameData.Scale);
+
+                DrawRotatedRect (gameData, tank.TurretRect);
             }
         }
 
-        public void RenderEntities(Collection<Entity> entities)
-        {
-            foreach (Entity entity in entities)
-            {
-                var entityType = entity.GetType ();
-
-                if (MappedTextures.ContainsKey (entityType))
-                {					
-                    var texture = MappedTextures [entityType];
-
-                    gameData.SpriteBatch.Draw (
-                        texture,
-                        position: entity.Position.CollisionRectangle.Center.ToVector2 (),
-					    //destinationRectangle: new Rectangle (entity.RotatedPos.X, entity.RotatedPos.Y, entity.RotatedPos.Width, entity.RotatedPos.Height),
-                        origin: new Vector2 (texture.Width / 2, texture.Height / 2),
-                        rotation: entity.Position.Rotation
-                    );
-
-                    DrawGuides (entity);
-                }
-                else
-                {
-                    #if DEBUG
-                    Debug.WriteLine ("There is no mapped texture for type <{0}>.".FormatWith (entityType.Name),
-                                     "RENDERER");
-                    #endif
-                }
-            }
-        }
-
-        public void RenderStaticObjects(Collection<StaticObject> staticObjects)
-        {
-            foreach (StaticObject staticObject in staticObjects)
-            {
-                if (staticObject.Position.Intersects (new RotatedRectangle (gameData.Map.Viewport, 0)))
-                {
-                    var texture = MappedTextures [staticObject.GetType ()];
-
-                    if (staticObject.GetType () == typeof(Explosion))
-                        RenderExplosion ((Explosion)staticObject);
-                    else
-                        gameData.SpriteBatch.Draw (texture, staticObject.Position.UpperLeftCorner ());
-
-                    DrawGuides (staticObject);
-                }
-            }
-        }
-
-        public Rectangle GetSpriteFromSpriteImage(Texture2D texture,
-                                                  int num,
-                                                  int rows,
-                                                  int columns)
+        public static Rectangle GetSpriteFromSpriteImage (
+            Texture2D texture,
+            int num,
+            int rows,
+            int columns)
         {
             var width = texture.Width / columns;
             var height = texture.Height / rows;
             var row = (int)Math.Floor ((float)num / (float)columns);
             var col = num - (row * rows);
+
+            if (col < 0)
+                col = 0;
+
             return new Rectangle (col * width, row * height, width, height);
         }
 
-        public void RenderExplosion(Explosion explosion)
-        {
-            var texture = MappedTextures [explosion.GetType ()];
-
-            gameData.SpriteBatch.Draw (
-                texture,
-                origin: new Vector2 (0, 0),
-                destinationRectangle: explosion.Position.CollisionRectangle,
-                sourceRectangle: GetSpriteFromSpriteImage (texture, explosion.CurrentState, 5, 5)
-            );
-        }
-
-        public Vector2 CoordinatesToVector2(Coordinate coordinate)
+        public Vector2 CoordinatesToVector2 (
+            Coordinate coordinate)
         {
             return new Vector2 (coordinate.X * 64, coordinate.Y * 64);
+        }
+
+        public void Render ()
+        {
+            RenderTerrain (gameData.Map.MapSize);
+
+            foreach (ObjectBase obj in gameData.Map.GetObjects())
+            {
+                obj.Render ();
+                Renderer.DrawGuides (gameData, obj);
+            }
         }
     }
 }

@@ -1,43 +1,47 @@
 ﻿using System;
+using System.Diagnostics;
 
 namespace BattleCity.Logic
 {
     public class Rotation
     {
+        public float degrees;
+
         public float Degrees { get; set; }
 
-        public Rotation () : this (0)
+        public Rotation () : this (
+                0)
         {
 			
         }
 
-        public Rotation (float degrees)
+        public Rotation (
+            float degrees)
         {
             Degrees = degrees;
         }
 
-        public float ToRadians()
+        public float ToRadians ()
         {
             return (float)((Math.PI / 180) * Degrees);
         }
 
-        public static Rotation FromRadians(float rads)
+        public static Rotation FromRadians (
+            float rads)
         {
-            return new Rotation ((float)(rads * 180 / Math.PI));
+            return new Rotation ((float)((180 / Math.PI) * rads));
         }
 
-        public Rotation OffsetBy(float degrees)
+        public Rotation OffsetBy (
+            float degrees)
         {
-            if (Degrees + degrees > 360)
-                return new Rotation ((Degrees + degrees) - 360);
+            var orientation = Degrees + degrees;
+            orientation %= 360;
 
-            if (Degrees + degrees < 0)
-                return new Rotation (360 - (Degrees + degrees));		
-
-            return new Rotation (Degrees + degrees);
+            return new Rotation (orientation);
         }
 
-        public override string ToString()
+        public override string ToString ()
         {
             return string.Format ("[Rotation: Degrees={0}, Radians={1}]", Degrees, ToRadians ());
         }

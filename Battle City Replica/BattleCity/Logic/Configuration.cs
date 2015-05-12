@@ -5,6 +5,7 @@ using System.IO;
 using System.Xml.Serialization;
 using System.Diagnostics;
 using BattleCity.Extensions;
+using Microsoft.Xna.Framework;
 
 namespace BattleCity.Logic
 {
@@ -23,6 +24,9 @@ namespace BattleCity.Logic
             }
         }
 
+        [XmlElement ()]
+        public Size FullScreenResolution { get; set; }
+
         public Configuration ()
         {
             inputBindings = new List<InputBinding> ();
@@ -37,14 +41,41 @@ namespace BattleCity.Logic
             }
         }
 
+        public static void ConfigureGameDataInputBindings(GameData gameData)
+        {
+            foreach (InputBinding binding in gameData.Configuration.InputBindings)
+            {
+                binding.Player = gameData.ActivePlayer;
+
+                if (binding.BoundAction != null)
+                {
+                    binding.BoundAction.GameData = gameData;
+                    binding.BoundAction.Player = gameData.ActivePlayer;
+                }
+            }
+        }
+
         public static Configuration Load(string filePath)
         {
-            Configuration config;
+            Configuration config = null;
 
             using (var fs = new FileStream (filePath, FileMode.Open))
             {
                 var xml = new XmlSerializer (typeof(Configuration));
-                config = xml.Deserialize (fs) as Configuration;
+
+                try
+                {
+                    config = xml.Deserialize (fs) as Configuration;
+                }
+                catch (InvalidOperationException e)
+                {
+                    #if DEBUG
+                    Debug.WriteLine ("Error loading configuration.", "CONFIG");
+                    Debug.Indent ();
+                    Debug.WriteLine (e.ToString ());
+                    Debug.Unindent ();
+                    #endif
+                }
             }
 
             #if DEBUG

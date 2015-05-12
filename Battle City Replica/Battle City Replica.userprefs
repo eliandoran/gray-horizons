@@ -1,15 +1,12 @@
-﻿<Properties StartupConfiguration="{AF1C98A4-A002-4B92-A1F3-B93467557E86}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="BattleCity/MonoGame.cs">
-    <Files>
-      <File FileName="BattleCity/Logic/Configuration.cs" Line="44" Column="1" />
-      <File FileName="BattleCity/MonoGame.cs" Line="31" Column="13" />
-    </Files>
-  </MonoDevelop.Ide.Workbench>
+﻿<Properties StartupItem="BattleCity.Windows.DirectX\BattleCity.Windows.DirectX.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
+  <MonoDevelop.Ide.Workbench />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
-  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
-  <MonoDevelop.Ide.ItemProperties.BattleCity.OpenGL PreferredExecutionTarget="MonoDevelop.Default" />
-  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches>
+    <Watch file="BattleCity\Logic\Configuration.cs" line="40" offsetX="361" offsetY="624" expression="this" liveUpdate="False" />
+    <Watch file="BattleCity\Screens\PauseScreen.cs" line="67" offsetX="318" offsetY="990" expression="game" liveUpdate="False" />
+  </MonoDevelop.Ide.DebuggingService.PinnedWatches>
+  <AuthorInfo Name="Doran Adoris Elian" Email="elinnum@gmail.com" Copyright="© 2015 Doran Adoris Elian" Company="" Trademark="" />
 </Properties>

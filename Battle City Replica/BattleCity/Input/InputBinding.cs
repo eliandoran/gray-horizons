@@ -5,10 +5,12 @@ using System.Reflection;
 using System.Diagnostics;
 using BattleCity.Extensions;
 using BattleCity.Attributes;
+using System.ComponentModel;
 
 namespace BattleCity.Input
 {
     [XmlInclude (typeof(KeyBinding))]
+    [XmlInclude (typeof(AxisBinding))]
     public abstract class InputBinding
     {
         readonly GameData gameData;
@@ -28,9 +30,13 @@ namespace BattleCity.Input
                 if (boundAction != null)
                 {
                     boundAction.ParentInputBinding = this;
-                    AllowContinousPress = (boundAction.GetType ().GetCustomAttributes (typeof(AllowContinousPress),
-                                                                                       true).Length > 0);
-                    Debug.WriteLine (ToString () + " " + AllowContinousPress);
+                    var customAttrs = boundAction.GetType ().GetCustomAttributes (typeof(AllowContinousPressAttribute),
+                                          true);
+
+                    if (customAttrs != null)
+                    {
+                        AllowContinousPress = (customAttrs.Length > 0);
+                    }
                 }
             }
         }
@@ -40,27 +46,58 @@ namespace BattleCity.Input
         {
             get
             {
-                return boundAction.GetType ().Name;
+                if (boundAction != null)
+                    return boundAction.GetType ().Name;
+                else
+                    return String.Empty;
             }
             set
             {
+                if (value == String.Empty)
+                    boundAction = null;
+
                 foreach (Type type in Assembly.GetExecutingAssembly().GetTypes())
                 {
                     if (type.Name == value)
                     {
                         #if DEBUG
                         Debug.WriteLine ("Found the bound action for <{1}>.".FormatWith (ToString (), value),
-                                         "ACTIONS");
+                            "ACTIONS");
                         #endif
 
-                        BoundAction = type.GetConstructor (new Type[] { }).Invoke (new object[] { }) as GameAction;
+                        try
+                        {
+                            var constructor = type.GetConstructor (new Type[] { });
+                            BoundAction = constructor.Invoke (new object[] { }) as GameAction;
+                        }
+                        catch (TargetParameterCountException)
+                        {
+                            #if DEBUG
+                            Debug.WriteLine ("No suitable constructor for the bound action <{0}> has been found.".FormatWith (value));
+                            #endif
+                        }
                     }
                 }
             }
         }
 
-        [XmlIgnore ()]
+        [XmlIgnore]
         public Player Player { get; set; }
+
+        [XmlAttribute ("player")]
+        [DefaultValue (-1)]
+        public int PlayerID
+        {
+            get
+            {
+                return (Player == null ? -1 : 1);
+            }
+            set
+            {
+                if (GameData != null && GameData.ActivePlayer != null)
+                    Player = GameData.ActivePlayer;
+            }
+        }
 
         [XmlIgnore ()]
         public bool AllowContinousPress { get; set; }
@@ -73,10 +110,11 @@ namespace BattleCity.Input
             }
         }
 
-        internal InputBinding (GameData gameData,
-                               GameAction boundAction,
-                               Player player,
-                               bool allowContinousPress)
+        internal InputBinding (
+            GameData gameData,
+            GameAction boundAction,
+            Player player,
+            bool allowContinousPress)
         {
             this.gameData = gameData;
             AllowContinousPress = allowContinousPress;
@@ -84,28 +122,32 @@ namespace BattleCity.Input
             Player = player;
         }
 
-        internal InputBinding (GameData gameData,
-                               GameAction boundAction,
-                               bool allowContinousPress) : this (gameData,
-                                                                 boundAction,
-                                                                 null,
-                                                                 allowContinousPress)
+        internal InputBinding (
+            GameData gameData,
+            GameAction boundAction,
+            bool allowContinousPress) : this (
+                gameData,
+                boundAction,
+                null,
+                allowContinousPress)
         {
             
         }
 
-        internal InputBinding (GameData gameData) : this (gameData,
-                                                          null,
-                                                          false)
+        internal InputBinding (
+            GameData gameData) : this (
+                gameData,
+                null,
+                false)
         {
 
         }
 
-        public abstract void UpdateState();
+        public abstract void UpdateState ();
 
-        public abstract bool IsActive();
+        public abstract bool IsActive ();
 
-        public void RunIfActive()
+        public void RunIfActive ()
         {
             if (IsActive ())
                 BoundAction.Execute ();

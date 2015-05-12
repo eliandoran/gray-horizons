@@ -5,8 +5,16 @@ using System.Xml.Serialization;
 
 namespace BattleCity.Logic
 {
+    public delegate void ParentInputBindingChangedEventHandler (object sender, EventArgs e);
+    public delegate void ActionExecutedEventHandler (object sender, EventArgs e);
+
     public abstract class GameAction
     {
+        public event ParentInputBindingChangedEventHandler ParentInputBindingChanged;
+        public event ActionExecutedEventHandler ActionExecuted;
+
+        InputBinding parentInputBinding;
+
         [XmlIgnore ()]
         public Player Player { get; set; }
 
@@ -14,30 +22,68 @@ namespace BattleCity.Logic
         public GameData GameData { get; set; }
 
         [XmlIgnore ()]
-        public InputBinding ParentInputBinding { get; set; }
+        public InputBinding ParentInputBinding
+        {
+            get
+            {
+                return parentInputBinding;
+            }
+            set
+            {
+                parentInputBinding = value;
+                OnParentInputBindingChanged (EventArgs.Empty);
+            }
+        }
 
-        internal GameAction (GameData gameData = null,
-                             Player player = null,
-                             InputBinding parentInputBinding = null)
+        internal GameAction (
+            GameData gameData = null,
+            Player player = null,
+            InputBinding parentInputBinding = null)
         {
             GameData = gameData;
-            Player = player;
+
+
+            if (player != null)
+                Player = player;
+            else if (GameData != null)
+                Player = gameData.ActivePlayer;
+            
             ParentInputBinding = parentInputBinding;
         }
 
-        internal GameAction (Player player) : this (null,
-                                                    player,
-                                                    null)
+        internal GameAction (
+            Player player) : this (
+                null,
+                player,
+                null)
         {
             
         }
 
-        internal GameAction () : this (null)
+        internal GameAction () : this (
+                null)
         {
             
         }
 
-        public abstract void Execute();
+        protected void OnParentInputBindingChanged (
+            EventArgs e)
+        {
+            if (ParentInputBindingChanged != null)
+                ParentInputBindingChanged (this, e);
+        }
+
+        protected void OnActionExecuted (
+            EventArgs e)
+        {
+            if (ActionExecuted != null)
+                ActionExecuted (this, e);
+        }
+
+        public virtual void Execute ()
+        {
+            OnActionExecuted (EventArgs.Empty);
+        }
     }
 }
 

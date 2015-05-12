@@ -20,7 +20,7 @@ namespace BattleCity.Logic
         /// </summary>
         /// <value>The parent map.</value>
         [XmlIgnore ()]
-        public Map ParentMap { get;	set; }
+        public GameData GameData { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether this <see cref="BattleCity.Logic.ObjectBase"/> has collision.
@@ -56,17 +56,20 @@ namespace BattleCity.Logic
         [XmlElement ("Position")]
         public RotatedRectangle Position;
 
-        public Point DefaultSize
-        {
-            get;
-            set;
-        }
+        public Point DefaultSize { get; set; }
+
+        public TimeSpan DestructionTimeLeft { get; set; }
+
+        public TimeSpan DestructionDelay { get; set; }
+
+        public bool IsBeingDestroyed { get; set; }
 
         /// <summary>
         /// This procedure should be called each time the object is hit by a projectile, to manage its health and destruction.
         /// </summary>
         /// <param name="hitter">The projectile which hit this object.</param>
-        public virtual void WasHitByProjectile(Projectile hitter)
+        public virtual void WasHitByProjectile (
+            Projectile hitter)
         {
             #if DEBUG
             Debug.WriteLine ("<{0}> was hit by <{1}>.".FormatWith (ToString (), hitter), "HIT");
@@ -79,52 +82,53 @@ namespace BattleCity.Logic
                     if (Health - hitter.Damage > 0)
                         Health -= hitter.Damage;
                     else
-                        Explode (Position.CollisionRectangle.Center, new Vector2 (Position.Width, Position.Height));
+                        Explode ();
 
                     if (!AllowPassThrough)
-                        hitter.Explode ();
+                        hitter.GenerateExplosion ();
                 }
                 else
                 {
-                    hitter.Destroy ();
+                    hitter.Explode ();
                 }
-            }
+            }                
         }
 
-        public void Explode(Point sourceOfImpact,
-                            Vector2 explosionSize)
+        public virtual void Explode ()
         {
-//			int x, y;
-//			if (Position.Width > explosionWidth) {
-//				x = Position.X + ((Position.Width / 2) - (explosionWidth / 2));
-//				y = Position.Y + ((Position.Height / 2) - (explosionHeight / 2));
-//			} else {
-//				x = Position.X + ((explosionWidth / 2) - (Position.Width / 2));
-//				y = Position.Y + ((explosionHeight / 2) - (Position.Height / 2));
-//			}
+            GenerateExplosion (Position.CollisionRectangle.Center,
+                new Vector2 (Position.Width,
+                    Position.Height));
+        }
 
+        public void GenerateExplosion (
+            Point sourceOfImpact,
+            Vector2 explosionSize)
+        {
             int x = sourceOfImpact.X - ((int)explosionSize.X / 2);
             int y = sourceOfImpact.Y - ((int)explosionSize.Y / 2);
 
-            ParentMap.Objects.Add (new Explosion () {
+            GameData.Map.StaticObjects.Add (new Explosion () {
                 Position = new RotatedRectangle (new Rectangle (x, y, (int)explosionSize.X, (int)explosionSize.Y),
-                                                 Position.Rotation),
-                ParentMap = ParentMap
+                    Position.Rotation),
+                GameData = GameData
             });
-            Destroy ();
+
+            DestructionTimeLeft = DestructionDelay;
+            IsBeingDestroyed = true;
         }
 
-        public void Explode()
+        public void GenerateExplosion ()
         {
-            Explode (Position.CollisionRectangle.Center, new Vector2 (32, 32));
+            GenerateExplosion (Position.CollisionRectangle.Center, new Vector2 (32, 32));
         }
 
         /// <summary>
         /// Destroy this instance.
         /// </summary>
-        public void Destroy()
+        public void Destroy ()
         {
-            ParentMap.QueueRemoval (this);
+            GameData.Map.QueueRemoval (this);
 
             #if DEBUG
             Debug.WriteLine ("<{0}> was destroyed.".FormatWith (ToString ()), "DESTROY");
@@ -134,6 +138,25 @@ namespace BattleCity.Logic
         /// <summary>
         /// It should be called when the game requires the <see cref="BattleCity.Logic.ObjectBase"/> to change its current state, i.e. a game tick has passed.
         /// </summary>
-        public abstract void Update(TimeSpan gameTime);
+        public virtual void Update (
+            TimeSpan gameTime)
+        {
+            if (IsBeingDestroyed)
+            {
+                Debug.WriteLine (DestructionTimeLeft.TotalMilliseconds);
+
+                if (DestructionTimeLeft > DestructionDelay)
+                {
+                    DestructionTimeLeft = DestructionTimeLeft.Subtract (gameTime);
+                }
+                else
+                {
+                    Destroy ();
+                    IsBeingDestroyed = false;
+                }
+            }
+        }
+
+        public abstract void Render ();
     }
 }
