@@ -1,0 +1,32 @@
+Folder,Files,LOC,SLOC-P,SLOC-L,MVG,BLOC,C&SLOC,CLOC,CWORD,HCLOC,HCWORD
+Total,84,7290,5031,2532,345,1223,1,1036,6131,0,0
+C:\Users\Elian\Desktop\Gray Horizons\Gray Horizons,84,7290,5031,2532,345,1223,1,1036,6131,0,0
+C:\Users\Elian\Desktop\Gray Horizons\Gray Horizons\GrayHorizons,71,6734,4760,2406,330,1134,1,840,5061,0,0
+C:\Users\Elian\Desktop\Gray Horizons\Gray Horizons\GrayHorizons.Content,0,0,0,0,0,0,0,0,0,0,0
+C:\Users\Elian\Desktop\Gray Horizons\Gray Horizons\GrayHorizons.Content\obj,0,0,0,0,0,0,0,0,0,0,0
+C:\Users\Elian\Desktop\Gray Horizons\Gray Horizons\GrayHorizons.Content\obj\x86,0,0,0,0,0,0,0,0,0,0,0
+C:\Users\Elian\Desktop\Gray Horizons\Gray Horizons\GrayHorizons.Content\obj\x86\Debug,0,0,0,0,0,0,0,0,0,0,0
+C:\Users\Elian\Desktop\Gray Horizons\Gray Horizons\GrayHorizons.Logic,9,454,216,109,15,66,0,172,904,0,0
+C:\Users\Elian\Desktop\Gray Horizons\Gray Horizons\GrayHorizons.Logic\Properties,1,28,11,2,0,8,0,9,71,0,0
+C:\Users\Elian\Desktop\Gray Horizons\Gray Horizons\GrayHorizons.Logic\obj,0,0,0,0,0,0,0,0,0,0,0
+C:\Users\Elian\Desktop\Gray Horizons\Gray Horizons\GrayHorizons.Logic\obj\Debug,0,0,0,0,0,0,0,0,0,0,0
+C:\Users\Elian\Desktop\Gray Horizons\Gray Horizons\GrayHorizons.Windows.DirectX,2,52,29,9,0,11,0,12,83,0,0
+C:\Users\Elian\Desktop\Gray Horizons\Gray Horizons\GrayHorizons.Windows.DirectX\Properties,1,31,14,3,0,8,0,9,71,0,0
+C:\Users\Elian\Desktop\Gray Horizons\Gray Horizons\GrayHorizons.Windows.OpenGL,2,50,26,8,0,12,0,12,83,0,0
+C:\Users\Elian\Desktop\Gray Horizons\Gray Horizons\GrayHorizons.Windows.OpenGL\Properties,1,28,11,2,0,8,0,9,71,0,0
+C:\Users\Elian\Desktop\Gray Horizons\Gray Horizons\GrayHorizons.Windows.OpenGL\obj,0,0,0,0,0,0,0,0,0,0,0
+C:\Users\Elian\Desktop\Gray Horizons\Gray Horizons\GrayHorizons.Windows.OpenGL\obj\x86,0,0,0,0,0,0,0,0,0,0,0
+C:\Users\Elian\Desktop\Gray Horizons\Gray Horizons\GrayHorizons.Windows.OpenGL\obj\x86\Debug,0,0,0,0,0,0,0,0,0,0,0
+C:\Users\Elian\Desktop\Gray Horizons\Gray Horizons\GrayHorizons\AI,1,29,15,7,0,5,0,9,56,0,0
+C:\Users\Elian\Desktop\Gray Horizons\Gray Horizons\GrayHorizons\Attributes,6,184,111,50,5,27,0,46,277,0,0
+C:\Users\Elian\Desktop\Gray Horizons\Gray Horizons\GrayHorizons\Entities,10,388,305,152,13,56,0,27,126,0,0
+C:\Users\Elian\Desktop\Gray Horizons\Gray Horizons\GrayHorizons\Extensions,3,135,73,30,6,16,0,46,400,0,0
+C:\Users\Elian\Desktop\Gray Horizons\Gray Horizons\GrayHorizons\Input,10,1179,911,411,59,185,0,83,411,0,0
+C:\Users\Elian\Desktop\Gray Horizons\Gray Horizons\GrayHorizons\Input\Actions,6,680,528,236,20,112,0,40,191,0,0
+C:\Users\Elian\Desktop\Gray Horizons\Gray Horizons\GrayHorizons\Logic,21,1998,1400,718,113,342,0,256,1363,0,0
+C:\Users\Elian\Desktop\Gray Horizons\Gray Horizons\GrayHorizons\Screens,4,563,464,282,21,96,0,3,7,0,0
+C:\Users\Elian\Desktop\Gray Horizons\Gray Horizons\GrayHorizons\Sound,5,146,112,55,6,29,0,5,13,0,0
+C:\Users\Elian\Desktop\Gray Horizons\Gray Horizons\GrayHorizons\StaticObjects,2,141,105,50,4,18,0,18,98,0,0
+C:\Users\Elian\Desktop\Gray Horizons\Gray Horizons\GrayHorizons\ThirdParty,4,1163,619,316,56,220,0,324,2221,0,0
+C:\Users\Elian\Desktop\Gray Horizons\Gray Horizons\GrayHorizons\ThirdParty\GameStateManagement,3,933,476,228,40,192,0,265,1768,0,0
+C:\Users\Elian\Desktop\Gray Horizons\Gray Horizons\GrayHorizons\UI,2,368,296,154,26,72,0,0,0,0,0

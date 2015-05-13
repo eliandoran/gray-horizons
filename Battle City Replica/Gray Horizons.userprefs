@@ -1,0 +1,16 @@
+﻿<Properties StartupItem="GrayHorizons.Windows.DirectX\GrayHorizons.Windows.DirectX.csproj">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="GrayHorizons\Logic\Tank.cs">
+    <Files>
+      <File FileName="GrayHorizons\MonoGame.cs" Line="17" Column="26" />
+      <File FileName="GrayHorizons\Loader.cs" Line="61" Column="25" />
+      <File FileName="GrayHorizons\Sound\SoundEffect.cs" Line="65" Column="20" />
+      <File FileName="GrayHorizons\Logic\Tank.cs" Line="52" Column="43" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <AuthorInfo Name="Doran Adoris Elian" Email="elinnum@gmail.com" Copyright="© 2015 Doran Adoris Elian" Company="" Trademark="" />
+</Properties>

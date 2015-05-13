@@ -1,0 +1,1600 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FxCopProject Version="10.0" Name="My FxCop Project">
+ <ProjectOptions>
+  <SharedProject>True</SharedProject>
+  <Stylesheet Apply="False">$(FxCopDir)\Xml\FxCopReport.xsl</Stylesheet>
+  <SaveMessages>
+   <Project Status="Active, Excluded, Good, Noise" NewOnly="False" />
+   <Report Status="Active, Good, Noise" NewOnly="False" />
+  </SaveMessages>
+  <ProjectFile Compress="True" DefaultTargetCheck="True" DefaultRuleCheck="True" SaveByRuleGroup="" Deterministic="True" />
+  <EnableMultithreadedLoad>True</EnableMultithreadedLoad>
+  <EnableMultithreadedAnalysis>True</EnableMultithreadedAnalysis>
+  <SourceLookup>True</SourceLookup>
+  <AnalysisExceptionsThreshold>10</AnalysisExceptionsThreshold>
+  <RuleExceptionsThreshold>1</RuleExceptionsThreshold>
+  <Spelling Locale="en-US" />
+  <OverrideRuleVisibilities>False</OverrideRuleVisibilities>
+  <CustomDictionaries SearchFxCopDir="True" SearchUserProfile="True" SearchProjectDir="True" />
+  <SearchGlobalAssemblyCache>False</SearchGlobalAssemblyCache>
+  <DeadlockDetectionTimeout>120</DeadlockDetectionTimeout>
+  <IgnoreGeneratedCode>False</IgnoreGeneratedCode>
+ </ProjectOptions>
+ <Targets>
+  <Target Name="$(ProjectDir)/GrayHorizons.Windows.DirectX/bin/Debug/BattleCity.DirectX.exe" Analyze="True" AnalyzeAllChildren="True" />
+ </Targets>
+ <Rules>
+  <RuleFiles>
+   <RuleFile Name="$(FxCopDir)\Rules\DesignRules.dll" Enabled="True" AllRulesEnabled="True" />
+   <RuleFile Name="$(FxCopDir)\Rules\GlobalizationRules.dll" Enabled="True" AllRulesEnabled="True" />
+   <RuleFile Name="$(FxCopDir)\Rules\InteroperabilityRules.dll" Enabled="True" AllRulesEnabled="True" />
+   <RuleFile Name="$(FxCopDir)\Rules\MobilityRules.dll" Enabled="True" AllRulesEnabled="True" />
+   <RuleFile Name="$(FxCopDir)\Rules\NamingRules.dll" Enabled="True" AllRulesEnabled="True" />
+   <RuleFile Name="$(FxCopDir)\Rules\PerformanceRules.dll" Enabled="True" AllRulesEnabled="True" />
+   <RuleFile Name="$(FxCopDir)\Rules\PortabilityRules.dll" Enabled="True" AllRulesEnabled="True" />
+   <RuleFile Name="$(FxCopDir)\Rules\SecurityRules.dll" Enabled="True" AllRulesEnabled="True" />
+   <RuleFile Name="$(FxCopDir)\Rules\SecurityTransparencyRules.dll" Enabled="True" AllRulesEnabled="True" />
+   <RuleFile Name="$(FxCopDir)\Rules\UsageRules.dll" Enabled="True" AllRulesEnabled="True" />
+  </RuleFiles>
+  <Groups />
+  <Settings />
+ </Rules>
+ <FxCopReport Version="10.0">
+  <Targets>
+   <Target Name="$(ProjectDir)/GrayHorizons.Windows.DirectX/bin/Debug/BattleCity.DirectX.exe">
+    <Modules>
+     <Module Name="battlecity.directx.exe">
+      <Messages>
+       <Message TypeName="AssembliesShouldHaveValidStrongNames" Category="Microsoft.Design" CheckId="CA2210" Created="2015-05-13 17:45:59Z">
+        <Issue Name="NoStrongName">
+         <Item>'BattleCity.DirectX.exe'</Item>
+        </Issue>
+       </Message>
+      </Messages>
+      <Namespaces>
+       <Namespace Name="GrayHorizons">
+        <Types>
+         <Type Name="GrayHorizonsGame">
+          <Members>
+           <Member Name="#GameData">
+            <Messages>
+             <Message TypeName="DoNotDeclareVisibleInstanceFields" Category="Microsoft.Design" CheckId="CA1051" Created="2015-05-13 17:45:59Z">
+              <Issue>
+               <Item>'GrayHorizonsGame.GameData'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="Loader">
+          <Members>
+           <Member Name="#LoadMappedTextures(GrayHorizons.Logic.GameData,System.Boolean)">
+            <Messages>
+             <Message TypeName="DefaultParametersShouldNotBeUsed" Category="Microsoft.Design" CheckId="CA1026" Created="2015-05-13 17:45:59Z">
+              <Issue>
+               <Item>'Loader.LoadMappedTextures(GameData, bool)'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="Renderer">
+          <Members>
+           <Member Name="#CoordinatesToVector2(GrayHorizons.Logic.Coordinate)">
+            <Messages>
+             <Message TypeName="MarkMembersAsStatic" Category="Microsoft.Performance" CheckId="CA1822" Created="2015-05-13 17:45:59Z" FixCategory="DependsOnFix">
+              <Issue>
+               <Item>'Renderer.CoordinatesToVector2(Coordinate)'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+        </Types>
+       </Namespace>
+       <Namespace Name="GrayHorizons.Attributes">
+        <Types>
+         <Type Name="MappedSoundsAttribute">
+          <Messages>
+           <Message TypeName="DefineAccessorsForAttributeArguments" Category="Microsoft.Design" CheckId="CA1019" Created="2015-05-13 17:45:59Z">
+            <Issue>
+             <Item>'soundNames'</Item>
+             <Item>'MappedSoundsAttribute'</Item>
+            </Issue>
+           </Message>
+          </Messages>
+          <Members>
+           <Member Name="#SoundNames">
+            <Messages>
+             <Message TypeName="DoNotExposeGenericLists" Category="Microsoft.Design" CheckId="CA1002" Created="2015-05-13 17:45:59Z">
+              <Issue>
+               <Item>'List&lt;string&gt;'</Item>
+               <Item>'MappedSoundsAttribute.SoundNames'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="MappedTexturesAttribute">
+          <Messages>
+           <Message TypeName="DefineAccessorsForAttributeArguments" Category="Microsoft.Design" CheckId="CA1019" Created="2015-05-13 17:45:59Z">
+            <Issue>
+             <Item>'textureName'</Item>
+             <Item>'MappedTexturesAttribute'</Item>
+            </Issue>
+           </Message>
+          </Messages>
+          <Members>
+           <Member Name="#GetRandomTexture()">
+            <Messages>
+             <Message TypeName="UsePropertiesWhereAppropriate" Category="Microsoft.Design" CheckId="CA1024" Created="2015-05-13 17:45:59Z">
+              <Issue Certainty="50">
+               <Item>'MappedTexturesAttribute.GetRandomTexture()'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#TextureNames">
+            <Messages>
+             <Message TypeName="PropertiesShouldNotReturnArrays" Category="Microsoft.Performance" CheckId="CA1819" Created="2015-05-13 17:45:59Z">
+              <Issue>
+               <Item>'MappedTexturesAttribute.TextureNames'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+        </Types>
+       </Namespace>
+       <Namespace Name="GrayHorizons.Entities">
+        <Types>
+         <Type Name="Soldier">
+          <Members>
+           <Member Name="#Turn(GrayHorizons.Logic.Entity+TurnDirection,System.Nullable`1&lt;GrayHorizons.Logic.Entity+MoveDirection&gt;,System.Boolean,System.Boolean)">
+            <Messages>
+             <Message TypeName="DefaultParametersShouldNotBeUsed" Category="Microsoft.Design" CheckId="CA1026" Created="2015-05-13 17:45:59Z">
+              <Issue>
+               <Item>'Soldier.Turn(Entity.TurnDirection, Entity.MoveDirection?, bool, bool)'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="Tank">
+          <Members>
+           <Member Name="#GetMuzzleRotatedRectangle()">
+            <Messages>
+             <Message TypeName="UsePropertiesWhereAppropriate" Category="Microsoft.Design" CheckId="CA1024" Created="2015-05-13 17:45:59Z">
+              <Issue Certainty="50">
+               <Item>'Tank.GetMuzzleRotatedRectangle()'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#SetVolumeFade(Microsoft.Xna.Framework.Audio.SoundEffectInstance,System.TimeSpan,System.TimeSpan,System.Boolean)">
+            <Messages>
+             <Message TypeName="MarkMembersAsStatic" Category="Microsoft.Performance" CheckId="CA1822" Created="2015-05-13 17:45:59Z" FixCategory="NonBreaking">
+              <Issue>
+               <Item>'Tank.SetVolumeFade(SoundEffectInstance, TimeSpan, TimeSpan, bool)'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#Shoot(GrayHorizons.Entities.Projectile)">
+            <Messages>
+             <Message Id="originX" TypeName="RemoveUnusedLocals" Category="Microsoft.Performance" CheckId="CA1804" Created="2015-05-13 17:45:59Z">
+              <Issue>
+               <Item>'Tank.Shoot(Projectile)'</Item>
+               <Item>'originX'</Item>
+               <Item>'int'</Item>
+              </Issue>
+             </Message>
+             <Message Id="originY" TypeName="RemoveUnusedLocals" Category="Microsoft.Performance" CheckId="CA1804" Created="2015-05-13 17:45:59Z">
+              <Issue>
+               <Item>'Tank.Shoot(Projectile)'</Item>
+               <Item>'originY'</Item>
+               <Item>'int'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#tankIdleVolumeFadeDuration">
+            <Messages>
+             <Message TypeName="AvoidUnusedPrivateFields" Category="Microsoft.Performance" CheckId="CA1823" Created="2015-05-13 17:45:59Z">
+              <Issue>
+               <Item>'Tank.tankIdleVolumeFadeDuration'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="TankPzKpfwA">
+          <Messages>
+           <Message Id="Pz" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2015-05-13 17:45:59Z">
+            <Issue Name="Type">
+             <Item>Pz</Item>
+             <Item>'TankPzKpfwA'</Item>
+             <Item>PZ</Item>
+            </Issue>
+           </Message>
+           <Message Id="Kpfw" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2015-05-13 17:45:59Z">
+            <Issue Name="Type">
+             <Item>Kpfw</Item>
+             <Item>'TankPzKpfwA'</Item>
+            </Issue>
+           </Message>
+          </Messages>
+         </Type>
+         <Type Name="TankPzKpfwB">
+          <Messages>
+           <Message Id="Pz" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2015-05-13 17:45:59Z">
+            <Issue Name="Type">
+             <Item>Pz</Item>
+             <Item>'TankPzKpfwB'</Item>
+             <Item>PZ</Item>
+            </Issue>
+           </Message>
+           <Message Id="Kpfw" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2015-05-13 17:45:59Z">
+            <Issue Name="Type">
+             <Item>Kpfw</Item>
+             <Item>'TankPzKpfwB'</Item>
+            </Issue>
+           </Message>
+          </Messages>
+         </Type>
+         <Type Name="TankVK3601h">
+          <Messages>
+           <Message Id="h" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2015-05-13 17:45:59Z">
+            <Issue Name="Type">
+             <Item>h</Item>
+             <Item>'TankVK3601h'</Item>
+             <Item>H</Item>
+            </Issue>
+           </Message>
+          </Messages>
+         </Type>
+        </Types>
+       </Namespace>
+       <Namespace Name="GrayHorizons.Extensions">
+        <Types>
+         <Type Name="StringFormattingExtensions">
+          <Members>
+           <Member Name="#FormatWith(System.String,System.IFormatProvider,System.Object[])">
+            <Messages>
+             <Message TypeName="AvoidUncalledPrivateCode" Category="Microsoft.Performance" CheckId="CA1811" Created="2015-05-13 17:45:59Z">
+              <Issue>
+               <Item>'StringFormattingExtensions.FormatWith(this string, IFormatProvider, object[])'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#FormatWith(System.String,System.Object)">
+            <Messages>
+             <Message Id="System.String.Format(System.String,System.Object)" TypeName="SpecifyIFormatProvider" Category="Microsoft.Globalization" CheckId="CA1305" Created="2015-05-13 17:45:59Z">
+              <Issue Name="IFormatProviderAlternateString">
+               <Item>'string.Format(string, object)'</Item>
+               <Item>'StringFormattingExtensions.FormatWith(this string, object)'</Item>
+               <Item>'string.Format(IFormatProvider, string, params object[])'</Item>
+               <Item>'CultureInfo.CurrentCulture'</Item>
+               <Item>'CultureInfo.InvariantCulture'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#FormatWith(System.String,System.Object,System.Object)">
+            <Messages>
+             <Message Id="System.String.Format(System.String,System.Object,System.Object)" TypeName="SpecifyIFormatProvider" Category="Microsoft.Globalization" CheckId="CA1305" Created="2015-05-13 17:45:59Z">
+              <Issue Name="IFormatProviderAlternateString">
+               <Item>'string.Format(string, object, object)'</Item>
+               <Item>'StringFormattingExtensions.FormatWith(this string, object, object)'</Item>
+               <Item>'string.Format(IFormatProvider, string, params object[])'</Item>
+               <Item>'CultureInfo.CurrentCulture'</Item>
+               <Item>'CultureInfo.InvariantCulture'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#FormatWith(System.String,System.Object,System.Object,System.Object)">
+            <Messages>
+             <Message Id="System.String.Format(System.String,System.Object,System.Object,System.Object)" TypeName="SpecifyIFormatProvider" Category="Microsoft.Globalization" CheckId="CA1305" Created="2015-05-13 17:45:59Z">
+              <Issue Name="IFormatProviderAlternateString">
+               <Item>'string.Format(string, object, object, object)'</Item>
+               <Item>'StringFormattingExtensions.FormatWith(this string, object, object, object)'</Item>
+               <Item>'string.Format(IFormatProvider, string, params object[])'</Item>
+               <Item>'CultureInfo.CurrentCulture'</Item>
+               <Item>'CultureInfo.InvariantCulture'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#FormatWith(System.String,System.Object[])">
+            <Messages>
+             <Message Id="System.String.Format(System.String,System.Object[])" TypeName="SpecifyIFormatProvider" Category="Microsoft.Globalization" CheckId="CA1305" Created="2015-05-13 17:45:59Z">
+              <Issue Name="IFormatProviderAlternateString">
+               <Item>'string.Format(string, params object[])'</Item>
+               <Item>'StringFormattingExtensions.FormatWith(this string, params object[])'</Item>
+               <Item>'string.Format(IFormatProvider, string, params object[])'</Item>
+               <Item>'CultureInfo.CurrentCulture'</Item>
+               <Item>'CultureInfo.InvariantCulture'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+        </Types>
+       </Namespace>
+       <Namespace Name="GrayHorizons.Input">
+        <Types>
+         <Type Name="AxisBinding">
+          <Members>
+           <Member Name="#.ctor(GrayHorizons.Logic.GameData,GrayHorizons.Logic.GameAction)">
+            <Messages>
+             <Message TypeName="DefaultParametersShouldNotBeUsed" Category="Microsoft.Design" CheckId="CA1026" Created="2015-05-13 17:45:59Z">
+              <Issue>
+               <Item>'AxisBinding.AxisBinding(GameData, GameAction)'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="AxisChangedEventArgs">
+          <Members>
+           <Member Name="#ToString()">
+            <Messages>
+             <Message Id="System.String.Format(System.String,System.Object,System.Object)" TypeName="SpecifyIFormatProvider" Category="Microsoft.Globalization" CheckId="CA1305" Created="2015-05-13 17:45:59Z">
+              <Issue Name="IFormatProviderAlternateString">
+               <Item>'string.Format(string, object, object)'</Item>
+               <Item>'AxisChangedEventArgs.ToString()'</Item>
+               <Item>'string.Format(IFormatProvider, string, params object[])'</Item>
+               <Item>'CultureInfo.CurrentCulture'</Item>
+               <Item>'CultureInfo.InvariantCulture'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="InputBinding">
+          <Members>
+           <Member Name="#.ctor(GrayHorizons.Logic.GameData)">
+            <Messages>
+             <Message TypeName="AvoidUncalledPrivateCode" Category="Microsoft.Performance" CheckId="CA1811" Created="2015-05-13 17:45:59Z">
+              <Issue>
+               <Item>'InputBinding.InputBinding(GameData)'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#PlayerID">
+            <Messages>
+             <Message Id="ID" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2015-05-13 17:45:59Z">
+              <Issue Name="MemberAbbreviation">
+               <Item>ID</Item>
+               <Item>'InputBinding.PlayerID'</Item>
+               <Item>Id</Item>
+              </Issue>
+             </Message>
+            </Messages>
+            <Accessors>
+             <Accessor Name="#set_PlayerID(System.Int32)">
+              <Messages>
+               <Message Id="value" TypeName="ReviewUnusedParameters" Category="Microsoft.Usage" CheckId="CA1801" Created="2015-05-13 17:45:59Z" FixCategory="DependsOnFix">
+                <Issue>
+                 <Item>'value'</Item>
+                 <Item>'InputBinding.PlayerID.set(int)'</Item>
+                </Issue>
+               </Message>
+              </Messages>
+             </Accessor>
+            </Accessors>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="KeyBinding">
+          <Members>
+           <Member Name="#.ctor(GrayHorizons.Logic.GameData,GrayHorizons.Logic.GameAction,Microsoft.Xna.Framework.Input.Keys,System.Boolean)">
+            <Messages>
+             <Message TypeName="DefaultParametersShouldNotBeUsed" Category="Microsoft.Design" CheckId="CA1026" Created="2015-05-13 17:45:59Z">
+              <Issue>
+               <Item>'KeyBinding.KeyBinding(GameData, GameAction, Keys, bool)'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#ToString()">
+            <Messages>
+             <Message Id="System.String.Format(System.String,System.Object,System.Object,System.Object)" TypeName="SpecifyIFormatProvider" Category="Microsoft.Globalization" CheckId="CA1305" Created="2015-05-13 17:45:59Z">
+              <Issue Name="IFormatProviderAlternateString">
+               <Item>'string.Format(string, object, object, object)'</Item>
+               <Item>'KeyBinding.ToString()'</Item>
+               <Item>'string.Format(IFormatProvider, string, params object[])'</Item>
+               <Item>'CultureInfo.CurrentCulture'</Item>
+               <Item>'CultureInfo.InvariantCulture'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="MouseAxisBinding">
+          <Members>
+           <Member Name="#.ctor(GrayHorizons.Logic.GameData,GrayHorizons.Logic.GameAction)">
+            <Messages>
+             <Message TypeName="DefaultParametersShouldNotBeUsed" Category="Microsoft.Design" CheckId="CA1026" Created="2015-05-13 17:45:59Z">
+              <Issue>
+               <Item>'MouseAxisBinding.MouseAxisBinding(GameData, GameAction)'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#ToString()">
+            <Messages>
+             <Message Id="System.String.Format(System.String,System.Object,System.Object)" TypeName="SpecifyIFormatProvider" Category="Microsoft.Globalization" CheckId="CA1305" Created="2015-05-13 17:45:59Z">
+              <Issue Name="IFormatProviderAlternateString">
+               <Item>'string.Format(string, object, object)'</Item>
+               <Item>'MouseAxisBinding.ToString()'</Item>
+               <Item>'string.Format(IFormatProvider, string, params object[])'</Item>
+               <Item>'CultureInfo.CurrentCulture'</Item>
+               <Item>'CultureInfo.InvariantCulture'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="MouseStateChangedEventArgs">
+          <Members>
+           <Member Name="#.ctor(Microsoft.Xna.Framework.Input.MouseState)">
+            <Messages>
+             <Message TypeName="DefaultParametersShouldNotBeUsed" Category="Microsoft.Design" CheckId="CA1026" Created="2015-05-13 17:45:59Z">
+              <Issue>
+               <Item>'MouseStateChangedEventArgs.MouseStateChangedEventArgs(MouseState)'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+        </Types>
+       </Namespace>
+       <Namespace Name="GrayHorizons.Input.Actions">
+        <Types>
+         <Type Name="MenuActions+MenuAction">
+          <Messages>
+           <Message TypeName="NestedTypesShouldNotBeVisible" Category="Microsoft.Design" CheckId="CA1034" Created="2015-05-13 17:45:59Z">
+            <Issue>
+             <Item>'MenuActions.MenuAction'</Item>
+            </Issue>
+           </Message>
+          </Messages>
+          <Members>
+           <Member Name="#.ctor(GrayHorizons.UI.Menu,GrayHorizons.Input.InputBinding)">
+            <Messages>
+             <Message TypeName="DefaultParametersShouldNotBeUsed" Category="Microsoft.Design" CheckId="CA1026" Created="2015-05-13 17:45:59Z">
+              <Issue>
+               <Item>'MenuActions.MenuAction.MenuAction(Menu, InputBinding)'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="MenuActions+MenuDown">
+          <Messages>
+           <Message TypeName="NestedTypesShouldNotBeVisible" Category="Microsoft.Design" CheckId="CA1034" Created="2015-05-13 17:45:59Z">
+            <Issue>
+             <Item>'MenuActions.MenuDown'</Item>
+            </Issue>
+           </Message>
+          </Messages>
+         </Type>
+         <Type Name="MenuActions+MenuMouseControlAction">
+          <Messages>
+           <Message TypeName="NestedTypesShouldNotBeVisible" Category="Microsoft.Design" CheckId="CA1034" Created="2015-05-13 17:45:59Z">
+            <Issue>
+             <Item>'MenuActions.MenuMouseControlAction'</Item>
+            </Issue>
+           </Message>
+          </Messages>
+         </Type>
+         <Type Name="MenuActions+MenuSelect">
+          <Messages>
+           <Message TypeName="NestedTypesShouldNotBeVisible" Category="Microsoft.Design" CheckId="CA1034" Created="2015-05-13 17:45:59Z">
+            <Issue>
+             <Item>'MenuActions.MenuSelect'</Item>
+            </Issue>
+           </Message>
+          </Messages>
+         </Type>
+         <Type Name="MenuActions+MenuUp">
+          <Messages>
+           <Message TypeName="NestedTypesShouldNotBeVisible" Category="Microsoft.Design" CheckId="CA1034" Created="2015-05-13 17:45:59Z">
+            <Issue>
+             <Item>'MenuActions.MenuUp'</Item>
+            </Issue>
+           </Message>
+          </Messages>
+         </Type>
+         <Type Name="MetamorphizeTank">
+          <Messages>
+           <Message Id="Metamorphize" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2015-05-13 17:45:59Z">
+            <Issue Name="Type">
+             <Item>Metamorphize</Item>
+             <Item>'MetamorphizeTank'</Item>
+            </Issue>
+           </Message>
+          </Messages>
+          <Members>
+           <Member Name="#Execute()">
+            <Messages>
+             <Message Id="playerTank" TypeName="RemoveUnusedLocals" Category="Microsoft.Performance" CheckId="CA1804" Created="2015-05-13 17:45:59Z">
+              <Issue>
+               <Item>'MetamorphizeTank.Execute()'</Item>
+               <Item>'playerTank'</Item>
+               <Item>'Tank'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="TankMouseTurretControl">
+          <Members>
+           <Member Name="#.ctor(GrayHorizons.Logic.GameData,GrayHorizons.Logic.Player,GrayHorizons.Input.InputBinding)">
+            <Messages>
+             <Message TypeName="DefaultParametersShouldNotBeUsed" Category="Microsoft.Design" CheckId="CA1026" Created="2015-05-13 17:45:59Z">
+              <Issue>
+               <Item>'TankMouseTurretControl.TankMouseTurretControl(GameData, Player, InputBinding)'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#MouseAxisChanged(System.Object,GrayHorizons.Input.AxisChangedEventArgs)">
+            <Messages>
+             <Message Id="currentRotation" TypeName="RemoveUnusedLocals" Category="Microsoft.Performance" CheckId="CA1804" Created="2015-05-13 17:45:59Z">
+              <Issue>
+               <Item>'TankMouseTurretControl.MouseAxisChanged(object, AxisChangedEventArgs)'</Item>
+               <Item>'currentRotation'</Item>
+               <Item>'Rotation'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="ZoomInAction">
+          <Messages>
+           <Message Id="InAction" TypeName="CompoundWordsShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1702" Created="2015-05-13 17:45:59Z">
+            <Issue Name="TypeShouldBeDiscreteTerm">
+             <Item>InAction</Item>
+             <Item>'ZoomInAction'</Item>
+             <Item>Inaction</Item>
+            </Issue>
+           </Message>
+          </Messages>
+         </Type>
+        </Types>
+       </Namespace>
+       <Namespace Name="GrayHorizons.Logic">
+        <Types>
+         <Type Name="AIBase">
+          <Members>
+           <Member Name="#GameData">
+            <Messages>
+             <Message TypeName="DoNotDeclareVisibleInstanceFields" Category="Microsoft.Design" CheckId="CA1051" Created="2015-05-13 17:45:59Z">
+              <Issue>
+               <Item>'AIBase.GameData'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="Configuration">
+          <Messages>
+           <Message TypeName="TypeNamesShouldNotMatchNamespaces" Category="Microsoft.Naming" CheckId="CA1724" Created="2015-05-13 17:45:59Z">
+            <Issue Name="System">
+             <Item>'Configuration'</Item>
+             <Item>System.Configuration</Item>
+            </Issue>
+           </Message>
+          </Messages>
+          <Members>
+           <Member Name="#InputBindings">
+            <Messages>
+             <Message TypeName="DoNotExposeGenericLists" Category="Microsoft.Design" CheckId="CA1002" Created="2015-05-13 17:45:59Z">
+              <Issue>
+               <Item>'List&lt;InputBinding&gt;'</Item>
+               <Item>'Configuration.InputBindings'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="Coordinate">
+          <Members>
+           <Member Name="#.ctor(System.Int32,System.Int32)">
+            <Messages>
+             <Message Id="x" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2015-05-13 17:45:59Z">
+              <Issue Name="MemberParameterMoreMeaningfulName">
+               <Item>'Coordinate.Coordinate(int, int)'</Item>
+               <Item>'x'</Item>
+              </Issue>
+             </Message>
+             <Message Id="y" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2015-05-13 17:45:59Z">
+              <Issue Name="MemberParameterMoreMeaningfulName">
+               <Item>'Coordinate.Coordinate(int, int)'</Item>
+               <Item>'y'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#ToString()">
+            <Messages>
+             <Message Id="System.String.Format(System.String,System.Object,System.Object)" TypeName="SpecifyIFormatProvider" Category="Microsoft.Globalization" CheckId="CA1305" Created="2015-05-13 17:45:59Z">
+              <Issue Name="IFormatProviderAlternateString">
+               <Item>'string.Format(string, object, object)'</Item>
+               <Item>'Coordinate.ToString()'</Item>
+               <Item>'string.Format(IFormatProvider, string, params object[])'</Item>
+               <Item>'CultureInfo.CurrentCulture'</Item>
+               <Item>'CultureInfo.InvariantCulture'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#X">
+            <Messages>
+             <Message Id="X" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2015-05-13 17:45:59Z">
+              <Issue Name="MemberMoreMeaningfulName">
+               <Item>'Coordinate.X'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#Y">
+            <Messages>
+             <Message Id="Y" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2015-05-13 17:45:59Z">
+              <Issue Name="MemberMoreMeaningfulName">
+               <Item>'Coordinate.Y'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="Entity">
+          <Members>
+           <Member Name="#GetDelta(System.Single,System.Int32,System.Boolean)">
+            <Messages>
+             <Message TypeName="DefaultParametersShouldNotBeUsed" Category="Microsoft.Design" CheckId="CA1026" Created="2015-05-13 17:45:59Z">
+              <Issue>
+               <Item>'Entity.GetDelta(float, int, bool)'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#Turn(GrayHorizons.Logic.Entity+TurnDirection,System.Nullable`1&lt;GrayHorizons.Logic.Entity+MoveDirection&gt;,System.Boolean,System.Boolean)">
+            <Messages>
+             <Message TypeName="DefaultParametersShouldNotBeUsed" Category="Microsoft.Design" CheckId="CA1026" Created="2015-05-13 17:45:59Z">
+              <Issue>
+               <Item>'Entity.Turn(Entity.TurnDirection, Entity.MoveDirection?, bool, bool)'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="Entity+MoveDirection">
+          <Messages>
+           <Message TypeName="NestedTypesShouldNotBeVisible" Category="Microsoft.Design" CheckId="CA1034" Created="2015-05-13 17:45:59Z">
+            <Issue>
+             <Item>'Entity.MoveDirection'</Item>
+            </Issue>
+           </Message>
+          </Messages>
+         </Type>
+         <Type Name="Entity+TurnDirection">
+          <Messages>
+           <Message TypeName="NestedTypesShouldNotBeVisible" Category="Microsoft.Design" CheckId="CA1034" Created="2015-05-13 17:45:59Z">
+            <Issue>
+             <Item>'Entity.TurnDirection'</Item>
+            </Issue>
+           </Message>
+          </Messages>
+         </Type>
+         <Type Name="GameData">
+          <Members>
+           <Member Name="#blankTexture">
+            <Messages>
+             <Message TypeName="DoNotDeclareVisibleInstanceFields" Category="Microsoft.Design" CheckId="CA1051" Created="2015-05-13 17:45:59Z">
+              <Issue>
+               <Item>'GameData.blankTexture'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#InputBindings">
+            <Messages>
+             <Message TypeName="DoNotExposeGenericLists" Category="Microsoft.Design" CheckId="CA1002" Created="2015-05-13 17:45:59Z">
+              <Issue>
+               <Item>'List&lt;InputBinding&gt;'</Item>
+               <Item>'GameData.InputBindings'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#Players">
+            <Messages>
+             <Message TypeName="DoNotExposeGenericLists" Category="Microsoft.Design" CheckId="CA1002" Created="2015-05-13 17:45:59Z">
+              <Issue>
+               <Item>'List&lt;Player&gt;'</Item>
+               <Item>'GameData.Players'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#TankPool">
+            <Messages>
+             <Message TypeName="DoNotExposeGenericLists" Category="Microsoft.Design" CheckId="CA1002" Created="2015-05-13 17:45:59Z">
+              <Issue>
+               <Item>'List&lt;Tank&gt;'</Item>
+               <Item>'GameData.TankPool'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="Map">
+          <Members>
+           <Member Name="#GetObjects()">
+            <Messages>
+             <Message TypeName="DoNotExposeGenericLists" Category="Microsoft.Design" CheckId="CA1002" Created="2015-05-13 17:45:59Z">
+              <Issue>
+               <Item>'List&lt;ObjectBase&gt;'</Item>
+               <Item>'Map.GetObjects()'</Item>
+              </Issue>
+             </Message>
+             <Message TypeName="UsePropertiesWhereAppropriate" Category="Microsoft.Design" CheckId="CA1024" Created="2015-05-13 17:45:59Z">
+              <Issue>
+               <Item>'Map.GetObjects()'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#IsWithinBounds(GrayHorizons.ThirdParty.RotatedRectangle)">
+            <Messages>
+             <Message Id="lowerRight" TypeName="RemoveUnusedLocals" Category="Microsoft.Performance" CheckId="CA1804" Created="2015-05-13 17:45:59Z">
+              <Issue>
+               <Item>'Map.IsWithinBounds(RotatedRectangle)'</Item>
+               <Item>'lowerRight'</Item>
+               <Item>'Vector2'</Item>
+              </Issue>
+             </Message>
+             <Message Id="upperLeft" TypeName="RemoveUnusedLocals" Category="Microsoft.Performance" CheckId="CA1804" Created="2015-05-13 17:45:59Z">
+              <Issue>
+               <Item>'Map.IsWithinBounds(RotatedRectangle)'</Item>
+               <Item>'upperLeft'</Item>
+               <Item>'Vector2'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#SearchMapObjects(GrayHorizons.ThirdParty.RotatedRectangle)">
+            <Messages>
+             <Message TypeName="DoNotExposeGenericLists" Category="Microsoft.Design" CheckId="CA1002" Created="2015-05-13 17:45:59Z">
+              <Issue>
+               <Item>'List&lt;ObjectBase&gt;'</Item>
+               <Item>'Map.SearchMapObjects(RotatedRectangle)'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="MouseButtons">
+          <Messages>
+           <Message TypeName="OnlyFlagsEnumsShouldHavePluralNames" Category="Microsoft.Naming" CheckId="CA1717" Created="2015-05-13 17:45:59Z">
+            <Issue>
+             <Item>'MouseButtons'</Item>
+            </Issue>
+           </Message>
+          </Messages>
+         </Type>
+         <Type Name="MouseButtonState">
+          <Members>
+           <Member Name="#LeftButton">
+            <Accessors>
+             <Accessor Name="#get_LeftButton()">
+              <Messages>
+               <Message TypeName="AvoidUncalledPrivateCode" Category="Microsoft.Performance" CheckId="CA1811" Created="2015-05-13 17:45:59Z">
+                <Issue>
+                 <Item>'MouseButtonState.LeftButton.get()'</Item>
+                </Issue>
+               </Message>
+              </Messages>
+             </Accessor>
+            </Accessors>
+           </Member>
+           <Member Name="#MiddleButton">
+            <Accessors>
+             <Accessor Name="#get_MiddleButton()">
+              <Messages>
+               <Message TypeName="AvoidUncalledPrivateCode" Category="Microsoft.Performance" CheckId="CA1811" Created="2015-05-13 17:45:59Z">
+                <Issue>
+                 <Item>'MouseButtonState.MiddleButton.get()'</Item>
+                </Issue>
+               </Message>
+              </Messages>
+             </Accessor>
+            </Accessors>
+           </Member>
+           <Member Name="#RightButton">
+            <Accessors>
+             <Accessor Name="#get_RightButton()">
+              <Messages>
+               <Message TypeName="AvoidUncalledPrivateCode" Category="Microsoft.Performance" CheckId="CA1811" Created="2015-05-13 17:45:59Z">
+                <Issue>
+                 <Item>'MouseButtonState.RightButton.get()'</Item>
+                </Issue>
+               </Message>
+              </Messages>
+             </Accessor>
+            </Accessors>
+           </Member>
+           <Member Name="#XButton1">
+            <Accessors>
+             <Accessor Name="#get_XButton1()">
+              <Messages>
+               <Message TypeName="AvoidUncalledPrivateCode" Category="Microsoft.Performance" CheckId="CA1811" Created="2015-05-13 17:45:59Z">
+                <Issue>
+                 <Item>'MouseButtonState.XButton1.get()'</Item>
+                </Issue>
+               </Message>
+              </Messages>
+             </Accessor>
+            </Accessors>
+           </Member>
+           <Member Name="#XButton2">
+            <Accessors>
+             <Accessor Name="#get_XButton2()">
+              <Messages>
+               <Message TypeName="AvoidUncalledPrivateCode" Category="Microsoft.Performance" CheckId="CA1811" Created="2015-05-13 17:45:59Z">
+                <Issue>
+                 <Item>'MouseButtonState.XButton2.get()'</Item>
+                </Issue>
+               </Message>
+              </Messages>
+             </Accessor>
+            </Accessors>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="ObjectBase">
+          <Members>
+           <Member Name="#Position">
+            <Messages>
+             <Message TypeName="DoNotDeclareVisibleInstanceFields" Category="Microsoft.Design" CheckId="CA1051" Created="2015-05-13 17:45:59Z">
+              <Issue>
+               <Item>'ObjectBase.Position'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="Rotation">
+          <Messages>
+           <Message TypeName="IdentifiersShouldDifferByMoreThanCase" Category="Microsoft.Naming" CheckId="CA1708" Created="2015-05-13 17:45:59Z">
+            <Issue Name="Member">
+             <Item>'Degrees'</Item>
+             <Item>degrees</Item>
+            </Issue>
+           </Message>
+          </Messages>
+          <Members>
+           <Member Name="#degrees">
+            <Messages>
+             <Message TypeName="DoNotDeclareVisibleInstanceFields" Category="Microsoft.Design" CheckId="CA1051" Created="2015-05-13 17:45:59Z">
+              <Issue>
+               <Item>'Rotation.degrees'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#ToString()">
+            <Messages>
+             <Message Id="System.String.Format(System.String,System.Object,System.Object)" TypeName="SpecifyIFormatProvider" Category="Microsoft.Globalization" CheckId="CA1305" Created="2015-05-13 17:45:59Z">
+              <Issue Name="IFormatProviderAlternateString">
+               <Item>'string.Format(string, object, object)'</Item>
+               <Item>'Rotation.ToString()'</Item>
+               <Item>'string.Format(IFormatProvider, string, params object[])'</Item>
+               <Item>'CultureInfo.CurrentCulture'</Item>
+               <Item>'CultureInfo.InvariantCulture'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="Vehicle">
+          <Members>
+           <Member Name="#GetPassengerOff(GrayHorizons.Entities.Soldier,System.Boolean)">
+            <Messages>
+             <Message TypeName="DefaultParametersShouldNotBeUsed" Category="Microsoft.Design" CheckId="CA1026" Created="2015-05-13 17:45:59Z">
+              <Issue>
+               <Item>'Vehicle.GetPassengerOff(Soldier, bool)'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#Passengers">
+            <Messages>
+             <Message TypeName="DoNotExposeGenericLists" Category="Microsoft.Design" CheckId="CA1002" Created="2015-05-13 17:45:59Z">
+              <Issue>
+               <Item>'List&lt;Soldier&gt;'</Item>
+               <Item>'Vehicle.Passengers'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#Render()">
+            <Messages>
+             <Message Id="rrect" TypeName="RemoveUnusedLocals" Category="Microsoft.Performance" CheckId="CA1804" Created="2015-05-13 17:45:59Z">
+              <Issue>
+               <Item>'Vehicle.Render()'</Item>
+               <Item>'rrect'</Item>
+               <Item>'RotatedRectangle'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#Turn(GrayHorizons.Logic.Entity+TurnDirection,System.Nullable`1&lt;GrayHorizons.Logic.Entity+MoveDirection&gt;,System.Boolean,System.Boolean)">
+            <Messages>
+             <Message TypeName="DefaultParametersShouldNotBeUsed" Category="Microsoft.Design" CheckId="CA1026" Created="2015-05-13 17:45:59Z">
+              <Issue>
+               <Item>'Vehicle.Turn(Entity.TurnDirection, Entity.MoveDirection?, bool, bool)'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+        </Types>
+       </Namespace>
+       <Namespace Name="GrayHorizons.Screens">
+        <Types>
+         <Type Name="BattlefieldScreen">
+          <Members>
+           <Member Name="#Draw(Microsoft.Xna.Framework.GameTime)">
+            <Messages>
+             <Message Id="System.Double.ToString" TypeName="SpecifyIFormatProvider" Category="Microsoft.Globalization" CheckId="CA1305" Created="2015-05-13 17:45:59Z">
+              <Issue Name="IFormatProviderAlternateString">
+               <Item>'double.ToString()'</Item>
+               <Item>'BattlefieldScreen.Draw(GameTime)'</Item>
+               <Item>'double.ToString(IFormatProvider)'</Item>
+               <Item>'CultureInfo.CurrentCulture'</Item>
+               <Item>'CultureInfo.InvariantCulture'</Item>
+              </Issue>
+             </Message>
+             <Message Id="System.String.Format(System.String,System.Object[])" TypeName="SpecifyIFormatProvider" Category="Microsoft.Globalization" CheckId="CA1305" Created="2015-05-13 17:45:59Z">
+              <Issue Name="IFormatProviderAlternateString">
+               <Item>'string.Format(string, params object[])'</Item>
+               <Item>'BattlefieldScreen.Draw(GameTime)'</Item>
+               <Item>'string.Format(IFormatProvider, string, params object[])'</Item>
+               <Item>'CultureInfo.CurrentCulture'</Item>
+               <Item>'CultureInfo.InvariantCulture'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="MainMenuScreen">
+          <Members>
+           <Member Name="#game">
+            <Messages>
+             <Message TypeName="AvoidUnusedPrivateFields" Category="Microsoft.Performance" CheckId="CA1823" Created="2015-05-13 17:45:59Z">
+              <Issue>
+               <Item>'MainMenuScreen.game'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="PauseScreen">
+          <Members>
+           <Member Name="#coveredByOtherScreen">
+            <Messages>
+             <Message TypeName="AvoidUnusedPrivateFields" Category="Microsoft.Performance" CheckId="CA1823" Created="2015-05-13 17:45:59Z">
+              <Issue>
+               <Item>'PauseScreen.coveredByOtherScreen'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="SettingsMenuScreen">
+          <Members>
+           <Member Name="#game">
+            <Messages>
+             <Message TypeName="AvoidUnusedPrivateFields" Category="Microsoft.Performance" CheckId="CA1823" Created="2015-05-13 17:45:59Z">
+              <Issue>
+               <Item>'SettingsMenuScreen.game'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#gameData">
+            <Messages>
+             <Message TypeName="AvoidUnusedPrivateFields" Category="Microsoft.Performance" CheckId="CA1823" Created="2015-05-13 17:45:59Z">
+              <Issue>
+               <Item>'SettingsMenuScreen.gameData'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#parentScreen">
+            <Messages>
+             <Message TypeName="AvoidUnusedPrivateFields" Category="Microsoft.Performance" CheckId="CA1823" Created="2015-05-13 17:45:59Z">
+              <Issue>
+               <Item>'SettingsMenuScreen.parentScreen'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+        </Types>
+       </Namespace>
+       <Namespace Name="GrayHorizons.Sound">
+        <Types>
+         <Type Name="ExplosionSounds">
+          <Members>
+           <Member Name="#ExplosionEcho">
+            <Messages>
+             <Message TypeName="NonConstantFieldsShouldNotBeVisible" Category="Microsoft.Usage" CheckId="CA2211" Created="2015-05-13 17:45:59Z">
+              <Issue>
+               <Item>'ExplosionSounds.ExplosionEcho'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#StandardExplosion">
+            <Messages>
+             <Message TypeName="NonConstantFieldsShouldNotBeVisible" Category="Microsoft.Usage" CheckId="CA2211" Created="2015-05-13 17:45:59Z">
+              <Issue>
+               <Item>'ExplosionSounds.StandardExplosion'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#TankExplosion">
+            <Messages>
+             <Message TypeName="NonConstantFieldsShouldNotBeVisible" Category="Microsoft.Usage" CheckId="CA2211" Created="2015-05-13 17:45:59Z">
+              <Issue>
+               <Item>'ExplosionSounds.TankExplosion'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#WallExplosion">
+            <Messages>
+             <Message TypeName="NonConstantFieldsShouldNotBeVisible" Category="Microsoft.Usage" CheckId="CA2211" Created="2015-05-13 17:45:59Z">
+              <Issue>
+               <Item>'ExplosionSounds.WallExplosion'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="SoldierSounds">
+          <Members>
+           <Member Name="#Footsteps">
+            <Messages>
+             <Message TypeName="NonConstantFieldsShouldNotBeVisible" Category="Microsoft.Usage" CheckId="CA2211" Created="2015-05-13 17:45:59Z">
+              <Issue>
+               <Item>'SoldierSounds.Footsteps'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="SoundEffect">
+          <Members>
+           <Member Name="#GetInstance(Microsoft.Xna.Framework.Audio.SoundEffect)">
+            <Messages>
+             <Message TypeName="DefaultParametersShouldNotBeUsed" Category="Microsoft.Design" CheckId="CA1026" Created="2015-05-13 17:45:59Z">
+              <Issue>
+               <Item>'SoundEffect.GetInstance(SoundEffect)'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#GetRandomSound()">
+            <Messages>
+             <Message TypeName="UsePropertiesWhereAppropriate" Category="Microsoft.Design" CheckId="CA1024" Created="2015-05-13 17:45:59Z">
+              <Issue Certainty="50">
+               <Item>'SoundEffect.GetRandomSound()'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#Play(Microsoft.Xna.Framework.Audio.SoundEffect)">
+            <Messages>
+             <Message TypeName="DefaultParametersShouldNotBeUsed" Category="Microsoft.Design" CheckId="CA1026" Created="2015-05-13 17:45:59Z">
+              <Issue>
+               <Item>'SoundEffect.Play(SoundEffect)'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#Sounds">
+            <Messages>
+             <Message TypeName="DoNotExposeGenericLists" Category="Microsoft.Design" CheckId="CA1002" Created="2015-05-13 17:45:59Z">
+              <Issue>
+               <Item>'List&lt;SoundEffect&gt;'</Item>
+               <Item>'SoundEffect.Sounds'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="TankSounds">
+          <Members>
+           <Member Name="#Firing">
+            <Messages>
+             <Message TypeName="NonConstantFieldsShouldNotBeVisible" Category="Microsoft.Usage" CheckId="CA2211" Created="2015-05-13 17:45:59Z">
+              <Issue>
+               <Item>'TankSounds.Firing'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#Idle">
+            <Messages>
+             <Message TypeName="NonConstantFieldsShouldNotBeVisible" Category="Microsoft.Usage" CheckId="CA2211" Created="2015-05-13 17:45:59Z">
+              <Issue>
+               <Item>'TankSounds.Idle'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#Moving">
+            <Messages>
+             <Message TypeName="NonConstantFieldsShouldNotBeVisible" Category="Microsoft.Usage" CheckId="CA2211" Created="2015-05-13 17:45:59Z">
+              <Issue>
+               <Item>'TankSounds.Moving'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="UISounds">
+          <Members>
+           <Member Name="#MenuSelect">
+            <Messages>
+             <Message TypeName="NonConstantFieldsShouldNotBeVisible" Category="Microsoft.Usage" CheckId="CA2211" Created="2015-05-13 17:45:59Z">
+              <Issue>
+               <Item>'UISounds.MenuSelect'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+        </Types>
+       </Namespace>
+       <Namespace Name="GrayHorizons.StaticObjects">
+        <Types>
+         <Type Name="Wall">
+          <Members>
+           <Member Name="#DefaultSegments">
+            <Messages>
+             <Message TypeName="DoNotExposeGenericLists" Category="Microsoft.Design" CheckId="CA1002" Created="2015-05-13 17:45:59Z">
+              <Issue>
+               <Item>'List&lt;Segment&gt;'</Item>
+               <Item>'Wall.DefaultSegments'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#Segments">
+            <Messages>
+             <Message TypeName="DoNotExposeGenericLists" Category="Microsoft.Design" CheckId="CA1002" Created="2015-05-13 17:45:59Z">
+              <Issue>
+               <Item>'List&lt;Segment&gt;'</Item>
+               <Item>'Wall.Segments'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+        </Types>
+       </Namespace>
+       <Namespace Name="GrayHorizons.ThirdParty">
+        <Types>
+         <Type Name="RotatedRectangle">
+          <Members>
+           <Member Name="#CollisionRectangle">
+            <Messages>
+             <Message TypeName="DoNotDeclareVisibleInstanceFields" Category="Microsoft.Design" CheckId="CA1051" Created="2015-05-13 17:45:59Z">
+              <Issue>
+               <Item>'RotatedRectangle.CollisionRectangle'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#GenerateScalar(Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Vector2)">
+            <Messages>
+             <Message TypeName="MarkMembersAsStatic" Category="Microsoft.Performance" CheckId="CA1822" Created="2015-05-13 17:45:59Z" FixCategory="NonBreaking">
+              <Issue>
+               <Item>'RotatedRectangle.GenerateScalar(Vector2, Vector2)'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#Origin">
+            <Messages>
+             <Message TypeName="DoNotDeclareVisibleInstanceFields" Category="Microsoft.Design" CheckId="CA1051" Created="2015-05-13 17:45:59Z">
+              <Issue>
+               <Item>'RotatedRectangle.Origin'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#RotatePoint(Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Vector2,System.Single)">
+            <Messages>
+             <Message TypeName="MarkMembersAsStatic" Category="Microsoft.Performance" CheckId="CA1822" Created="2015-05-13 17:45:59Z" FixCategory="NonBreaking">
+              <Issue>
+               <Item>'RotatedRectangle.RotatePoint(Vector2, Vector2, float)'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#Rotation">
+            <Messages>
+             <Message TypeName="DoNotDeclareVisibleInstanceFields" Category="Microsoft.Design" CheckId="CA1051" Created="2015-05-13 17:45:59Z">
+              <Issue>
+               <Item>'RotatedRectangle.Rotation'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#ToString()">
+            <Messages>
+             <Message Id="System.String.Format(System.String,System.Object[])" TypeName="SpecifyIFormatProvider" Category="Microsoft.Globalization" CheckId="CA1305" Created="2015-05-13 17:45:59Z">
+              <Issue Name="IFormatProviderAlternateString">
+               <Item>'string.Format(string, params object[])'</Item>
+               <Item>'RotatedRectangle.ToString()'</Item>
+               <Item>'string.Format(IFormatProvider, string, params object[])'</Item>
+               <Item>'CultureInfo.CurrentCulture'</Item>
+               <Item>'CultureInfo.InvariantCulture'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#X">
+            <Messages>
+             <Message Id="X" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2015-05-13 17:45:59Z">
+              <Issue Name="MemberMoreMeaningfulName">
+               <Item>'RotatedRectangle.X'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#Y">
+            <Messages>
+             <Message Id="Y" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2015-05-13 17:45:59Z">
+              <Issue Name="MemberMoreMeaningfulName">
+               <Item>'RotatedRectangle.Y'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+        </Types>
+       </Namespace>
+       <Namespace Name="GrayHorizons.ThirdParty.GameStateManagement">
+        <Types>
+         <Type Name="InputState">
+          <Members>
+           <Member Name="#CurrentGamePadStates">
+            <Messages>
+             <Message TypeName="ArrayFieldsShouldNotBeReadOnly" Category="Microsoft.Security" CheckId="CA2105" Created="2015-05-13 17:45:59Z">
+              <Issue>
+               <Item>'InputState.CurrentGamePadStates'</Item>
+              </Issue>
+             </Message>
+             <Message Id="GamePad" TypeName="CompoundWordsShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1702" Created="2015-05-13 17:45:59Z">
+              <Issue Name="MemberShouldBeDiscreteTerm">
+               <Item>GamePad</Item>
+               <Item>'InputState.CurrentGamePadStates'</Item>
+               <Item>Gamepad</Item>
+              </Issue>
+             </Message>
+             <Message TypeName="DoNotDeclareVisibleInstanceFields" Category="Microsoft.Design" CheckId="CA1051" Created="2015-05-13 17:45:59Z">
+              <Issue>
+               <Item>'InputState.CurrentGamePadStates'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#CurrentKeyboardStates">
+            <Messages>
+             <Message TypeName="ArrayFieldsShouldNotBeReadOnly" Category="Microsoft.Security" CheckId="CA2105" Created="2015-05-13 17:45:59Z">
+              <Issue>
+               <Item>'InputState.CurrentKeyboardStates'</Item>
+              </Issue>
+             </Message>
+             <Message TypeName="DoNotDeclareVisibleInstanceFields" Category="Microsoft.Design" CheckId="CA1051" Created="2015-05-13 17:45:59Z">
+              <Issue>
+               <Item>'InputState.CurrentKeyboardStates'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#GamePadWasConnected">
+            <Messages>
+             <Message TypeName="ArrayFieldsShouldNotBeReadOnly" Category="Microsoft.Security" CheckId="CA2105" Created="2015-05-13 17:45:59Z">
+              <Issue>
+               <Item>'InputState.GamePadWasConnected'</Item>
+              </Issue>
+             </Message>
+             <Message Id="GamePad" TypeName="CompoundWordsShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1702" Created="2015-05-13 17:45:59Z">
+              <Issue Name="MemberShouldBeDiscreteTerm">
+               <Item>GamePad</Item>
+               <Item>'InputState.GamePadWasConnected'</Item>
+               <Item>Gamepad</Item>
+              </Issue>
+             </Message>
+             <Message TypeName="DoNotDeclareVisibleInstanceFields" Category="Microsoft.Design" CheckId="CA1051" Created="2015-05-13 17:45:59Z">
+              <Issue>
+               <Item>'InputState.GamePadWasConnected'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#Gestures">
+            <Messages>
+             <Message TypeName="DoNotDeclareReadOnlyMutableReferenceTypes" Category="Microsoft.Security" CheckId="CA2104" Created="2015-05-13 17:45:59Z">
+              <Issue>
+               <Item>'InputState.Gestures'</Item>
+               <Item>'List&lt;GestureSample&gt;'</Item>
+              </Issue>
+             </Message>
+             <Message TypeName="DoNotDeclareVisibleInstanceFields" Category="Microsoft.Design" CheckId="CA1051" Created="2015-05-13 17:45:59Z">
+              <Issue>
+               <Item>'InputState.Gestures'</Item>
+              </Issue>
+             </Message>
+             <Message TypeName="DoNotExposeGenericLists" Category="Microsoft.Design" CheckId="CA1002" Created="2015-05-13 17:45:59Z">
+              <Issue>
+               <Item>'List&lt;GestureSample&gt;'</Item>
+               <Item>'InputState.Gestures'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#IsMenuCancel(System.Nullable`1&lt;Microsoft.Xna.Framework.PlayerIndex&gt;,Microsoft.Xna.Framework.PlayerIndex&amp;)">
+            <Messages>
+             <Message Id="1#" TypeName="AvoidOutParameters" Category="Microsoft.Design" CheckId="CA1021" Created="2015-05-13 17:45:59Z">
+              <Issue>
+               <Item>'playerIndex'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#IsMenuSelect(System.Nullable`1&lt;Microsoft.Xna.Framework.PlayerIndex&gt;,Microsoft.Xna.Framework.PlayerIndex&amp;)">
+            <Messages>
+             <Message Id="1#" TypeName="AvoidOutParameters" Category="Microsoft.Design" CheckId="CA1021" Created="2015-05-13 17:45:59Z">
+              <Issue>
+               <Item>'playerIndex'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#IsNewButtonPress(Microsoft.Xna.Framework.Input.Buttons,System.Nullable`1&lt;Microsoft.Xna.Framework.PlayerIndex&gt;,Microsoft.Xna.Framework.PlayerIndex&amp;)">
+            <Messages>
+             <Message Id="2#" TypeName="AvoidOutParameters" Category="Microsoft.Design" CheckId="CA1021" Created="2015-05-13 17:45:59Z">
+              <Issue>
+               <Item>'playerIndex'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#IsNewKeyPress(Microsoft.Xna.Framework.Input.Keys,System.Nullable`1&lt;Microsoft.Xna.Framework.PlayerIndex&gt;,Microsoft.Xna.Framework.PlayerIndex&amp;)">
+            <Messages>
+             <Message Id="2#" TypeName="AvoidOutParameters" Category="Microsoft.Design" CheckId="CA1021" Created="2015-05-13 17:45:59Z">
+              <Issue>
+               <Item>'playerIndex'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#LastGamePadStates">
+            <Messages>
+             <Message TypeName="ArrayFieldsShouldNotBeReadOnly" Category="Microsoft.Security" CheckId="CA2105" Created="2015-05-13 17:45:59Z">
+              <Issue>
+               <Item>'InputState.LastGamePadStates'</Item>
+              </Issue>
+             </Message>
+             <Message Id="GamePad" TypeName="CompoundWordsShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1702" Created="2015-05-13 17:45:59Z">
+              <Issue Name="MemberShouldBeDiscreteTerm">
+               <Item>GamePad</Item>
+               <Item>'InputState.LastGamePadStates'</Item>
+               <Item>Gamepad</Item>
+              </Issue>
+             </Message>
+             <Message TypeName="DoNotDeclareVisibleInstanceFields" Category="Microsoft.Design" CheckId="CA1051" Created="2015-05-13 17:45:59Z">
+              <Issue>
+               <Item>'InputState.LastGamePadStates'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#LastKeyboardStates">
+            <Messages>
+             <Message TypeName="ArrayFieldsShouldNotBeReadOnly" Category="Microsoft.Security" CheckId="CA2105" Created="2015-05-13 17:45:59Z">
+              <Issue>
+               <Item>'InputState.LastKeyboardStates'</Item>
+              </Issue>
+             </Message>
+             <Message TypeName="DoNotDeclareVisibleInstanceFields" Category="Microsoft.Design" CheckId="CA1051" Created="2015-05-13 17:45:59Z">
+              <Issue>
+               <Item>'InputState.LastKeyboardStates'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#TouchState">
+            <Messages>
+             <Message TypeName="DoNotDeclareVisibleInstanceFields" Category="Microsoft.Design" CheckId="CA1051" Created="2015-05-13 17:45:59Z">
+              <Issue>
+               <Item>'InputState.TouchState'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+        </Types>
+       </Namespace>
+       <Namespace Name="GrayHorizons.UI">
+        <Types>
+         <Type Name="Menu">
+          <Members>
+           <Member Name="#MenuItems">
+            <Messages>
+             <Message TypeName="DoNotExposeGenericLists" Category="Microsoft.Design" CheckId="CA1002" Created="2015-05-13 17:45:59Z">
+              <Issue>
+               <Item>'List&lt;MenuItem&gt;'</Item>
+               <Item>'Menu.MenuItems'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="MenuItem">
+          <Members>
+           <Member Name="#ToString()">
+            <Messages>
+             <Message Id="System.String.Format(System.String,System.Object[])" TypeName="SpecifyIFormatProvider" Category="Microsoft.Globalization" CheckId="CA1305" Created="2015-05-13 17:45:59Z">
+              <Issue Name="IFormatProviderAlternateString">
+               <Item>'string.Format(string, params object[])'</Item>
+               <Item>'MenuItem.ToString()'</Item>
+               <Item>'string.Format(IFormatProvider, string, params object[])'</Item>
+               <Item>'CultureInfo.CurrentCulture'</Item>
+               <Item>'CultureInfo.InvariantCulture'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+        </Types>
+       </Namespace>
+      </Namespaces>
+     </Module>
+    </Modules>
+   </Target>
+  </Targets>
+  <Rules>
+   <Rule TypeName="ArrayFieldsShouldNotBeReadOnly" Category="Microsoft.Security" CheckId="CA2105">
+    <Resolution Name="Default">Either replace {0} with a strongly typed collection that cannot be changed, or replace the public field with a method that returns a clone of a private array.</Resolution>
+   </Rule>
+   <Rule TypeName="AssembliesShouldHaveValidStrongNames" Category="Microsoft.Design" CheckId="CA2210">
+    <Resolution Name="NoStrongName">Sign {0} with a strong name key.</Resolution>
+   </Rule>
+   <Rule TypeName="AvoidOutParameters" Category="Microsoft.Design" CheckId="CA1021">
+    <Resolution Name="Default">Consider a design that does not require that {0} be an out parameter.</Resolution>
+   </Rule>
+   <Rule TypeName="AvoidUncalledPrivateCode" Category="Microsoft.Performance" CheckId="CA1811">
+    <Resolution Name="Default">{0} appears to have no upstream public or protected callers.</Resolution>
+   </Rule>
+   <Rule TypeName="AvoidUnusedPrivateFields" Category="Microsoft.Performance" CheckId="CA1823">
+    <Resolution Name="Default">It appears that field {0} is never used or is only ever assigned to. Use this field or remove it.</Resolution>
+   </Rule>
+   <Rule TypeName="CompoundWordsShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1702">
+    <Resolution Name="MemberShouldBeDiscreteTerm">The compound word '{0}' in member name {1} exists as a discrete term. If your usage is intended to be single word, case it as '{2}' or strip the first token entirely if it represents any sort of Hungarian notation.</Resolution>
+    <Resolution Name="TypeShouldBeDiscreteTerm">The compound word '{0}' in type name {1} exists as a discrete term. If your usage is intended to be single word, case it as '{2}'.</Resolution>
+   </Rule>
+   <Rule TypeName="DefaultParametersShouldNotBeUsed" Category="Microsoft.Design" CheckId="CA1026">
+    <Resolution Name="Default">Replace method {0} with an overload that supplies all default arguments.</Resolution>
+   </Rule>
+   <Rule TypeName="DefineAccessorsForAttributeArguments" Category="Microsoft.Design" CheckId="CA1019">
+    <Resolution Name="Default">Add a public read-only property accessor for positional argument {0} of Attribute {1}.</Resolution>
+   </Rule>
+   <Rule TypeName="DoNotDeclareReadOnlyMutableReferenceTypes" Category="Microsoft.Security" CheckId="CA2104">
+    <Resolution Name="Default">Remove the read-only designation from {0} or change the field to one that is an immutable reference type. If the reference type {1} is, in fact, immutable, exclude this message.</Resolution>
+   </Rule>
+   <Rule TypeName="DoNotDeclareVisibleInstanceFields" Category="Microsoft.Design" CheckId="CA1051">
+    <Resolution Name="Default">Because field {0} is visible outside of its declaring type, change its accessibility to private and add a property, with the same accessibility as the field has currently, to provide access to it.</Resolution>
+   </Rule>
+   <Rule TypeName="DoNotExposeGenericLists" Category="Microsoft.Design" CheckId="CA1002">
+    <Resolution Name="Default">Change {0} in {1} to use Collection&lt;T&gt;, ReadOnlyCollection&lt;T&gt; or KeyedCollection&lt;K,V&gt;</Resolution>
+   </Rule>
+   <Rule TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709">
+    <Resolution Name="MemberAbbreviation">Correct the casing of '{0}' in member name {1} by changing it to '{2}'. '{2}' is an abbreviation and therefore is not subject to acronym casing guidelines.</Resolution>
+    <Resolution Name="Type">Correct the casing of '{0}' in type name {1} by changing it to '{2}'.</Resolution>
+   </Rule>
+   <Rule TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704">
+    <Resolution Name="MemberMoreMeaningfulName">Consider providing a more meaningful name than member name {0}.</Resolution>
+    <Resolution Name="MemberParameterMoreMeaningfulName">In method {0}, consider providing a more meaningful name than parameter name {1}.</Resolution>
+    <Resolution Name="Type">Correct the spelling of '{0}' in type name {1}.</Resolution>
+   </Rule>
+   <Rule TypeName="IdentifiersShouldDifferByMoreThanCase" Category="Microsoft.Naming" CheckId="CA1708">
+    <Resolution Name="Member">Change member names {0} and '{1}' so that they differ by more than case.</Resolution>
+   </Rule>
+   <Rule TypeName="MarkMembersAsStatic" Category="Microsoft.Performance" CheckId="CA1822">
+    <Resolution Name="Default">The 'this' parameter (or 'Me' in Visual Basic) of {0} is never used. Mark the member as static (or Shared in Visual Basic) or use 'this'/'Me' in the method body or at least one property accessor, if appropriate.</Resolution>
+   </Rule>
+   <Rule TypeName="NestedTypesShouldNotBeVisible" Category="Microsoft.Design" CheckId="CA1034">
+    <Resolution Name="Default">Do not nest type {0}. Alternatively, change its accessibility so that it is not externally visible.</Resolution>
+   </Rule>
+   <Rule TypeName="NonConstantFieldsShouldNotBeVisible" Category="Microsoft.Usage" CheckId="CA2211">
+    <Resolution Name="Default">Consider making {0} non-public or a constant.</Resolution>
+   </Rule>
+   <Rule TypeName="OnlyFlagsEnumsShouldHavePluralNames" Category="Microsoft.Naming" CheckId="CA1717">
+    <Resolution Name="Default">If the name {0} is plural, change it to its singular form.</Resolution>
+   </Rule>
+   <Rule TypeName="PropertiesShouldNotReturnArrays" Category="Microsoft.Performance" CheckId="CA1819">
+    <Resolution Name="Default">Change {0} to return a collection or make it a method.</Resolution>
+   </Rule>
+   <Rule TypeName="RemoveUnusedLocals" Category="Microsoft.Performance" CheckId="CA1804">
+    <Resolution Name="Default">{0} declares a variable, {1}, of type {2}, which is never used or is only assigned to. Use this variable or remove it.</Resolution>
+   </Rule>
+   <Rule TypeName="ReviewUnusedParameters" Category="Microsoft.Usage" CheckId="CA1801">
+    <Resolution Name="Default">Parameter {0} of {1} is never used. Remove the parameter or use it in the method body.</Resolution>
+   </Rule>
+   <Rule TypeName="SpecifyIFormatProvider" Category="Microsoft.Globalization" CheckId="CA1305">
+    <Resolution Name="IFormatProviderAlternateString">Because the behavior of {0} could vary based on the current user's locale settings, replace this call in {1} with a call to {2}. If the result of {2} will be displayed to the user, specify {3} as the 'IFormatProvider' parameter. Otherwise, if the result will be stored and accessed by software, such as when it is persisted to disk or to a database, specify {4}.</Resolution>
+   </Rule>
+   <Rule TypeName="TypeNamesShouldNotMatchNamespaces" Category="Microsoft.Naming" CheckId="CA1724">
+    <Resolution Name="System">The type name {0} conflicts in whole or in part with the namespace name '{1}' defined in the .NET Framework. Rename the type to eliminate the conflict.</Resolution>
+   </Rule>
+   <Rule TypeName="UsePropertiesWhereAppropriate" Category="Microsoft.Design" CheckId="CA1024">
+    <Resolution Name="Default">Change {0} to a property if appropriate.</Resolution>
+   </Rule>
+  </Rules>
+ </FxCopReport>
+</FxCopProject>
