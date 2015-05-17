@@ -1,0 +1,1324 @@
+<stylecopresultscache>
+  <version>12</version>
+  <project key="2115317690">
+    <configuration>
+    </configuration>
+  </project>
+  <sourcecode name="Program.cs" parser="StyleCop.CSharp.CsParser">
+    <timestamps>
+      <styleCop>2015/05/15 09:25:11.235</styleCop>
+      <settingsFile>2015/05/15 09:35:03.531</settingsFile>
+      <sourceFile>2015/05/15 10:35:21.272</sourceFile>
+      <parser>2015/05/15 09:25:11.235</parser>
+      <StyleCop.CSharp.DocumentationRules>2015/05/15 09:25:11.235</StyleCop.CSharp.DocumentationRules>
+      <StyleCop.CSharp.DocumentationRules.FilesHashCode>778190548</StyleCop.CSharp.DocumentationRules.FilesHashCode>
+      <StyleCop.CSharp.LayoutRules>2015/05/15 09:25:11.235</StyleCop.CSharp.LayoutRules>
+      <StyleCop.CSharp.LayoutRules.FilesHashCode>0</StyleCop.CSharp.LayoutRules.FilesHashCode>
+      <StyleCop.CSharp.MaintainabilityRules>2015/05/15 09:25:11.235</StyleCop.CSharp.MaintainabilityRules>
+      <StyleCop.CSharp.MaintainabilityRules.FilesHashCode>0</StyleCop.CSharp.MaintainabilityRules.FilesHashCode>
+      <StyleCop.CSharp.NamingRules>2015/05/15 09:25:11.235</StyleCop.CSharp.NamingRules>
+      <StyleCop.CSharp.NamingRules.FilesHashCode>0</StyleCop.CSharp.NamingRules.FilesHashCode>
+      <StyleCop.CSharp.OrderingRules>2015/05/15 09:25:11.235</StyleCop.CSharp.OrderingRules>
+      <StyleCop.CSharp.OrderingRules.FilesHashCode>0</StyleCop.CSharp.OrderingRules.FilesHashCode>
+      <StyleCop.CSharp.ReadabilityRules>2015/05/15 09:25:11.235</StyleCop.CSharp.ReadabilityRules>
+      <StyleCop.CSharp.ReadabilityRules.FilesHashCode>0</StyleCop.CSharp.ReadabilityRules.FilesHashCode>
+      <StyleCop.CSharp.SpacingRules>2015/05/15 09:25:11.235</StyleCop.CSharp.SpacingRules>
+      <StyleCop.CSharp.SpacingRules.FilesHashCode>0</StyleCop.CSharp.SpacingRules.FilesHashCode>
+    </timestamps>
+    <violations>
+      <violation namespace="StyleCop.CSharp.DocumentationRules" rule="FileMustHaveHeader" ruleCheckId="SA1633">
+        <context>The file has no header, the header Xml is invalid, or the header is not located at the top of the file.</context>
+        <line>1</line>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.OrderingRules" rule="UsingDirectivesMustBePlacedWithinNamespace" ruleCheckId="SA1200">
+        <context>All using directives must be placed inside of the namespace.</context>
+        <line>2</line>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.OrderingRules" rule="UsingDirectivesMustBePlacedWithinNamespace" ruleCheckId="SA1200">
+        <context>All using directives must be placed inside of the namespace.</context>
+        <line>3</line>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.DocumentationRules" rule="ElementsMustBeDocumented" ruleCheckId="SA1600">
+        <context>The class must have a documentation header.</context>
+        <line>9</line>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.MaintainabilityRules" rule="AccessModifierMustBeDeclared" ruleCheckId="SA1400">
+        <context>The class must have an access modifier.</context>
+        <line>9</line>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.MaintainabilityRules" rule="AccessModifierMustBeDeclared" ruleCheckId="SA1400">
+        <context>The method must have an access modifier.</context>
+        <line>15</line>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.SpacingRules" rule="OpeningParenthesisMustBeSpacedCorrectly" ruleCheckId="SA1008">
+        <context>Invalid spacing around the opening parenthesis.</context>
+        <line>15</line>
+        <index>301</index>
+        <endIndex>301</endIndex>
+        <startLine>15</startLine>
+        <startColumn>25</startColumn>
+        <endLine>15</endLine>
+        <endColumn>25</endColumn>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.SpacingRules" rule="OpeningParenthesisMustBeSpacedCorrectly" ruleCheckId="SA1008">
+        <context>Invalid spacing around the opening parenthesis.</context>
+        <line>17</line>
+        <index>349</index>
+        <endIndex>349</endIndex>
+        <startLine>17</startLine>
+        <startColumn>33</startColumn>
+        <endLine>17</endLine>
+        <endColumn>33</endColumn>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.SpacingRules" rule="OpeningParenthesisMustBeSpacedCorrectly" ruleCheckId="SA1008">
+        <context>Invalid spacing around the opening parenthesis.</context>
+        <line>17</line>
+        <index>356</index>
+        <endIndex>356</endIndex>
+        <startLine>17</startLine>
+        <startColumn>40</startColumn>
+        <endLine>17</endLine>
+        <endColumn>40</endColumn>
+        <warning>False</warning>
+      </violation>
+    </violations>
+  </sourcecode>
+  <sourcecode name="MonoGame.cs" parser="StyleCop.CSharp.CsParser">
+    <timestamps>
+      <styleCop>2015/05/15 09:25:11.235</styleCop>
+      <settingsFile>2015/05/15 09:35:03.531</settingsFile>
+      <sourceFile>2015/05/15 16:10:32.963</sourceFile>
+      <parser>2015/05/15 09:25:11.235</parser>
+      <StyleCop.CSharp.DocumentationRules>2015/05/15 09:25:11.235</StyleCop.CSharp.DocumentationRules>
+      <StyleCop.CSharp.DocumentationRules.FilesHashCode>778190548</StyleCop.CSharp.DocumentationRules.FilesHashCode>
+      <StyleCop.CSharp.LayoutRules>2015/05/15 09:25:11.235</StyleCop.CSharp.LayoutRules>
+      <StyleCop.CSharp.LayoutRules.FilesHashCode>0</StyleCop.CSharp.LayoutRules.FilesHashCode>
+      <StyleCop.CSharp.MaintainabilityRules>2015/05/15 09:25:11.235</StyleCop.CSharp.MaintainabilityRules>
+      <StyleCop.CSharp.MaintainabilityRules.FilesHashCode>0</StyleCop.CSharp.MaintainabilityRules.FilesHashCode>
+      <StyleCop.CSharp.NamingRules>2015/05/15 09:25:11.235</StyleCop.CSharp.NamingRules>
+      <StyleCop.CSharp.NamingRules.FilesHashCode>0</StyleCop.CSharp.NamingRules.FilesHashCode>
+      <StyleCop.CSharp.OrderingRules>2015/05/15 09:25:11.235</StyleCop.CSharp.OrderingRules>
+      <StyleCop.CSharp.OrderingRules.FilesHashCode>0</StyleCop.CSharp.OrderingRules.FilesHashCode>
+      <StyleCop.CSharp.ReadabilityRules>2015/05/15 09:25:11.235</StyleCop.CSharp.ReadabilityRules>
+      <StyleCop.CSharp.ReadabilityRules.FilesHashCode>0</StyleCop.CSharp.ReadabilityRules.FilesHashCode>
+      <StyleCop.CSharp.SpacingRules>2015/05/15 09:25:11.235</StyleCop.CSharp.SpacingRules>
+      <StyleCop.CSharp.SpacingRules.FilesHashCode>0</StyleCop.CSharp.SpacingRules.FilesHashCode>
+    </timestamps>
+    <violations>
+      <violation namespace="StyleCop.CSharp.DocumentationRules" rule="FileMustHaveHeader" ruleCheckId="SA1633">
+        <context>The file has no header, the header Xml is invalid, or the header is not located at the top of the file.</context>
+        <line>1</line>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.LayoutRules" rule="CodeMustNotContainBlankLinesAtEndOfFile" ruleCheckId="SA1518">
+        <context>The code must not contain blank lines at the end of the file.</context>
+        <line>183</line>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.LayoutRules" rule="CodeMustNotContainMultipleBlankLinesInARow" ruleCheckId="SA1507">
+        <context>The code must not contain multiple blank lines in a row.</context>
+        <line>183</line>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.DocumentationRules" rule="ElementsMustBeDocumented" ruleCheckId="SA1600">
+        <context>The field must have a documentation header.</context>
+        <line>31</line>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.NamingRules" rule="ConstFieldNamesMustBeginWithUpperCaseLetter" ruleCheckId="SA1303">
+        <context>Constants must start with an upper-case letter: defaultResolutionWidth.</context>
+        <line>31</line>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.OrderingRules" rule="ElementsMustBeOrderedByAccess" ruleCheckId="SA1202">
+        <context>All internal fields must be placed after all public fields.</context>
+        <line>40</line>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.DocumentationRules" rule="ElementsMustBeDocumented" ruleCheckId="SA1600">
+        <context>The field must have a documentation header.</context>
+        <line>32</line>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.NamingRules" rule="ConstFieldNamesMustBeginWithUpperCaseLetter" ruleCheckId="SA1303">
+        <context>Constants must start with an upper-case letter: defaultResolutionHeight.</context>
+        <line>32</line>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.DocumentationRules" rule="ElementsMustBeDocumented" ruleCheckId="SA1600">
+        <context>The field must have a documentation header.</context>
+        <line>34</line>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.MaintainabilityRules" rule="AccessModifierMustBeDeclared" ruleCheckId="SA1400">
+        <context>The field must have an access modifier.</context>
+        <line>34</line>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.DocumentationRules" rule="ElementsMustBeDocumented" ruleCheckId="SA1600">
+        <context>The field must have a documentation header.</context>
+        <line>35</line>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.MaintainabilityRules" rule="AccessModifierMustBeDeclared" ruleCheckId="SA1400">
+        <context>The field must have an access modifier.</context>
+        <line>35</line>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.DocumentationRules" rule="ElementsMustBeDocumented" ruleCheckId="SA1600">
+        <context>The field must have a documentation header.</context>
+        <line>36</line>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.MaintainabilityRules" rule="AccessModifierMustBeDeclared" ruleCheckId="SA1400">
+        <context>The field must have an access modifier.</context>
+        <line>36</line>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.DocumentationRules" rule="ElementsMustBeDocumented" ruleCheckId="SA1600">
+        <context>The field must have a documentation header.</context>
+        <line>37</line>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.MaintainabilityRules" rule="AccessModifierMustBeDeclared" ruleCheckId="SA1400">
+        <context>The field must have an access modifier.</context>
+        <line>37</line>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.DocumentationRules" rule="ElementsMustBeDocumented" ruleCheckId="SA1600">
+        <context>The field must have a documentation header.</context>
+        <line>38</line>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.MaintainabilityRules" rule="AccessModifierMustBeDeclared" ruleCheckId="SA1400">
+        <context>The field must have an access modifier.</context>
+        <line>38</line>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.DocumentationRules" rule="ElementsMustBeDocumented" ruleCheckId="SA1600">
+        <context>The field must have a documentation header.</context>
+        <line>40</line>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.MaintainabilityRules" rule="FieldsMustBePrivate" ruleCheckId="SA1401">
+        <context>Fields must be declared with private access. Use properties to expose fields.</context>
+        <line>40</line>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.SpacingRules" rule="OpeningParenthesisMustBeSpacedCorrectly" ruleCheckId="SA1008">
+        <context>Invalid spacing around the opening parenthesis.</context>
+        <line>40</line>
+        <index>1386</index>
+        <endIndex>1386</endIndex>
+        <startLine>40</startLine>
+        <startColumn>48</startColumn>
+        <endLine>40</endLine>
+        <endColumn>48</endColumn>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.DocumentationRules" rule="ElementsMustBeDocumented" ruleCheckId="SA1600">
+        <context>The method must have a documentation header.</context>
+        <line>42</line>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.NamingRules" rule="ConstFieldNamesMustBeginWithUpperCaseLetter" ruleCheckId="SA1303">
+        <context>Constants must start with an upper-case letter: fn.</context>
+        <line>50</line>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.OrderingRules" rule="ElementsMustAppearInTheCorrectOrder" ruleCheckId="SA1201">
+        <context>All methods must be placed after all constructors.</context>
+        <line>122</line>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.ReadabilityRules" rule="PrefixCallsCorrectly" ruleCheckId="SA1126">
+        <context>The call to GameData must begin with the 'this.', 'base.', 'object.' or 'GrayHorizonsGame.' or 'Game.' prefix to indicate the intended method call. </context>
+        <line>48</line>
+        <index>1570</index>
+        <endIndex>1577</endIndex>
+        <startLine>48</startLine>
+        <startColumn>13</startColumn>
+        <endLine>48</endLine>
+        <endColumn>20</endColumn>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.ReadabilityRules" rule="PrefixCallsCorrectly" ruleCheckId="SA1126">
+        <context>The call to configuration must begin with the 'this.', 'base.', 'object.' or 'GrayHorizonsGame.' or 'Game.' prefix to indicate the intended method call. </context>
+        <line>53</line>
+        <index>1739</index>
+        <endIndex>1751</endIndex>
+        <startLine>53</startLine>
+        <startColumn>17</startColumn>
+        <endLine>53</endLine>
+        <endColumn>29</endColumn>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.ReadabilityRules" rule="PrefixCallsCorrectly" ruleCheckId="SA1126">
+        <context>The call to GameData must begin with the 'this.', 'base.', 'object.' or 'GrayHorizonsGame.' or 'Game.' prefix to indicate the intended method call. </context>
+        <line>53</line>
+        <index>1775</index>
+        <endIndex>1782</endIndex>
+        <startLine>53</startLine>
+        <startColumn>53</startColumn>
+        <endLine>53</endLine>
+        <endColumn>60</endColumn>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.ReadabilityRules" rule="PrefixCallsCorrectly" ruleCheckId="SA1126">
+        <context>The call to GameData must begin with the 'this.', 'base.', 'object.' or 'GrayHorizonsGame.' or 'Game.' prefix to indicate the intended method call. </context>
+        <line>54</line>
+        <index>1827</index>
+        <endIndex>1834</endIndex>
+        <startLine>54</startLine>
+        <startColumn>17</startColumn>
+        <endLine>54</endLine>
+        <endColumn>24</endColumn>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.ReadabilityRules" rule="PrefixCallsCorrectly" ruleCheckId="SA1126">
+        <context>The call to configuration must begin with the 'this.', 'base.', 'object.' or 'GrayHorizonsGame.' or 'Game.' prefix to indicate the intended method call. </context>
+        <line>54</line>
+        <index>1852</index>
+        <endIndex>1864</endIndex>
+        <startLine>54</startLine>
+        <startColumn>42</startColumn>
+        <endLine>54</endLine>
+        <endColumn>54</endColumn>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.ReadabilityRules" rule="PrefixCallsCorrectly" ruleCheckId="SA1126">
+        <context>The call to GameData must begin with the 'this.', 'base.', 'object.' or 'GrayHorizonsGame.' or 'Game.' prefix to indicate the intended method call. </context>
+        <line>55</line>
+        <index>1930</index>
+        <endIndex>1937</endIndex>
+        <startLine>55</startLine>
+        <startColumn>63</startColumn>
+        <endLine>55</endLine>
+        <endColumn>70</endColumn>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.SpacingRules" rule="OpeningParenthesisMustBeSpacedCorrectly" ruleCheckId="SA1008">
+        <context>Invalid spacing around the opening parenthesis.</context>
+        <line>42</line>
+        <index>1431</index>
+        <endIndex>1431</endIndex>
+        <startLine>42</startLine>
+        <startColumn>38</startColumn>
+        <endLine>42</endLine>
+        <endColumn>38</endColumn>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.SpacingRules" rule="OpeningParenthesisMustBeSpacedCorrectly" ruleCheckId="SA1008">
+        <context>Invalid spacing around the opening parenthesis.</context>
+        <line>48</line>
+        <index>1619</index>
+        <endIndex>1619</endIndex>
+        <startLine>48</startLine>
+        <startColumn>62</startColumn>
+        <endLine>48</endLine>
+        <endColumn>62</endColumn>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.SpacingRules" rule="OpeningParenthesisMustBeSpacedCorrectly" ruleCheckId="SA1008">
+        <context>Invalid spacing around the opening parenthesis.</context>
+        <line>51</line>
+        <index>1700</index>
+        <endIndex>1700</endIndex>
+        <startLine>51</startLine>
+        <startColumn>28</startColumn>
+        <endLine>51</endLine>
+        <endColumn>28</endColumn>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.SpacingRules" rule="OpeningParenthesisMustBeSpacedCorrectly" ruleCheckId="SA1008">
+        <context>Invalid spacing around the opening parenthesis.</context>
+        <line>53</line>
+        <index>1773</index>
+        <endIndex>1773</endIndex>
+        <startLine>53</startLine>
+        <startColumn>51</startColumn>
+        <endLine>53</endLine>
+        <endColumn>51</endColumn>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.SpacingRules" rule="OpeningParenthesisMustBeSpacedCorrectly" ruleCheckId="SA1008">
+        <context>Invalid spacing around the opening parenthesis.</context>
+        <line>55</line>
+        <index>1928</index>
+        <endIndex>1928</endIndex>
+        <startLine>55</startLine>
+        <startColumn>61</startColumn>
+        <endLine>55</endLine>
+        <endColumn>61</endColumn>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.DocumentationRules" rule="ElementsMustBeDocumented" ruleCheckId="SA1600">
+        <context>The method must have a documentation header.</context>
+        <line>63</line>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.MaintainabilityRules" rule="AccessModifierMustBeDeclared" ruleCheckId="SA1400">
+        <context>The method must have an access modifier.</context>
+        <line>63</line>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.OrderingRules" rule="ElementsMustBeOrderedByAccess" ruleCheckId="SA1202">
+        <context>All private methods must be placed after all public methods.</context>
+        <line>77</line>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.OrderingRules" rule="ElementsMustBeOrderedByAccess" ruleCheckId="SA1202">
+        <context>All private methods must be placed after all public methods.</context>
+        <line>109</line>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.OrderingRules" rule="ElementsMustBeOrderedByAccess" ruleCheckId="SA1202">
+        <context>All private methods must be placed after all protected methods.</context>
+        <line>150</line>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.OrderingRules" rule="ElementsMustBeOrderedByAccess" ruleCheckId="SA1202">
+        <context>All private methods must be placed after all public methods.</context>
+        <line>173</line>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.SpacingRules" rule="OpeningParenthesisMustBeSpacedCorrectly" ruleCheckId="SA1008">
+        <context>Invalid spacing around the opening parenthesis.</context>
+        <line>63</line>
+        <index>2128</index>
+        <endIndex>2128</endIndex>
+        <startLine>63</startLine>
+        <startColumn>26</startColumn>
+        <endLine>63</endLine>
+        <endColumn>26</endColumn>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.SpacingRules" rule="OpeningParenthesisMustBeSpacedCorrectly" ruleCheckId="SA1008">
+        <context>Invalid spacing around the opening parenthesis.</context>
+        <line>74</line>
+        <index>2619</index>
+        <endIndex>2619</endIndex>
+        <startLine>74</startLine>
+        <startColumn>45</startColumn>
+        <endLine>74</endLine>
+        <endColumn>45</endColumn>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.DocumentationRules" rule="ElementsMustBeDocumented" ruleCheckId="SA1600">
+        <context>The method must have a documentation header.</context>
+        <line>77</line>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.ReadabilityRules" rule="PrefixCallsCorrectly" ruleCheckId="SA1126">
+        <context>The call to graphics must begin with the 'this.', 'base.', 'object.' or 'GrayHorizonsGame.' or 'Game.' prefix to indicate the intended method call. </context>
+        <line>83</line>
+        <index>2832</index>
+        <endIndex>2839</endIndex>
+        <startLine>83</startLine>
+        <startColumn>13</startColumn>
+        <endLine>83</endLine>
+        <endColumn>20</endColumn>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.ReadabilityRules" rule="PrefixCallsCorrectly" ruleCheckId="SA1126">
+        <context>The call to graphics must begin with the 'this.', 'base.', 'object.' or 'GrayHorizonsGame.' or 'Game.' prefix to indicate the intended method call. </context>
+        <line>84</line>
+        <index>2890</index>
+        <endIndex>2897</endIndex>
+        <startLine>84</startLine>
+        <startColumn>13</startColumn>
+        <endLine>84</endLine>
+        <endColumn>20</endColumn>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.ReadabilityRules" rule="PrefixCallsCorrectly" ruleCheckId="SA1126">
+        <context>The call to graphics must begin with the 'this.', 'base.', 'object.' or 'GrayHorizonsGame.' or 'Game.' prefix to indicate the intended method call. </context>
+        <line>85</line>
+        <index>2963</index>
+        <endIndex>2970</endIndex>
+        <startLine>85</startLine>
+        <startColumn>13</startColumn>
+        <endLine>85</endLine>
+        <endColumn>20</endColumn>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.ReadabilityRules" rule="PrefixCallsCorrectly" ruleCheckId="SA1126">
+        <context>The call to graphics must begin with the 'this.', 'base.', 'object.' or 'GrayHorizonsGame.' or 'Game.' prefix to indicate the intended method call. </context>
+        <line>86</line>
+        <index>3038</index>
+        <endIndex>3045</endIndex>
+        <startLine>86</startLine>
+        <startColumn>13</startColumn>
+        <endLine>86</endLine>
+        <endColumn>20</endColumn>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.ReadabilityRules" rule="PrefixCallsCorrectly" ruleCheckId="SA1126">
+        <context>The call to CenterWindow must begin with the 'this.', 'base.', 'object.' or 'GrayHorizonsGame.' or 'Game.' prefix to indicate the intended method call. </context>
+        <line>88</line>
+        <index>3079</index>
+        <endIndex>3090</endIndex>
+        <startLine>88</startLine>
+        <startColumn>13</startColumn>
+        <endLine>88</endLine>
+        <endColumn>24</endColumn>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.ReadabilityRules" rule="PrefixCallsCorrectly" ruleCheckId="SA1126">
+        <context>The call to GameData must begin with the 'this.', 'base.', 'object.' or 'GrayHorizonsGame.' or 'Game.' prefix to indicate the intended method call. </context>
+        <line>90</line>
+        <index>3115</index>
+        <endIndex>3122</endIndex>
+        <startLine>90</startLine>
+        <startColumn>13</startColumn>
+        <endLine>90</endLine>
+        <endColumn>20</endColumn>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.ReadabilityRules" rule="PrefixCallsCorrectly" ruleCheckId="SA1126">
+        <context>The call to Content must begin with the 'this.', 'base.', 'object.' or 'GrayHorizonsGame.' or 'Game.' prefix to indicate the intended method call. </context>
+        <line>90</line>
+        <index>3141</index>
+        <endIndex>3147</endIndex>
+        <startLine>90</startLine>
+        <startColumn>39</startColumn>
+        <endLine>90</endLine>
+        <endColumn>45</endColumn>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.ReadabilityRules" rule="PrefixCallsCorrectly" ruleCheckId="SA1126">
+        <context>The call to GameData must begin with the 'this.', 'base.', 'object.' or 'GrayHorizonsGame.' or 'Game.' prefix to indicate the intended method call. </context>
+        <line>91</line>
+        <index>3163</index>
+        <endIndex>3170</endIndex>
+        <startLine>91</startLine>
+        <startColumn>13</startColumn>
+        <endLine>91</endLine>
+        <endColumn>20</endColumn>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.ReadabilityRules" rule="PrefixCallsCorrectly" ruleCheckId="SA1126">
+        <context>The call to graphics must begin with the 'this.', 'base.', 'object.' or 'GrayHorizonsGame.' or 'Game.' prefix to indicate the intended method call. </context>
+        <line>91</line>
+        <index>3189</index>
+        <endIndex>3196</endIndex>
+        <startLine>91</startLine>
+        <startColumn>39</startColumn>
+        <endLine>91</endLine>
+        <endColumn>46</endColumn>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.ReadabilityRules" rule="PrefixCallsCorrectly" ruleCheckId="SA1126">
+        <context>The call to GameData must begin with the 'this.', 'base.', 'object.' or 'GrayHorizonsGame.' or 'Game.' prefix to indicate the intended method call. </context>
+        <line>92</line>
+        <index>3227</index>
+        <endIndex>3234</endIndex>
+        <startLine>92</startLine>
+        <startColumn>13</startColumn>
+        <endLine>92</endLine>
+        <endColumn>20</endColumn>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.ReadabilityRules" rule="PrefixCallsCorrectly" ruleCheckId="SA1126">
+        <context>The call to graphics must begin with the 'this.', 'base.', 'object.' or 'GrayHorizonsGame.' or 'Game.' prefix to indicate the intended method call. </context>
+        <line>92</line>
+        <index>3260</index>
+        <endIndex>3267</endIndex>
+        <startLine>92</startLine>
+        <startColumn>46</startColumn>
+        <endLine>92</endLine>
+        <endColumn>53</endColumn>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.ReadabilityRules" rule="PrefixCallsCorrectly" ruleCheckId="SA1126">
+        <context>The call to GameData must begin with the 'this.', 'base.', 'object.' or 'GrayHorizonsGame.' or 'Game.' prefix to indicate the intended method call. </context>
+        <line>103</line>
+        <index>3689</index>
+        <endIndex>3696</endIndex>
+        <startLine>103</startLine>
+        <startColumn>13</startColumn>
+        <endLine>103</endLine>
+        <endColumn>20</endColumn>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.ReadabilityRules" rule="PrefixCallsCorrectly" ruleCheckId="SA1126">
+        <context>The call to IsMouseVisible must begin with the 'this.', 'base.', 'object.' or 'GrayHorizonsGame.' or 'Game.' prefix to indicate the intended method call. </context>
+        <line>105</line>
+        <index>3763</index>
+        <endIndex>3776</endIndex>
+        <startLine>105</startLine>
+        <startColumn>13</startColumn>
+        <endLine>105</endLine>
+        <endColumn>26</endColumn>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.ReadabilityRules" rule="PrefixCallsCorrectly" ruleCheckId="SA1126">
+        <context>The call to IsFixedTimeStep must begin with the 'this.', 'base.', 'object.' or 'GrayHorizonsGame.' or 'Game.' prefix to indicate the intended method call. </context>
+        <line>106</line>
+        <index>3799</index>
+        <endIndex>3813</endIndex>
+        <startLine>106</startLine>
+        <startColumn>13</startColumn>
+        <endLine>106</endLine>
+        <endColumn>27</endColumn>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.SpacingRules" rule="OpeningParenthesisMustBeSpacedCorrectly" ruleCheckId="SA1008">
+        <context>Invalid spacing around the opening parenthesis.</context>
+        <line>77</line>
+        <index>2680</index>
+        <endIndex>2680</endIndex>
+        <startLine>77</startLine>
+        <startColumn>33</startColumn>
+        <endLine>77</endLine>
+        <endColumn>33</endColumn>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.SpacingRules" rule="OpeningParenthesisMustBeSpacedCorrectly" ruleCheckId="SA1008">
+        <context>Invalid spacing around the opening parenthesis.</context>
+        <line>83</line>
+        <index>2868</index>
+        <endIndex>2868</endIndex>
+        <startLine>83</startLine>
+        <startColumn>49</startColumn>
+        <endLine>83</endLine>
+        <endColumn>49</endColumn>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.SpacingRules" rule="OpeningParenthesisMustBeSpacedCorrectly" ruleCheckId="SA1008">
+        <context>Invalid spacing around the opening parenthesis.</context>
+        <line>86</line>
+        <index>3059</index>
+        <endIndex>3059</endIndex>
+        <startLine>86</startLine>
+        <startColumn>34</startColumn>
+        <endLine>86</endLine>
+        <endColumn>34</endColumn>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.SpacingRules" rule="OpeningParenthesisMustBeSpacedCorrectly" ruleCheckId="SA1008">
+        <context>Invalid spacing around the opening parenthesis.</context>
+        <line>88</line>
+        <index>3091</index>
+        <endIndex>3091</endIndex>
+        <startLine>88</startLine>
+        <startColumn>25</startColumn>
+        <endLine>88</endLine>
+        <endColumn>25</endColumn>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.SpacingRules" rule="ClosingGenericBracketsMustBeSpacedCorrectly" ruleCheckId="SA1015">
+        <context>Invalid spacing around the closing generic bracket.</context>
+        <line>103</line>
+        <index>3735</index>
+        <endIndex>3735</endIndex>
+        <startLine>103</startLine>
+        <startColumn>59</startColumn>
+        <endLine>103</endLine>
+        <endColumn>59</endColumn>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.SpacingRules" rule="OpeningParenthesisMustBeSpacedCorrectly" ruleCheckId="SA1008">
+        <context>Invalid spacing around the opening parenthesis.</context>
+        <line>103</line>
+        <index>3736</index>
+        <endIndex>3736</endIndex>
+        <startLine>103</startLine>
+        <startColumn>60</startColumn>
+        <endLine>103</endLine>
+        <endColumn>60</endColumn>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.DocumentationRules" rule="ElementsMustBeDocumented" ruleCheckId="SA1600">
+        <context>The method must have a documentation header.</context>
+        <line>109</line>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.LayoutRules" rule="SingleLineCommentMustBePrecededByBlankLine" ruleCheckId="SA1515">
+        <context>A single-line comment must be preceded by a blank line or another single-line comment, or must be the first item in its scope. To ignore this error when commenting out a line of code, begin the comment with '////' rather than '//'.</context>
+        <line>118</line>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.ReadabilityRules" rule="PrefixCallsCorrectly" ruleCheckId="SA1126">
+        <context>The call to screenManager must begin with the 'this.', 'base.', 'object.' or 'GrayHorizonsGame.' or 'Game.' prefix to indicate the intended method call. </context>
+        <line>115</line>
+        <index>4011</index>
+        <endIndex>4023</endIndex>
+        <startLine>115</startLine>
+        <startColumn>13</startColumn>
+        <endLine>115</endLine>
+        <endColumn>25</endColumn>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.ReadabilityRules" rule="PrefixCallsCorrectly" ruleCheckId="SA1126">
+        <context>The call to GameData must begin with the 'this.', 'base.', 'object.' or 'GrayHorizonsGame.' or 'Game.' prefix to indicate the intended method call. </context>
+        <line>116</line>
+        <index>4066</index>
+        <endIndex>4073</endIndex>
+        <startLine>116</startLine>
+        <startColumn>13</startColumn>
+        <endLine>116</endLine>
+        <endColumn>20</endColumn>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.ReadabilityRules" rule="PrefixCallsCorrectly" ruleCheckId="SA1126">
+        <context>The call to screenManager must begin with the 'this.', 'base.', 'object.' or 'GrayHorizonsGame.' or 'Game.' prefix to indicate the intended method call. </context>
+        <line>116</line>
+        <index>4091</index>
+        <endIndex>4103</endIndex>
+        <startLine>116</startLine>
+        <startColumn>38</startColumn>
+        <endLine>116</endLine>
+        <endColumn>50</endColumn>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.ReadabilityRules" rule="PrefixCallsCorrectly" ruleCheckId="SA1126">
+        <context>The call to screenManager must begin with the 'this.', 'base.', 'object.' or 'GrayHorizonsGame.' or 'Game.' prefix to indicate the intended method call. </context>
+        <line>117</line>
+        <index>4135</index>
+        <endIndex>4147</endIndex>
+        <startLine>117</startLine>
+        <startColumn>29</startColumn>
+        <endLine>117</endLine>
+        <endColumn>41</endColumn>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.ReadabilityRules" rule="PrefixCallsCorrectly" ruleCheckId="SA1126">
+        <context>The call to screenManager must begin with the 'this.', 'base.', 'object.' or 'GrayHorizonsGame.' or 'Game.' prefix to indicate the intended method call. </context>
+        <line>119</line>
+        <index>4250</index>
+        <endIndex>4262</endIndex>
+        <startLine>119</startLine>
+        <startColumn>13</startColumn>
+        <endLine>119</endLine>
+        <endColumn>25</endColumn>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.ReadabilityRules" rule="PrefixCallsCorrectly" ruleCheckId="SA1126">
+        <context>The call to GameData must begin with the 'this.', 'base.', 'object.' or 'GrayHorizonsGame.' or 'Game.' prefix to indicate the intended method call. </context>
+        <line>119</line>
+        <index>4306</index>
+        <endIndex>4313</endIndex>
+        <startLine>119</startLine>
+        <startColumn>69</startColumn>
+        <endLine>119</endLine>
+        <endColumn>76</endColumn>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.SpacingRules" rule="OpeningParenthesisMustBeSpacedCorrectly" ruleCheckId="SA1008">
+        <context>Invalid spacing around the opening parenthesis.</context>
+        <line>109</line>
+        <index>3868</index>
+        <endIndex>3868</endIndex>
+        <startLine>109</startLine>
+        <startColumn>32</startColumn>
+        <endLine>109</endLine>
+        <endColumn>32</endColumn>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.SpacingRules" rule="OpeningParenthesisMustBeSpacedCorrectly" ruleCheckId="SA1008">
+        <context>Invalid spacing around the opening parenthesis.</context>
+        <line>115</line>
+        <index>4044</index>
+        <endIndex>4044</endIndex>
+        <startLine>115</startLine>
+        <startColumn>46</startColumn>
+        <endLine>115</endLine>
+        <endColumn>46</endColumn>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.SpacingRules" rule="OpeningParenthesisMustBeSpacedCorrectly" ruleCheckId="SA1008">
+        <context>Invalid spacing around the opening parenthesis.</context>
+        <line>117</line>
+        <index>4133</index>
+        <endIndex>4133</endIndex>
+        <startLine>117</startLine>
+        <startColumn>27</startColumn>
+        <endLine>117</endLine>
+        <endColumn>27</endColumn>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.SpacingRules" rule="SingleLineCommentsMustBeginWithSingleSpace" ruleCheckId="SA1005">
+        <context>The comment must start with a single space. To ignore this error when commenting out a line of code, begin the comment with '////' rather than '//'.</context>
+        <line>118</line>
+        <index>4164</index>
+        <endIndex>4235</endIndex>
+        <startLine>118</startLine>
+        <startColumn>13</startColumn>
+        <endLine>118</endLine>
+        <endColumn>84</endColumn>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.SpacingRules" rule="OpeningParenthesisMustBeSpacedCorrectly" ruleCheckId="SA1008">
+        <context>Invalid spacing around the opening parenthesis.</context>
+        <line>119</line>
+        <index>4273</index>
+        <endIndex>4273</endIndex>
+        <startLine>119</startLine>
+        <startColumn>36</startColumn>
+        <endLine>119</endLine>
+        <endColumn>36</endColumn>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.SpacingRules" rule="OpeningParenthesisMustBeSpacedCorrectly" ruleCheckId="SA1008">
+        <context>Invalid spacing around the opening parenthesis.</context>
+        <line>119</line>
+        <index>4304</index>
+        <endIndex>4304</endIndex>
+        <startLine>119</startLine>
+        <startColumn>67</startColumn>
+        <endLine>119</endLine>
+        <endColumn>67</endColumn>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.DocumentationRules" rule="ElementsMustBeDocumented" ruleCheckId="SA1600">
+        <context>The constructor must have a documentation header.</context>
+        <line>122</line>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.ReadabilityRules" rule="PrefixCallsCorrectly" ruleCheckId="SA1126">
+        <context>The call to GameData must begin with the 'this.', 'base.', 'object.' or 'GrayHorizonsGame.' or 'Game.' prefix to indicate the intended method call. </context>
+        <line>141</line>
+        <index>5377</index>
+        <endIndex>5384</endIndex>
+        <startLine>141</startLine>
+        <startColumn>13</startColumn>
+        <endLine>141</endLine>
+        <endColumn>20</endColumn>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.ReadabilityRules" rule="PrefixCallsCorrectly" ruleCheckId="SA1126">
+        <context>The call to GameData must begin with the 'this.', 'base.', 'object.' or 'GrayHorizonsGame.' or 'Game.' prefix to indicate the intended method call. </context>
+        <line>142</line>
+        <index>5421</index>
+        <endIndex>5428</endIndex>
+        <startLine>142</startLine>
+        <startColumn>13</startColumn>
+        <endLine>142</endLine>
+        <endColumn>20</endColumn>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.ReadabilityRules" rule="PrefixCallsCorrectly" ruleCheckId="SA1126">
+        <context>The call to GameData must begin with the 'this.', 'base.', 'object.' or 'GrayHorizonsGame.' or 'Game.' prefix to indicate the intended method call. </context>
+        <line>143</line>
+        <index>5466</index>
+        <endIndex>5473</endIndex>
+        <startLine>143</startLine>
+        <startColumn>13</startColumn>
+        <endLine>143</endLine>
+        <endColumn>20</endColumn>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.ReadabilityRules" rule="PrefixCallsCorrectly" ruleCheckId="SA1126">
+        <context>The call to LoadConfiguration must begin with the 'this.', 'base.', 'object.' or 'GrayHorizonsGame.' or 'Game.' prefix to indicate the intended method call. </context>
+        <line>145</line>
+        <index>5503</index>
+        <endIndex>5519</endIndex>
+        <startLine>145</startLine>
+        <startColumn>13</startColumn>
+        <endLine>145</endLine>
+        <endColumn>29</endColumn>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.ReadabilityRules" rule="PrefixCallsCorrectly" ruleCheckId="SA1126">
+        <context>The call to InitGraphics must begin with the 'this.', 'base.', 'object.' or 'GrayHorizonsGame.' or 'Game.' prefix to indicate the intended method call. </context>
+        <line>146</line>
+        <index>5538</index>
+        <endIndex>5549</endIndex>
+        <startLine>146</startLine>
+        <startColumn>13</startColumn>
+        <endLine>146</endLine>
+        <endColumn>24</endColumn>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.ReadabilityRules" rule="PrefixCallsCorrectly" ruleCheckId="SA1126">
+        <context>The call to InitScreens must begin with the 'this.', 'base.', 'object.' or 'GrayHorizonsGame.' or 'Game.' prefix to indicate the intended method call. </context>
+        <line>147</line>
+        <index>5568</index>
+        <endIndex>5578</endIndex>
+        <startLine>147</startLine>
+        <startColumn>13</startColumn>
+        <endLine>147</endLine>
+        <endColumn>23</endColumn>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.SpacingRules" rule="OpeningParenthesisMustBeSpacedCorrectly" ruleCheckId="SA1008">
+        <context>Invalid spacing around the opening parenthesis.</context>
+        <line>122</line>
+        <index>4369</index>
+        <endIndex>4369</endIndex>
+        <startLine>122</startLine>
+        <startColumn>32</startColumn>
+        <endLine>122</endLine>
+        <endColumn>32</endColumn>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.SpacingRules" rule="OpeningParenthesisMustBeSpacedCorrectly" ruleCheckId="SA1008">
+        <context>Invalid spacing around the opening parenthesis.</context>
+        <line>140</line>
+        <index>5359</index>
+        <endIndex>5359</endIndex>
+        <startLine>140</startLine>
+        <startColumn>36</startColumn>
+        <endLine>140</endLine>
+        <endColumn>36</endColumn>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.SpacingRules" rule="OpeningParenthesisMustBeSpacedCorrectly" ruleCheckId="SA1008">
+        <context>Invalid spacing around the opening parenthesis.</context>
+        <line>141</line>
+        <index>5397</index>
+        <endIndex>5397</endIndex>
+        <startLine>141</startLine>
+        <startColumn>33</startColumn>
+        <endLine>141</endLine>
+        <endColumn>33</endColumn>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.SpacingRules" rule="OpeningParenthesisMustBeSpacedCorrectly" ruleCheckId="SA1008">
+        <context>Invalid spacing around the opening parenthesis.</context>
+        <line>145</line>
+        <index>5520</index>
+        <endIndex>5520</endIndex>
+        <startLine>145</startLine>
+        <startColumn>30</startColumn>
+        <endLine>145</endLine>
+        <endColumn>30</endColumn>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.SpacingRules" rule="OpeningParenthesisMustBeSpacedCorrectly" ruleCheckId="SA1008">
+        <context>Invalid spacing around the opening parenthesis.</context>
+        <line>146</line>
+        <index>5550</index>
+        <endIndex>5550</endIndex>
+        <startLine>146</startLine>
+        <startColumn>25</startColumn>
+        <endLine>146</endLine>
+        <endColumn>25</endColumn>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.SpacingRules" rule="OpeningParenthesisMustBeSpacedCorrectly" ruleCheckId="SA1008">
+        <context>Invalid spacing around the opening parenthesis.</context>
+        <line>147</line>
+        <index>5579</index>
+        <endIndex>5579</endIndex>
+        <startLine>147</startLine>
+        <startColumn>24</startColumn>
+        <endLine>147</endLine>
+        <endColumn>24</endColumn>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.DocumentationRules" rule="ElementsMustBeDocumented" ruleCheckId="SA1600">
+        <context>The method must have a documentation header.</context>
+        <line>150</line>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.SpacingRules" rule="OpeningParenthesisMustBeSpacedCorrectly" ruleCheckId="SA1008">
+        <context>Invalid spacing around the opening parenthesis.</context>
+        <line>150</line>
+        <index>5634</index>
+        <endIndex>5634</endIndex>
+        <startLine>150</startLine>
+        <startColumn>37</startColumn>
+        <endLine>150</endLine>
+        <endColumn>37</endColumn>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.SpacingRules" rule="OpeningParenthesisMustBeSpacedCorrectly" ruleCheckId="SA1008">
+        <context>Invalid spacing around the opening parenthesis.</context>
+        <line>150</line>
+        <index>5635</index>
+        <endIndex>5635</endIndex>
+        <startLine>150</startLine>
+        <startColumn>38</startColumn>
+        <endLine>150</endLine>
+        <endColumn>38</endColumn>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.SpacingRules" rule="OpeningParenthesisMustBeSpacedCorrectly" ruleCheckId="SA1008">
+        <context>Invalid spacing around the opening parenthesis.</context>
+        <line>170</line>
+        <index>6303</index>
+        <endIndex>6303</endIndex>
+        <startLine>170</startLine>
+        <startColumn>22</startColumn>
+        <endLine>170</endLine>
+        <endColumn>22</endColumn>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.DocumentationRules" rule="ElementsMustBeDocumented" ruleCheckId="SA1600">
+        <context>The method must have a documentation header.</context>
+        <line>173</line>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.ReadabilityRules" rule="PrefixCallsCorrectly" ruleCheckId="SA1126">
+        <context>The call to isExiting must begin with the 'this.', 'base.', 'object.' or 'GrayHorizonsGame.' or 'Game.' prefix to indicate the intended method call. </context>
+        <line>177</line>
+        <index>6434</index>
+        <endIndex>6442</endIndex>
+        <startLine>177</startLine>
+        <startColumn>17</startColumn>
+        <endLine>177</endLine>
+        <endColumn>25</endColumn>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.ReadabilityRules" rule="PrefixCallsCorrectly" ruleCheckId="SA1126">
+        <context>The call to Exit must begin with the 'this.', 'base.', 'object.' or 'GrayHorizonsGame.' or 'Game.' prefix to indicate the intended method call. </context>
+        <line>178</line>
+        <index>6469</index>
+        <endIndex>6472</endIndex>
+        <startLine>178</startLine>
+        <startColumn>17</startColumn>
+        <endLine>178</endLine>
+        <endColumn>20</endColumn>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.ReadabilityRules" rule="PrefixCallsCorrectly" ruleCheckId="SA1126">
+        <context>The call to isExiting must begin with the 'this.', 'base.', 'object.' or 'GrayHorizonsGame.' or 'Game.' prefix to indicate the intended method call. </context>
+        <line>175</line>
+        <index>6391</index>
+        <endIndex>6399</endIndex>
+        <startLine>175</startLine>
+        <startColumn>18</startColumn>
+        <endLine>175</endLine>
+        <endColumn>26</endColumn>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.SpacingRules" rule="OpeningParenthesisMustBeSpacedCorrectly" ruleCheckId="SA1008">
+        <context>Invalid spacing around the opening parenthesis.</context>
+        <line>173</line>
+        <index>6358</index>
+        <endIndex>6358</endIndex>
+        <startLine>173</startLine>
+        <startColumn>29</startColumn>
+        <endLine>173</endLine>
+        <endColumn>29</endColumn>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.SpacingRules" rule="OpeningParenthesisMustBeSpacedCorrectly" ruleCheckId="SA1008">
+        <context>Invalid spacing around the opening parenthesis.</context>
+        <line>178</line>
+        <index>6473</index>
+        <endIndex>6473</endIndex>
+        <startLine>178</startLine>
+        <startColumn>21</startColumn>
+        <endLine>178</endLine>
+        <endColumn>21</endColumn>
+        <warning>False</warning>
+      </violation>
+    </violations>
+  </sourcecode>
+  <sourcecode name="FileStreamInputOutputAgent.cs" parser="StyleCop.CSharp.CsParser">
+    <timestamps>
+      <styleCop>2015/05/15 09:25:11.235</styleCop>
+      <settingsFile>2015/05/15 09:35:03.531</settingsFile>
+      <sourceFile>2015/05/15 16:13:46.473</sourceFile>
+      <parser>2015/05/15 09:25:11.235</parser>
+      <StyleCop.CSharp.DocumentationRules>2015/05/15 09:25:11.235</StyleCop.CSharp.DocumentationRules>
+      <StyleCop.CSharp.DocumentationRules.FilesHashCode>778190548</StyleCop.CSharp.DocumentationRules.FilesHashCode>
+      <StyleCop.CSharp.LayoutRules>2015/05/15 09:25:11.235</StyleCop.CSharp.LayoutRules>
+      <StyleCop.CSharp.LayoutRules.FilesHashCode>0</StyleCop.CSharp.LayoutRules.FilesHashCode>
+      <StyleCop.CSharp.MaintainabilityRules>2015/05/15 09:25:11.235</StyleCop.CSharp.MaintainabilityRules>
+      <StyleCop.CSharp.MaintainabilityRules.FilesHashCode>0</StyleCop.CSharp.MaintainabilityRules.FilesHashCode>
+      <StyleCop.CSharp.NamingRules>2015/05/15 09:25:11.235</StyleCop.CSharp.NamingRules>
+      <StyleCop.CSharp.NamingRules.FilesHashCode>0</StyleCop.CSharp.NamingRules.FilesHashCode>
+      <StyleCop.CSharp.OrderingRules>2015/05/15 09:25:11.235</StyleCop.CSharp.OrderingRules>
+      <StyleCop.CSharp.OrderingRules.FilesHashCode>0</StyleCop.CSharp.OrderingRules.FilesHashCode>
+      <StyleCop.CSharp.ReadabilityRules>2015/05/15 09:25:11.235</StyleCop.CSharp.ReadabilityRules>
+      <StyleCop.CSharp.ReadabilityRules.FilesHashCode>0</StyleCop.CSharp.ReadabilityRules.FilesHashCode>
+      <StyleCop.CSharp.SpacingRules>2015/05/15 09:25:11.235</StyleCop.CSharp.SpacingRules>
+      <StyleCop.CSharp.SpacingRules.FilesHashCode>0</StyleCop.CSharp.SpacingRules.FilesHashCode>
+    </timestamps>
+    <violations>
+      <violation namespace="StyleCop.CSharp.DocumentationRules" rule="FileMustHaveHeader" ruleCheckId="SA1633">
+        <context>The file has no header, the header Xml is invalid, or the header is not located at the top of the file.</context>
+        <line>1</line>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.LayoutRules" rule="CodeMustNotContainBlankLinesAtEndOfFile" ruleCheckId="SA1518">
+        <context>The code must not contain blank lines at the end of the file.</context>
+        <line>22</line>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.LayoutRules" rule="CodeMustNotContainMultipleBlankLinesInARow" ruleCheckId="SA1507">
+        <context>The code must not contain multiple blank lines in a row.</context>
+        <line>22</line>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.OrderingRules" rule="UsingDirectivesMustBePlacedWithinNamespace" ruleCheckId="SA1200">
+        <context>All using directives must be placed inside of the namespace.</context>
+        <line>1</line>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.OrderingRules" rule="UsingDirectivesMustBePlacedWithinNamespace" ruleCheckId="SA1200">
+        <context>All using directives must be placed inside of the namespace.</context>
+        <line>2</line>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.OrderingRules" rule="UsingDirectivesMustBePlacedWithinNamespace" ruleCheckId="SA1200">
+        <context>All using directives must be placed inside of the namespace.</context>
+        <line>3</line>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.OrderingRules" rule="SystemUsingDirectivesMustBePlacedBeforeOtherUsingDirectives" ruleCheckId="SA1208">
+        <context>System using directives must be placed before all other using directives.</context>
+        <line>3</line>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.DocumentationRules" rule="ElementsMustBeDocumented" ruleCheckId="SA1600">
+        <context>The class must have a documentation header.</context>
+        <line>7</line>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.SpacingRules" rule="SymbolsMustBeSpacedCorrectly" ruleCheckId="SA1003">
+        <context>The spacing around the symbol ':' is invalid.</context>
+        <line>7</line>
+        <index>148</index>
+        <endIndex>148</endIndex>
+        <startLine>7</startLine>
+        <startColumn>44</startColumn>
+        <endLine>7</endLine>
+        <endColumn>44</endColumn>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.DocumentationRules" rule="ElementsMustBeDocumented" ruleCheckId="SA1600">
+        <context>The method must have a documentation header.</context>
+        <line>11</line>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.MaintainabilityRules" rule="StatementMustNotUseUnnecessaryParenthesis" ruleCheckId="SA1119">
+        <context>The line contains unnecessary parenthesis.</context>
+        <line>13</line>
+        <index>331</index>
+        <endIndex>374</endIndex>
+        <startLine>13</startLine>
+        <startColumn>33</startColumn>
+        <endLine>13</endLine>
+        <endColumn>76</endColumn>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.SpacingRules" rule="OpeningParenthesisMustBeSpacedCorrectly" ruleCheckId="SA1008">
+        <context>Invalid spacing around the opening parenthesis.</context>
+        <line>11</line>
+        <index>257</index>
+        <endIndex>257</endIndex>
+        <startLine>11</startLine>
+        <startColumn>32</startColumn>
+        <endLine>11</endLine>
+        <endColumn>32</endColumn>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.SpacingRules" rule="OpeningParenthesisMustBeSpacedCorrectly" ruleCheckId="SA1008">
+        <context>Invalid spacing around the opening parenthesis.</context>
+        <line>14</line>
+        <index>420</index>
+        <endIndex>420</endIndex>
+        <startLine>14</startLine>
+        <startColumn>43</startColumn>
+        <endLine>14</endLine>
+        <endColumn>43</endColumn>
+        <warning>False</warning>
+      </violation>
+    </violations>
+  </sourcecode>
+  <sourcecode name="AssemblyInfo.cs" parser="StyleCop.CSharp.CsParser">
+    <timestamps>
+      <styleCop>2015/05/15 09:25:11.235</styleCop>
+      <settingsFile>2015/05/15 09:35:03.531</settingsFile>
+      <sourceFile>2015/05/13 20:18:02.000</sourceFile>
+      <parser>2015/05/15 09:25:11.235</parser>
+      <StyleCop.CSharp.DocumentationRules>2015/05/15 09:25:11.235</StyleCop.CSharp.DocumentationRules>
+      <StyleCop.CSharp.DocumentationRules.FilesHashCode>778190548</StyleCop.CSharp.DocumentationRules.FilesHashCode>
+      <StyleCop.CSharp.LayoutRules>2015/05/15 09:25:11.235</StyleCop.CSharp.LayoutRules>
+      <StyleCop.CSharp.LayoutRules.FilesHashCode>0</StyleCop.CSharp.LayoutRules.FilesHashCode>
+      <StyleCop.CSharp.MaintainabilityRules>2015/05/15 09:25:11.235</StyleCop.CSharp.MaintainabilityRules>
+      <StyleCop.CSharp.MaintainabilityRules.FilesHashCode>0</StyleCop.CSharp.MaintainabilityRules.FilesHashCode>
+      <StyleCop.CSharp.NamingRules>2015/05/15 09:25:11.235</StyleCop.CSharp.NamingRules>
+      <StyleCop.CSharp.NamingRules.FilesHashCode>0</StyleCop.CSharp.NamingRules.FilesHashCode>
+      <StyleCop.CSharp.OrderingRules>2015/05/15 09:25:11.235</StyleCop.CSharp.OrderingRules>
+      <StyleCop.CSharp.OrderingRules.FilesHashCode>0</StyleCop.CSharp.OrderingRules.FilesHashCode>
+      <StyleCop.CSharp.ReadabilityRules>2015/05/15 09:25:11.235</StyleCop.CSharp.ReadabilityRules>
+      <StyleCop.CSharp.ReadabilityRules.FilesHashCode>0</StyleCop.CSharp.ReadabilityRules.FilesHashCode>
+      <StyleCop.CSharp.SpacingRules>2015/05/15 09:25:11.235</StyleCop.CSharp.SpacingRules>
+      <StyleCop.CSharp.SpacingRules.FilesHashCode>0</StyleCop.CSharp.SpacingRules.FilesHashCode>
+    </timestamps>
+    <violations>
+      <violation namespace="StyleCop.CSharp.DocumentationRules" rule="FileMustHaveHeader" ruleCheckId="SA1633">
+        <context>The file has no header, the header Xml is invalid, or the header is not located at the top of the file.</context>
+        <line>1</line>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.LayoutRules" rule="SingleLineCommentsMustNotBeFollowedByBlankLine" ruleCheckId="SA1512">
+        <context>A single-line comment must not be followed by a blank line. To ignore this error when commenting out a line of code, begin the comment with '////' rather than '//'.</context>
+        <line>6</line>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.LayoutRules" rule="SingleLineCommentsMustNotBeFollowedByBlankLine" ruleCheckId="SA1512">
+        <context>A single-line comment must not be followed by a blank line. To ignore this error when commenting out a line of code, begin the comment with '////' rather than '//'.</context>
+        <line>19</line>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.LayoutRules" rule="CodeMustNotContainBlankLinesAtEndOfFile" ruleCheckId="SA1518">
+        <context>The code must not contain blank lines at the end of the file.</context>
+        <line>30</line>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.LayoutRules" rule="CodeMustNotContainMultipleBlankLinesInARow" ruleCheckId="SA1507">
+        <context>The code must not contain multiple blank lines in a row.</context>
+        <line>30</line>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.SpacingRules" rule="SingleLineCommentsMustBeginWithSingleSpace" ruleCheckId="SA1005">
+        <context>The comment must start with a single space. To ignore this error when commenting out a line of code, begin the comment with '////' rather than '//'.</context>
+        <line>28</line>
+        <index>1036</index>
+        <endIndex>1073</endIndex>
+        <startLine>28</startLine>
+        <startColumn>1</startColumn>
+        <endLine>28</endLine>
+        <endColumn>38</endColumn>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.SpacingRules" rule="SingleLineCommentsMustBeginWithSingleSpace" ruleCheckId="SA1005">
+        <context>The comment must start with a single space. To ignore this error when commenting out a line of code, begin the comment with '////' rather than '//'.</context>
+        <line>29</line>
+        <index>1076</index>
+        <endIndex>1108</endIndex>
+        <startLine>29</startLine>
+        <startColumn>1</startColumn>
+        <endLine>29</endLine>
+        <endColumn>33</endColumn>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.SpacingRules" rule="OpeningParenthesisMustBeSpacedCorrectly" ruleCheckId="SA1008">
+        <context>Invalid spacing around the opening parenthesis.</context>
+        <line>8</line>
+        <index>240</index>
+        <endIndex>240</endIndex>
+        <startLine>8</startLine>
+        <startColumn>25</startColumn>
+        <endLine>8</endLine>
+        <endColumn>25</endColumn>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.SpacingRules" rule="OpeningParenthesisMustBeSpacedCorrectly" ruleCheckId="SA1008">
+        <context>Invalid spacing around the opening parenthesis.</context>
+        <line>9</line>
+        <index>298</index>
+        <endIndex>298</endIndex>
+        <startLine>9</startLine>
+        <startColumn>31</startColumn>
+        <endLine>9</endLine>
+        <endColumn>31</endColumn>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.SpacingRules" rule="OpeningParenthesisMustBeSpacedCorrectly" ruleCheckId="SA1008">
+        <context>Invalid spacing around the opening parenthesis.</context>
+        <line>10</line>
+        <index>338</index>
+        <endIndex>338</endIndex>
+        <startLine>10</startLine>
+        <startColumn>33</startColumn>
+        <endLine>10</endLine>
+        <endColumn>33</endColumn>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.SpacingRules" rule="OpeningParenthesisMustBeSpacedCorrectly" ruleCheckId="SA1008">
+        <context>Invalid spacing around the opening parenthesis.</context>
+        <line>11</line>
+        <index>372</index>
+        <endIndex>372</endIndex>
+        <startLine>11</startLine>
+        <startColumn>27</startColumn>
+        <endLine>11</endLine>
+        <endColumn>27</endColumn>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.SpacingRules" rule="OpeningParenthesisMustBeSpacedCorrectly" ruleCheckId="SA1008">
+        <context>Invalid spacing around the opening parenthesis.</context>
+        <line>12</line>
+        <index>406</index>
+        <endIndex>406</endIndex>
+        <startLine>12</startLine>
+        <startColumn>27</startColumn>
+        <endLine>12</endLine>
+        <endColumn>27</endColumn>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.SpacingRules" rule="OpeningParenthesisMustBeSpacedCorrectly" ruleCheckId="SA1008">
+        <context>Invalid spacing around the opening parenthesis.</context>
+        <line>13</line>
+        <index>442</index>
+        <endIndex>442</endIndex>
+        <startLine>13</startLine>
+        <startColumn>29</startColumn>
+        <endLine>13</endLine>
+        <endColumn>29</endColumn>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.SpacingRules" rule="OpeningParenthesisMustBeSpacedCorrectly" ruleCheckId="SA1008">
+        <context>Invalid spacing around the opening parenthesis.</context>
+        <line>14</line>
+        <index>491</index>
+        <endIndex>491</endIndex>
+        <startLine>14</startLine>
+        <startColumn>29</startColumn>
+        <endLine>14</endLine>
+        <endColumn>29</endColumn>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.SpacingRules" rule="OpeningParenthesisMustBeSpacedCorrectly" ruleCheckId="SA1008">
+        <context>Invalid spacing around the opening parenthesis.</context>
+        <line>15</line>
+        <index>525</index>
+        <endIndex>525</endIndex>
+        <startLine>15</startLine>
+        <startColumn>27</startColumn>
+        <endLine>15</endLine>
+        <endColumn>27</endColumn>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.SpacingRules" rule="OpeningParenthesisMustBeSpacedCorrectly" ruleCheckId="SA1008">
+        <context>Invalid spacing around the opening parenthesis.</context>
+        <line>21</line>
+        <index>791</index>
+        <endIndex>791</endIndex>
+        <startLine>21</startLine>
+        <startColumn>27</startColumn>
+        <endLine>21</endLine>
+        <endColumn>27</endColumn>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.SpacingRules" rule="OpeningParenthesisMustBeSpacedCorrectly" ruleCheckId="SA1008">
+        <context>Invalid spacing around the opening parenthesis.</context>
+        <line>22</line>
+        <index>825</index>
+        <endIndex>825</endIndex>
+        <startLine>22</startLine>
+        <startColumn>22</startColumn>
+        <endLine>22</endLine>
+        <endColumn>22</endColumn>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.SpacingRules" rule="OpeningParenthesisMustBeSpacedCorrectly" ruleCheckId="SA1008">
+        <context>Invalid spacing around the opening parenthesis.</context>
+        <line>23</line>
+        <index>859</index>
+        <endIndex>859</endIndex>
+        <startLine>23</startLine>
+        <startColumn>24</startColumn>
+        <endLine>23</endLine>
+        <endColumn>24</endColumn>
+        <warning>False</warning>
+      </violation>
+    </violations>
+  </sourcecode>
+</stylecopresultscache>

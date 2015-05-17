@@ -1,8 +1,8 @@
 ﻿using System;
-using GrayHorizons.Logic;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework;
 using System.Xml.Serialization;
+using GrayHorizons.Logic;
 
 namespace GrayHorizons.Input
 {

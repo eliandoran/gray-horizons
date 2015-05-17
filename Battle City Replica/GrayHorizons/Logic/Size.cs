@@ -1,5 +1,4 @@
 ﻿using System;
-using GrayHorizons.Logic;
 using System.Xml.Serialization;
 
 namespace GrayHorizons.Logic

@@ -1,7 +1,7 @@
 ﻿using System.Xml.Serialization;
-using GrayHorizons.Logic;
 using GrayHorizons.StaticObjects;
 using GrayHorizons.ThirdParty;
+using Microsoft.Xna.Framework;
 
 namespace GrayHorizons.Logic
 {
@@ -11,16 +11,31 @@ namespace GrayHorizons.Logic
     [XmlInclude (typeof(Wall))]
     public abstract class StaticObject: ObjectBase
     {
+        protected StaticObject ()
+        {
+            MinimapColor = Color.Gray;
+        }
+
         public override void Render ()
         {
             if (Position.Intersects (new RotatedRectangle (GameData.Map.Viewport, 0)))
             {
-                var texture = GameData.MappedTextures [GetType ()];
+                var texture = CustomTexture ?? GameData.MappedTextures [GetType ()];
                 var viewportPosition = GameData.Map.CalculateViewportCoordinates (Position.UpperLeftCorner (),
                                                                                   GameData.MapScale);
+                
 
-                GameData.SpriteBatch.Draw (texture, viewportPosition, scale: GameData.MapScale);
+                GameData.ScreenManager.SpriteBatch.Draw (texture,
+                                                         viewportPosition,
+                                                         scale: GameData.MapScale,
+                                                         sourceRectangle: CustomTextureCrop,
+                                                         rotation: Position.Rotation);
             }
+        }
+
+        public override void RenderHUD ()
+        {
+            // No implementation needed.
         }
     }
 }

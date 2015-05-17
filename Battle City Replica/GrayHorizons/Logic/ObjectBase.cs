@@ -7,53 +7,99 @@ using GrayHorizons.Entities;
 using GrayHorizons.ThirdParty;
 using GrayHorizons.StaticObjects;
 using GrayHorizons.Extensions;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace GrayHorizons.Logic
 {
+    public class CollideEventArgs: EventArgs
+    {
+        readonly ObjectBase collidedWith;
+
+        public ObjectBase CollidedWith
+        {
+            get
+            {
+                return collidedWith;
+            }
+        }
+
+        public bool PassThrough { get; set; }
+
+        public CollideEventArgs(ObjectBase collidedWith, bool passThrough)
+        {
+            this.collidedWith = collidedWith;
+            PassThrough = passThrough;
+        }
+
+        public CollideEventArgs(ObjectBase collidedWith)
+            : this(collidedWith, false)
+        {
+         
+        }
+    }
+
+
     /// <summary>
     /// Represents either an entity or a static object that can be placed on the map.
     /// </summary>
-    public abstract class ObjectBase
+    public abstract class ObjectBase: IRenderable
     {
+        public event EventHandler<CollideEventArgs> Collided;
+
         /// <summary>
         /// Gets or sets the map which contains this entity.
         /// </summary>
         /// <value>The parent map.</value>
-        [XmlIgnore ()]
+        [XmlIgnore]
         public GameData GameData { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether this <see cref="GrayHorizons.Logic.ObjectBase"/> has collision.
         /// </summary>
         /// <value><c>true</c> if this instance has collision; otherwise, <c>false</c>.</value>
-        [XmlElement ("HasCollision"), DefaultValue (true)]
+        [XmlElement("HasCollision"), DefaultValue(true)]
         public bool HasCollision { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether this <see cref="GrayHorizons.Logic.ObjectBase"/> is invincible.
         /// </summary>
         /// <value><c>true</c> if this instance is invincible; otherwise, <c>false</c>.</value>
-        [XmlElement ("IsInvincible"), DefaultValue (false)]
+        [XmlElement("IsInvincible"), DefaultValue(false)]
         public bool IsInvincible { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether a projectile can pass through this <see cref="GrayHorizons.Logic.ObjectBase"/>.
         /// </summary>
         /// <value><c>true</c> if allow pass through; otherwise, <c>false</c>.</value>
-        [XmlElement ("AllowPassThrough")]
+        [XmlElement("AllowPassThrough")]
         public bool AllowPassThrough { get; set; }
 
         /// <summary>
         /// Gets or sets the health of this object.
         /// </summary>
         /// <value>The health of the object.</value>
-        [XmlElement ("Health"), DefaultValue (1)]
+        [XmlElement("Health"), DefaultValue(1)]
         public int Health { get; set; }
+
+        public int MaximumHealth { get; set; }
+
+        public double HealthPercentage
+        {
+            get
+            {
+                return MaximumHealth / Health;
+            }
+        }
+
+        [XmlIgnore]
+        public Texture2D CustomTexture { get; set; }
+
+        public Rectangle? CustomTextureCrop { get; set; }
 
         /// <summary>
         /// The location of this object on the game map.
         /// </summary>
-        [XmlElement ("Position")]
+        [XmlElement("Position")]
         public RotatedRectangle Position;
 
         public Point DefaultSize { get; set; }
@@ -64,15 +110,17 @@ namespace GrayHorizons.Logic
 
         public bool IsBeingDestroyed { get; set; }
 
+        public Color? MinimapColor { get; set; }
+
         /// <summary>
         /// This procedure should be called each time the object is hit by a projectile, to manage its health and destruction.
         /// </summary>
         /// <param name="hitter">The projectile which hit this object.</param>
-        public virtual void WasHitByProjectile (
+        public virtual void WasHitByProjectile(
             Projectile hitter)
         {
             #if DEBUG
-            Debug.WriteLine ("<{0}> was hit by <{1}>.".FormatWith (ToString (), hitter), "HIT");
+            Debug.WriteLine("<{0}> was hit by <{1}>.".FormatWith(ToString(), hitter), "HIT");
             #endif
 
             if (HasCollision)
@@ -82,81 +130,92 @@ namespace GrayHorizons.Logic
                     if (Health - hitter.Damage > 0)
                         Health -= hitter.Damage;
                     else
-                        Explode ();
+                        Explode();
 
                     if (!AllowPassThrough)
-                        hitter.GenerateExplosion ();
+                        hitter.GenerateExplosion();
                 }
                 else
                 {
-                    hitter.Explode ();
+                    hitter.Explode();
                 }
             }                
         }
 
-        public virtual void Explode ()
+        public virtual void Explode()
         {
-            GenerateExplosion (Position.CollisionRectangle.Center,
-                new Vector2 (Position.Width,
+            GenerateExplosion(Position.CollisionRectangle.Center,
+                new Vector2(Position.Width,
                     Position.Height));
         }
 
-        public void GenerateExplosion (
+        public void GenerateExplosion(
             Point sourceOfImpact,
             Vector2 explosionSize)
         {
             int x = sourceOfImpact.X - ((int)explosionSize.X / 2);
             int y = sourceOfImpact.Y - ((int)explosionSize.Y / 2);
 
-            GameData.Map.StaticObjects.Add (new Explosion () {
-                Position = new RotatedRectangle (new Rectangle (x, y, (int)explosionSize.X, (int)explosionSize.Y),
-                    Position.Rotation),
-                GameData = GameData
-            });
+            GameData.Map.StaticObjects.Add(new Explosion
+                {
+                    Position = new RotatedRectangle(new Rectangle(x, y, (int)explosionSize.X, (int)explosionSize.Y),
+                        Position.Rotation),
+                    GameData = GameData
+                });
 
             DestructionTimeLeft = DestructionDelay;
             IsBeingDestroyed = true;
         }
 
-        public void GenerateExplosion ()
+        public void GenerateExplosion()
         {
-            GenerateExplosion (Position.CollisionRectangle.Center, new Vector2 (32, 32));
+            GenerateExplosion(Position.CollisionRectangle.Center, new Vector2(32, 32));
         }
 
         /// <summary>
         /// Destroy this instance.
         /// </summary>
-        public void Destroy ()
+        public virtual void Destroy()
         {
-            GameData.Map.QueueRemoval (this);
+            GameData.Map.QueueRemoval(this);
 
             #if DEBUG
-            Debug.WriteLine ("<{0}> was destroyed.".FormatWith (ToString ()), "DESTROY");
+            Debug.WriteLine("<{0}> was destroyed.".FormatWith(ToString()), "DESTROY");
             #endif
         }
 
         /// <summary>
         /// It should be called when the game requires the <see cref="GrayHorizons.Logic.ObjectBase"/> to change its current state, i.e. a game tick has passed.
         /// </summary>
-        public virtual void Update (
+        public virtual void Update(
             TimeSpan gameTime)
         {
             if (IsBeingDestroyed)
             {
-                Debug.WriteLine (DestructionTimeLeft.TotalMilliseconds);
+                Debug.WriteLine(DestructionTimeLeft.TotalMilliseconds);
 
                 if (DestructionTimeLeft > DestructionDelay)
                 {
-                    DestructionTimeLeft = DestructionTimeLeft.Subtract (gameTime);
+                    DestructionTimeLeft = DestructionTimeLeft.Subtract(gameTime);
                 }
                 else
                 {
-                    Destroy ();
+                    Destroy();
                     IsBeingDestroyed = false;
                 }
             }
         }
 
-        public abstract void Render ();
+        internal virtual void OnCollide(CollideEventArgs e)
+        {
+            if (Collided != null)
+            {
+                Collided(this, e);
+            }
+        }
+
+        public abstract void Render();
+
+        public abstract void RenderHUD();
     }
 }

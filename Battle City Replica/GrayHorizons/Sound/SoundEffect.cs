@@ -47,7 +47,7 @@ namespace GrayHorizons.Sound
 
             #if DEBUG
             Debug.WriteLine (
-                "Played sound {0} out of {1}.".FormatWith (randomSound, count),
+                "Played sound {0} out of {1}.".FormatWith (randomSound + 1, count),
                 "SOUND");
             #endif
 

@@ -1,21 +1,20 @@
 ﻿using System;
-using GrayHorizons.Input;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Xml.Serialization;
-using System.Diagnostics;
 using GrayHorizons.Extensions;
-using Microsoft.Xna.Framework;
+using GrayHorizons.Input;
 
 namespace GrayHorizons.Logic
 {
-    [XmlRoot ("GrayHorizons")]
+    [XmlRoot("GrayHorizons")]
     public class Configuration
     {
         readonly List<InputBinding> inputBindings;
 
-        [XmlArray ()]
-        [XmlArrayItem ("Bind")]
+        [XmlArray]
+        [XmlArrayItem("Bind")]
         public List<InputBinding> InputBindings
         {
             get
@@ -24,20 +23,26 @@ namespace GrayHorizons.Logic
             }
         }
 
-        [XmlElement ()]
+        [XmlElement]
         public Size FullScreenResolution { get; set; }
 
-        public Configuration ()
+        [XmlElement]
+        public Size WindowedModeResolution { get; set; }
+
+        [XmlElement]
+        public bool FullScreen { get; set; }
+
+        public Configuration()
         {
-            inputBindings = new List<InputBinding> ();
+            inputBindings = new List<InputBinding>();
         }
 
-        public void Save(string filePath)
+        public void Save(InputOutputAgent agent, string filePath)
         {
-            using (var fs = new FileStream (filePath, FileMode.Create))
+            using (var stream = agent.GetStream(filePath, false))
             {
-                var xml = new XmlSerializer (GetType ());
-                xml.Serialize (fs, this);
+                var xml = new XmlSerializer(GetType());
+                xml.Serialize(stream, this);
             }
         }
 
@@ -55,25 +60,23 @@ namespace GrayHorizons.Logic
             }
         }
 
-        public static Configuration Load(string filePath)
+        public static Configuration Load(InputOutputAgent agent, string filePath)
         {
             Configuration config = null;
 
-            using (var fs = new FileStream (filePath, FileMode.Open))
+            using (var stream = agent.GetStream(filePath, true))
             {
-                var xml = new XmlSerializer (typeof(Configuration));
+                var xml = new XmlSerializer(typeof(Configuration));
 
                 try
                 {
-                    config = xml.Deserialize (fs) as Configuration;
+                    config = xml.Deserialize(stream) as Configuration;
                 }
                 catch (InvalidOperationException e)
                 {
                     #if DEBUG
-                    Debug.WriteLine ("Error loading configuration.", "CONFIG");
-                    Debug.Indent ();
-                    Debug.WriteLine (e.ToString ());
-                    Debug.Unindent ();
+                    Debug.WriteLine("Error loading configuration.", "CONFIG");
+                    Debug.WriteLine(e.ToString());
                     #endif
                 }
             }
@@ -81,13 +84,10 @@ namespace GrayHorizons.Logic
             #if DEBUG
             if (config != null)
             {
-                Debug.WriteLine ("Input Bindings ({0}):".FormatWith (config.InputBindings.Count), "CONFIG");
-                Debug.Indent ();
+                Debug.WriteLine("Input Bindings ({0}):".FormatWith(config.InputBindings.Count), "CONFIG");
 
                 foreach (InputBinding binding in config.InputBindings)
-                    Debug.WriteLine (binding.ToString ());                
-
-                Debug.Unindent ();
+                    Debug.WriteLine(binding.ToString());
             }
             #endif
 

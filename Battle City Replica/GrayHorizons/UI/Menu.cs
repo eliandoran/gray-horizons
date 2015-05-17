@@ -5,8 +5,8 @@ using Microsoft.Xna.Framework;
 using System.Diagnostics;
 using GrayHorizons.Extensions;
 using GrayHorizons.Input;
-using GrayHorizons.Input.Actions;
 using Microsoft.Xna.Framework.Graphics;
+using GrayHorizons.Actions.MenuNavigation;
 
 namespace GrayHorizons.UI
 {
@@ -23,18 +23,17 @@ namespace GrayHorizons.UI
             inputBindings = new List<InputBinding> ();
 
             #if DEBUG
-            Debug.Unindent ();
             Debug.WriteLine ("Adding event handlers...", "MENU");
             #endif
 
-            var menuUpAction = new MenuActions.MenuUp (this);
+            var menuUpAction = new MenuUp (this);
 
-            var menuDownAction = new MenuActions.MenuDown (this);
+            var menuDownAction = new MenuDown (this);
 
-            var menuSelectAction = new MenuActions.MenuSelect (this);
+            var menuSelectAction = new MenuSelect (this);
 
             var menuMouseControlBinding = new MouseAxisBinding ();
-            var menuMouseControlActions = new MenuActions.MenuMouseControlAction (this, menuMouseControlBinding);
+            var menuMouseControlActions = new MenuMouseControlAction (this, menuMouseControlBinding);
             menuMouseControlBinding.BoundAction = menuMouseControlActions;
 
             inputBindings.AddRange (
@@ -54,7 +53,6 @@ namespace GrayHorizons.UI
         {
             #if DEBUG
             Debug.WriteLine ("Adding components:", "MENU");
-            Debug.Indent ();
             #endif
 
             int index = 0;
@@ -75,10 +73,6 @@ namespace GrayHorizons.UI
 
                 index++;
             }
-
-            #if DEBUG
-            Debug.Unindent ();
-            #endif
         }
 
         public List<MenuItem> MenuItems
@@ -218,11 +212,18 @@ namespace GrayHorizons.UI
         {
             foreach (var menuItem in MenuItems)
                 menuItem.ExitScreen ();
+
+            ExitScreen ();
         }
 
         public override void UnloadContent ()
         {
             base.UnloadContent ();
+        }
+
+        public override string ToString ()
+        {
+            return string.Format ("[Menu: ItemsCount={0}]", MenuItems.Count);
         }
     }
 }

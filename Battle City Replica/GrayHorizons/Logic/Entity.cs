@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Xml;
 using System.Diagnostics;
 using Microsoft.Xna.Framework;
-using GrayHorizons.ThirdParty;
-using System.IO;
 using Microsoft.Xna.Framework.Graphics;
 using GrayHorizons.Extensions;
-using System.Dynamic;
-using System.Configuration;
+using GrayHorizons.ThirdParty;
 
 namespace GrayHorizons.Logic
 {
@@ -16,6 +12,8 @@ namespace GrayHorizons.Logic
     /// </summary>
     public abstract class Entity: ObjectBase
     {
+        AIBase ai;
+
         public event EventHandler<EventArgs> Moved;
         public event EventHandler<EventArgs> Updated;
 
@@ -40,6 +38,28 @@ namespace GrayHorizons.Logic
 
         public bool IsTurning { get; set; }
 
+        public int Speed { get; set; }
+
+        public bool CanMoveOnSpot { get; set; }
+
+        /// <summary>
+        /// Gets or sets artifical intelligence/player instance that controls this tank.
+        /// </summary>
+        /// <value>The AI/player controlling this instance.</value>
+        public AIBase AI
+        {
+            get
+            {
+                return ai;
+            }
+            set
+            {
+                ai = value;
+                ai.ControllingEntity = this;
+                ai.GameData = GameData;
+            }
+        }
+
         /// <summary>
         /// Determines whether this instance can move in a direction with the specified delta X and Y and step.
         /// </summary>
@@ -47,99 +67,67 @@ namespace GrayHorizons.Logic
         /// <param name="deltaX">The horizontal offset.</param>
         /// <param name="deltaY">The vertical offset.</param>
         /// <param name="step">How much to move.</param>
-        public bool CanMoveIn (
+        public bool CanMoveIn(
             RotatedRectangle newPosition)
         {
-            if (!GameData.Map.IsWithinBounds (newPosition))
+            if (!GameData.Map.IsWithinBounds(newPosition))
             {
-                Debug.WriteLine ("Out of bounds.", "MOVE");
+                Debug.WriteLine("Out of bounds.", "MOVE");
 
                 return false;
             }
 
-            foreach (StaticObject obj in GameData.Map.StaticObjects)
+            foreach (ObjectBase obj in GameData.Map.GetObjects())
             {
-                if (obj.Position.Intersects (newPosition))
+                if (obj.HasCollision && obj.Position.Intersects(newPosition) && obj != this)
                 {
                     #if DEBUG
-                    Debug.WriteLine ("<{0}> ({1}) collides with <{2}> ({3})".FormatWith (ToString (),
-                                                                                         Position,
-                                                                                         obj,
-                                                                                         obj.Position),
-                                     "COLLISION");
+                    Debug.WriteLine("<{0}> ({1}) collides with <{2}> ({3})".FormatWith(ToString(),
+                            Position,
+                            obj,
+                            obj.Position),
+                        "COLLISION");
                     #endif
 
-                    return false;
-                }
-            }
-
-            foreach (Entity entity in GameData.Map.Entities)
-            {
-                if (entity != this && entity.Position.Intersects (newPosition) && entity.HasCollision)
-                {
-                    #if DEBUG
-                    Debug.WriteLine ("<{0}> ({1}) collides with <{2}> ({3})".FormatWith (ToString (),
-                                                                                         Position,
-                                                                                         entity,
-                                                                                         entity.Position),
-                                     "COLLISION");
-                    #endif
-
-                    return false;
+                    var eventArgs = new CollideEventArgs(this);
+                    obj.OnCollide(eventArgs);
+                    return eventArgs.PassThrough;
                 }
             }
 
             return true;
         }
 
-        public static Point GetDelta (
+        public static Point GetDelta(
             float radians,
             int step,
             bool reverse = false)
         {
-            return new Point (
-                (int)((reverse ? -1 : 1) * Math.Sin (radians) * step),
-                (int)((reverse ? 1 : -1) * Math.Cos (radians) * step));
+            return new Point(
+                (int)((reverse ? -1 : 1) * Math.Sin(radians) * step),
+                (int)((reverse ? 1 : -1) * Math.Cos(radians) * step));
         }
 
-        public virtual bool Move (
+        public virtual bool Move(
             MoveDirection direction,
-            int moveStep,
             bool noClip)
         {
-            var rads = Rotation.FromRadians (Position.Rotation).OffsetBy (90).ToRadians ();
-            var newPosition = new RotatedRectangle (Position.CollisionRectangle, Position.Rotation);
-            var _step = (int)(Math.Round (AccelerationFactor * moveStep));
+            var rads = Rotation.FromRadians(Position.Rotation).OffsetBy(90).ToRadians();
+            var newPosition = new RotatedRectangle(Position.CollisionRectangle, Position.Rotation);
+            var _step = (int)(Math.Round(AccelerationFactor * Speed));
 
             #if DEBUG
-            Debug.WriteLine ("Factor: {0}, Step: {1}, FStep: {2}.".FormatWith (AccelerationFactor, moveStep, _step),
-                             "MOVE");
+            Debug.WriteLine("Factor: {0}, Speed: {1}, FStep: {2}.".FormatWith(AccelerationFactor, Speed, _step),
+                "MOVE");
             #endif
 
-            var delta = GetDelta (rads, _step, (direction == MoveDirection.Backward));
-            newPosition.ChangePosition (delta.X, delta.Y);
+            var delta = GetDelta(rads, _step, (direction == MoveDirection.Backward));
+            newPosition.ChangePosition(delta.X, delta.Y);
 
-            if (noClip || CanMoveIn (newPosition))
+            if (noClip || CanMoveIn(newPosition))
             {
                 Position = newPosition;
-
-//                if (ParentMap.Viewport.X + ParentMap.Viewport.Width < newPosition.X)
-//                {
-//                    ParentMap.Viewport = new Rectangle (ParentMap.Viewport.X + 20,
-//                                                        ParentMap.Viewport.Y,
-//                                                        ParentMap.Viewport.Width,
-//                                                        ParentMap.Viewport.Height);
-//                    Debug.WriteLine ("Viewport shifted.");
-//                }
-//                else if (ParentMap.Viewport.X > newPosition.X)
-//                {
-//                    ParentMap.Viewport = new Rectangle (ParentMap.Viewport.X - 20,
-//                                                        ParentMap.Viewport.Y,
-//                                                        ParentMap.Viewport.Width,
-//                                                        ParentMap.Viewport.Height);
-//                }
-
-                OnMoved (EventArgs.Empty);
+                OnMoved(EventArgs.Empty);
 
                 return true;
             }
@@ -147,25 +135,24 @@ namespace GrayHorizons.Logic
             return false;
         }
 
-        public virtual bool Turn (
+        public virtual bool Turn(
             TurnDirection turnDirection,
             MoveDirection? moveDirection = null,
-            bool onSpot = false,
             bool noClip = false)
         {
             const int step = 2;
             MoveDirection _moveDirection = moveDirection ?? MoveDirection.Backward;
 
-            if (onSpot || Move (_moveDirection, 3, noClip))
+            if (CanMoveOnSpot || Move(_moveDirection, noClip))
             {
                 var offset = (turnDirection == TurnDirection.Left ? -step : step);
-                var newPosition = new RotatedRectangle (Position.CollisionRectangle, Position.Rotation);
-                newPosition.Rotation = Rotation.FromRadians (newPosition.Rotation).OffsetBy (offset).ToRadians ();
+                var newPosition = new RotatedRectangle(Position.CollisionRectangle, Position.Rotation);
+                newPosition.Rotation = Rotation.FromRadians(newPosition.Rotation).OffsetBy(offset).ToRadians();
 
-                if (noClip || CanMoveIn (newPosition))
+                if (noClip || CanMoveIn(newPosition))
                 {
                     Position = newPosition;
-                    OnMoved (EventArgs.Empty);
+                    OnMoved(EventArgs.Empty);
                     return true;
                 }
             }
@@ -177,11 +164,11 @@ namespace GrayHorizons.Logic
         /// It should be called upon when the game requires this <see cref="GrayHorizons.Logic.Entity"/> to update.
         /// </summary>
         /// <param name="gameTime">The time that has elapsed since the last update.</param>
-        public override void Update (
+        public override void Update(
             TimeSpan gameTime)
         {
-            base.Update (gameTime);
-            OnUpdated (EventArgs.Empty);
+            base.Update(gameTime);
+            OnUpdated(EventArgs.Empty);
 
             if (IsMoving)
             {
@@ -194,21 +181,21 @@ namespace GrayHorizons.Logic
             }                
         }
 
-        protected virtual void OnMoved (
+        protected virtual void OnMoved(
             EventArgs e)
         {
             if (Moved != null)
-                Moved (this, e);
+                Moved(this, e);
         }
 
-        protected virtual void OnUpdated (
+        protected virtual void OnUpdated(
             EventArgs e)
         {
             if (Updated != null)
-                Updated (this, e);
+                Updated(this, e);
         }
 
-        public override void Render ()
+        public override void Render()
         {
             Vector2 position;
             Texture2D texture;
@@ -216,19 +203,19 @@ namespace GrayHorizons.Logic
             //if (entity.Position.CollisionRectangle.Intersects (gameData.Map.Viewport))
             if (true)
             {
-                var entityType = GetType ();
+                var entityType = GetType();
 
-                if (GameData.MappedTextures.ContainsKey (entityType))
+                if (GameData.MappedTextures.ContainsKey(entityType))
                 {
-                    texture = GameData.MappedTextures [entityType];
-                    position = GameData.Map.CalculateViewportCoordinates (Position.CollisionRectangle.Center.ToVector2 (),
-                                                                          GameData.MapScale);
+                    texture = GameData.MappedTextures[entityType];
+                    position = GameData.Map.CalculateViewportCoordinates(Position.CollisionRectangle.Center.ToVector2(),
+                        GameData.MapScale);
                 }
                 else
                 {
                     #if DEBUG
-                    Debug.WriteLine ("There is no mapped texture for type <{0}>.".FormatWith (entityType.Name),
-                                     "RENDERER");
+                    Debug.WriteLine("There is no mapped texture for type <{0}>.".FormatWith(entityType.Name),
+                        "RENDERER");
                     #endif
 
                     return;
@@ -236,17 +223,24 @@ namespace GrayHorizons.Logic
             }
             else
             {
-                Debug.WriteLine ("{0} - out of viewport.".FormatWith (ToString ()));
-                return;
+                //Debug.WriteLine("{0} - out of viewport.".FormatWith(ToString()));
+                //return;
             }
 
-            GameData.SpriteBatch.Draw (
+            GameData.ScreenManager.SpriteBatch.Draw(
                 texture,
-                destinationRectangle: new Rectangle (new Point ((int)position.X, (int)position.Y), DefaultSize),
-                origin: new Vector2 (texture.Width / 2, texture.Height / 2),
+                destinationRectangle: new Rectangle((int)position.X, (int)position.Y, DefaultSize.X, DefaultSize.Y),
+                origin: new Vector2(texture.Width / 2, texture.Height / 2),
                 rotation: Position.Rotation,
                 scale: GameData.MapScale
             );
         }
+
+        public override void RenderHUD()
+        {
+            // No implementation needed.
+        }
+
+        public abstract void Shoot();
     }
 }

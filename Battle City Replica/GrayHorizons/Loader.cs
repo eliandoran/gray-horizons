@@ -1,14 +1,14 @@
 ﻿using System;
-using GrayHorizons.Sound;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System.Reflection;
 using System.Linq;
-using GrayHorizons.Attributes;
 using System.Diagnostics;
 using GrayHorizons.Logic;
+using GrayHorizons.Attributes;
 using GrayHorizons.Extensions;
+using GrayHorizons.Sound;
 
 namespace GrayHorizons
 {
@@ -31,46 +31,41 @@ namespace GrayHorizons
 
             #if DEBUG
             Debug.WriteLine ("MAPPED TEXTURES:");
-            Debug.Indent ();
+            ;
             #endif
 
-            query.ToList ().ForEach (
-                type =>
-                { 
-                    if (!fullReload && gameData.MappedTextures.ContainsKey (type))
-                        return;
+            foreach (var type in query.ToList ())
+            {
+                if (!fullReload && gameData.MappedTextures.ContainsKey (type))
+                    continue;
 
-                    var attr = (MappedTexturesAttribute)type.GetCustomAttributes (
-                                   typeof(MappedTexturesAttribute),
-                                   true).First ();
-                    var textureName = attr.GetRandomTexture ();
+                var attr = (MappedTexturesAttribute)type.GetCustomAttributes (
+                               typeof(MappedTexturesAttribute),
+                               true).First ();
+                var textureName = attr.GetRandomTexture ();
 
-                    try
-                    {
-                        var texture = gameData.ContentManager.Load<Texture2D> (textureName);
-                        gameData.MappedTextures.Add (type, texture);
-                    }
-                    catch (ContentLoadException e)
-                    {
-                        #if DEBUG
-                        Debug.WriteLine ("Unable to map type <{0}> with \"{1}\". Texture load error:\n{2}".FormatWith (
-                                type.Name,
-                                textureName,
-                                e.Message));                    
-                        #endif
-
-                        throw;
-                    }
-
+                try
+                {
+                    var texture = gameData.ContentManager.Load<Texture2D> (textureName);
+                    gameData.MappedTextures.Add (type, texture);
+                }
+                catch (ContentLoadException e)
+                {
                     #if DEBUG
-                    Debug.WriteLine ("Mapped the type of <{0}> with \"{1}\".".FormatWith (type.Name,
-                                                                                          textureName));
+                    Debug.WriteLine ("Unable to map type <{0}> with \"{1}\". Texture load error:\n{2}".FormatWith (
+                            type.Name,
+                            textureName,
+                            e.Message));                    
                     #endif
-                });
 
-            #if DEBUG
-            Debug.Unindent ();
-            #endif
+                    throw;
+                }
+
+                #if DEBUG
+                Debug.WriteLine ("Mapped the type of <{0}> with \"{1}\".".FormatWith (type.Name,
+                                                                                      textureName));
+                #endif
+            }
         }
 
         public static void LoadSoundEffects (GameData gameData)
@@ -79,7 +74,6 @@ namespace GrayHorizons
 
             #if DEBUG
             Debug.WriteLine ("Loading sounds...", "LOADER");
-            Debug.Indent ();
             #endif
 
             var types = FilterTypes (namespaces, typeof(SoundAutoLoadAttribute));
@@ -87,7 +81,6 @@ namespace GrayHorizons
             {
                 #if DEBUG
                 Debug.WriteLine ("Loading pack <{0}>...".FormatWith (type.Name));
-                Debug.Indent ();
                 #endif
 
                 foreach (FieldInfo member in type.GetFields())
@@ -113,15 +106,7 @@ namespace GrayHorizons
                         }                            
                     }
                 }
-
-                #if DEBUG
-                Debug.Unindent ();
-                #endif
             }
-
-            #if DEBUG
-            Debug.Unindent ();
-            #endif
         }
 
         static List<Type> FilterTypes (

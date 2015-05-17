@@ -1,11 +1,11 @@
 ﻿using System;
-using GrayHorizons.Logic;
 using System.Xml.Serialization;
 using System.Reflection;
 using System.Diagnostics;
 using GrayHorizons.Extensions;
 using GrayHorizons.Attributes;
 using System.ComponentModel;
+using GrayHorizons.Logic;
 
 namespace GrayHorizons.Input
 {

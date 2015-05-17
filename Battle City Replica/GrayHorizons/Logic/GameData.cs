@@ -1,21 +1,37 @@
 ﻿using System;
 using System.Collections.Generic;
-using GrayHorizons.Input;
+using System.Diagnostics;
+using GrayHorizons.ThirdParty.GameStateManagement;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework;
-using GrayHorizons.Entities;
-using GrayHorizons.ThirdParty.GameStateManagement;
+using GrayHorizons.Objectives;
 
 namespace GrayHorizons.Logic
 {
     public class GameData
     {
-        readonly List<Player> players = new List<Player> ();
-        readonly List<InputBinding> inputBindings = new List<InputBinding> ();
-        readonly List<Tank> tankPool = new List<Tank> ();
-        readonly Dictionary<Type, Texture2D> mappedTextures = new Dictionary<Type, Texture2D> ();
-        readonly DebuggingSettings debuggingSettings = new DebuggingSettings ();
+        readonly List<Player> players = new List<Player>();
+        readonly List<Tank> tankPool = new List<Tank>();
+        readonly Dictionary<Type, Texture2D> mappedTextures = new Dictionary<Type, Texture2D>();
+        readonly DebuggingSettings debuggingSettings = new DebuggingSettings();
+        readonly ObjectiveList objectives = new ObjectiveList();
+        StringBuilderTraceListener traceListener;
+
+        public StringBuilderTraceListener TraceListener
+        {
+            get
+            {
+                return traceListener;
+            }
+            set
+            {
+                traceListener = value;
+
+                if (value != null)
+                    Debug.Listeners.Add(value);
+            }
+        }
 
         public Game Game { get; set; }
 
@@ -26,8 +42,6 @@ namespace GrayHorizons.Logic
         public GraphicsDevice GraphicsDevice { get; set; }
 
         public GraphicsDeviceManager GraphicsDeviceManager { get; set; }
-
-        public SpriteBatch SpriteBatch { get; set; }
 
         public GameTime GameTime { get; set; }
 
@@ -43,21 +57,15 @@ namespace GrayHorizons.Logic
 
         public ScreenManager ScreenManager { get; set; }
 
-        public Texture2D blankTexture;
+        public Texture2D BlankTexture;
+
+        public InputOutputAgent IOAgent;
 
         public List<Player> Players
         {
             get
             {
                 return players;
-            }
-        }
-
-        public List<InputBinding> InputBindings
-        {
-            get
-            {
-                return inputBindings;
             }
         }
 
@@ -82,6 +90,14 @@ namespace GrayHorizons.Logic
             get
             {
                 return debuggingSettings;
+            }
+        }
+
+        public ObjectiveList Objectives
+        {
+            get
+            {
+                return objectives;
             }
         }
     }

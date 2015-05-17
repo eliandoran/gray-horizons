@@ -1,9 +1,9 @@
 ﻿using System;
 using GrayHorizons.UI;
 using Microsoft.Xna.Framework;
-using GrayHorizons.Logic;
 using Microsoft.Xna.Framework.Graphics;
 using GrayHorizons.ThirdParty.GameStateManagement;
+using GrayHorizons.Logic;
 
 namespace GrayHorizons.Screens
 {
@@ -62,8 +62,8 @@ namespace GrayHorizons.Screens
                 menuItem.Color = menuItem.SelectedColor = new Color (255, 255, 255, 100);
             }
 
-            var screenWidth = ScreenManager.Game.Window.ClientBounds.Width;
-            var screenHeight = ScreenManager.Game.Window.ClientBounds.Height;
+            var screenWidth = ScreenManager.Game.GraphicsDevice.Adapter.CurrentDisplayMode.Width;
+            var screenHeight = ScreenManager.Game.GraphicsDevice.Adapter.CurrentDisplayMode.Height;
 
             menu.ItemSize = new Point (screenWidth, 60);
             menu.ItemPadding = new Point (0, 15);

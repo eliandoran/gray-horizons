@@ -33,6 +33,7 @@ namespace GrayHorizons.StaticObjects
             CurrentState = -1;
             HasCollision = false;
             IsInvincible = true;
+            MinimapColor = null;
         }
 
         public override void Update (
@@ -46,13 +47,13 @@ namespace GrayHorizons.StaticObjects
             var texture = GameData.MappedTextures [GetType ()];
             var position = GameData.Map.CalculateViewportCoordinates (Position.UpperLeftCorner (), GameData.MapScale);
 
-            GameData.SpriteBatch.Draw (
+            GameData.ScreenManager.SpriteBatch.Draw (
                 texture,
                 origin: new Vector2 (0, 0),
                 destinationRectangle: new Rectangle ((int)position.X,
-                    (int)position.Y,
-                    Position.CollisionRectangle.Width,
-                    Position.CollisionRectangle.Height),
+                                                     (int)position.Y,
+                                                     Position.CollisionRectangle.Width,
+                                                     Position.CollisionRectangle.Height),
                 sourceRectangle: Renderer.GetSpriteFromSpriteImage (texture, CurrentState, 5, 5),
                 scale: GameData.MapScale
             );

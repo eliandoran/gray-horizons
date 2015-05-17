@@ -1,0 +1,40 @@
+<ListOfTask>
+  <Task file="" description="HUD: Health" />
+  <Task file="" description="HUD: Ammunition left" />
+  <Task file="" description="Zoom: 3x limit" />
+  <Task file="" description="Zoom: Snap map margins to viewport margins" />
+  <Task file="" description="Zoom: Zoom towards the center of the viewport" />
+  <Task file="" description="Objectives Screen: Summary (text)" />
+  <Task file="" description="Objectives Screen: List with checkmarks" />
+  <Task file="" description="Enemy AI: Limited Line of Sight" />
+  <Task file="" description="Enemy AI: Patrol if no enemy in LoS" />
+  <Task file="" description="Enemy AI: Attack if enemy in LoS" />
+  <Task file="" description="Enemy Stance: Unarmed" />
+  <Task file="" description="Enemy Stance: Patrol" />
+  <Task file="" description="Enemy Stance: Clear Area" />
+  <Task file="" description="Enemy Stance: Attack Target" />
+  <Task file="" description="Men: Follow player" />
+  <Task file="" description="Storyline: Create objects" />
+  <Task file="" description="Storyline: Markers on map" />
+  <Task file="" description="Storyline: Countdown" />
+  <Task file="" description="Sound: Car - Start" />
+  <Task file="" description="Sound: Car - Idle" />
+  <Task file="" description="Sound: Car - Running" />
+  <Task file="" description="Sound: Tank - Start" />
+  <Task file="" description="Sound: Low health warning" />
+  <Task file="" description="Sound: Enter/Exit vehicle" />
+  <Task file="" description="Sound: General action" />
+  <Task file="" description="Sound: Obstacle impact" />
+  <Task file="" description="Sound: Turret rotation" />
+  <Task file="" description="Sound: Gunshot" />
+  <Task file="" description="Sound: Wasted" />
+  <Task file="" description="Objective: Complete" />
+  <Task file="" description="Objective: Failed" />
+  <Task file="" description="Destructible objects: Textures - Normal" />
+  <Task file="" description="Destructible objects: Textures - Wrecked" />
+  <Task file="" description="Destructible objects: Health" />
+  <Task file="" description="Misc: Civilian" />
+  <Task file="" description="Misc: Dead soldier" />
+  <Task file="" description="Bug: Input events should not be update if the window is not focused." />
+  <Task file="" description="Bug: On screen console displays each line twice." />
+</ListOfTask>

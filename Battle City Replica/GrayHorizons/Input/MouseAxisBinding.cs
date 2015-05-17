@@ -1,7 +1,7 @@
-﻿using GrayHorizons.Logic;
-using Microsoft.Xna.Framework.Input;
+﻿using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework;
 using System;
+using GrayHorizons.Logic;
 
 namespace GrayHorizons.Input
 {

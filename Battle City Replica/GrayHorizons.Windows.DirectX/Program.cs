@@ -12,9 +12,12 @@ namespace GrayHorizons.Windows.DirectX
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
-        static void Main ()
+        static void Main()
         {
-            new GrayHorizonsGame ().Run ();
+            using (var game = new GrayHorizonsGame())
+            {
+                game.Run();
+            }
         }
     }
 }

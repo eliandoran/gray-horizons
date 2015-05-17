@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Xml.Serialization;
 using GrayHorizons.Attributes;
-using GrayHorizons.Logic;
 using Microsoft.Xna.Framework.Input;
 using System.Diagnostics;
+using GrayHorizons.Logic;
 
 namespace GrayHorizons.Input
 {
@@ -80,9 +80,7 @@ namespace GrayHorizons.Input
                 if (!updateFailed)
                 {
                     Debug.WriteLine ("KeyBinding failed to update because there is no bound action.", "KEY");
-                    Debug.Indent ();
                     Debug.WriteLine (ToString ());
-                    Debug.Unindent ();
 
                     updateFailed = true;
                 }

@@ -22,6 +22,10 @@ namespace GrayHorizons.UI
 
         public Vector2 TextPosition { get; set; }
 
+        public TimeSpan ActivationCooltime { get; set; }
+
+        public TimeSpan CurrentActivationCooltime { get; set; }
+
         public bool Enabled { get; set; }
 
         public bool Selected { get; set; }
@@ -49,6 +53,9 @@ namespace GrayHorizons.UI
 
             TransitionOnTime = TimeSpan.FromMilliseconds (500);
             TransitionOffTime = TimeSpan.FromMilliseconds (500);
+
+            ActivationCooltime = TimeSpan.FromMilliseconds (100);
+            CurrentActivationCooltime = TimeSpan.FromMilliseconds (ActivationCooltime.TotalMilliseconds);
 
             IsPopup = true;
         }
@@ -107,8 +114,11 @@ namespace GrayHorizons.UI
         internal void OnActivate (
             EventArgs e)
         {
-            if (Activate != null)
+            if (CurrentActivationCooltime.TotalMilliseconds < 1 && Activate != null)
+            {
                 Activate (this, e);
+                CurrentActivationCooltime = ActivationCooltime;
+            }
         }
 
         public virtual void Execute ()
@@ -116,21 +126,19 @@ namespace GrayHorizons.UI
             OnActivate (EventArgs.Empty);
         }
 
+        public override void Update (GameTime gameTime, bool otherScreenHasFocus, bool coveredByOtherScreen)
+        {
+            if (CurrentActivationCooltime > gameTime.ElapsedGameTime)
+                CurrentActivationCooltime -= gameTime.ElapsedGameTime;
+            else
+                CurrentActivationCooltime = TimeSpan.Zero;
+
+            base.Update (gameTime, otherScreenHasFocus, coveredByOtherScreen);
+        }
+
         public override string ToString ()
         {
-            return string.Format (
-                "[MenuItem: Text={0}, Dimensions={1}, TextPosition={2}, Enabled={3}, Selected={4}, Color={5}, SelectedColor={6}, SelectedBackColor={7}, Font={8}, CenterHorizontally={9}, CenterVertically={10}]",
-                Text,
-                Dimensions,
-                TextPosition,
-                Enabled,
-                Selected,
-                Color,
-                SelectedColor,
-                SelectedBackColor,
-                Font,
-                CenterHorizontally,
-                CenterVertically);
+            return string.Format ("[MenuItem: {0}]", Text);
         }
     }
 }

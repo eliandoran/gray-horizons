@@ -1,5 +1,4 @@
-﻿using GrayHorizons.Logic;
-using GrayHorizons.Entities;
+﻿using GrayHorizons.Entities;
 
 namespace GrayHorizons.Logic
 {
@@ -12,16 +11,16 @@ namespace GrayHorizons.Logic
         /// Gets or sets the tank that is being controlled by the AI.
         /// </summary>
         /// <value>The controlling tank.</value>
-        public Tank ControllingTank { get; set; }
+        public Entity ControllingEntity { get; set; }
 
-        public GameData GameData;
+        public GameData GameData { get; set; }
 
         /// <summary>
         /// It should be called when the game requires the AI to make the next step.
         /// </summary>
         public virtual void NextStep()
         {
-			
+            ControllingEntity.Move(Entity.MoveDirection.Forward, false);
         }
     }
 }
