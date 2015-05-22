@@ -1,8 +1,17 @@
-﻿using GrayHorizons.Attributes;
-using GrayHorizons.Entities;
-using Microsoft.Xna.Framework;
-using GrayHorizons.ThirdParty;
+﻿/*
+   _____                   _    _            _                    
+  / ____|                 | |  | |          (_)                   
+ | |  __ _ __ __ _ _   _  | |__| | ___  _ __ _ _______  _ __  ___ 
+ | | |_ | '__/ _` | | | | |  __  |/ _ \| '__| |_  / _ \| '_ \/ __|
+ | |__| | | | (_| | |_| | | |  | | (_) | |  | |/ / (_) | | | \__ \
+  \_____|_|  \__,_|\__, | |_|  |_|\___/|_|  |_/___\___/|_| |_|___/
+                    __/ |                                         
+                   |___/              © 2015 by Doran Adoris Elian
+*/
+using GrayHorizons.Attributes;
 using GrayHorizons.Logic;
+using GrayHorizons.ThirdParty;
+using Microsoft.Xna.Framework;
 
 namespace GrayHorizons.Entities.Tanks
 {
@@ -16,6 +25,7 @@ namespace GrayHorizons.Entities.Tanks
         {
             DefaultSize = new Point(229, 113);
             MuzzleRectangle = new RotatedRectangle(new Rectangle(228, 52, 10, 10), 0);
+            MaximumHealth = 8;
         }
     }
 }

@@ -7,6 +7,7 @@ namespace GrayHorizons.Logic
     public class StringBuilderTraceListener: TextWriterTraceListener
     {
         readonly StringBuilder builder;
+        bool skip;
 
         public StringBuilder Builder
         {
@@ -28,7 +29,14 @@ namespace GrayHorizons.Logic
 
         public override void WriteLine(string message)
         {
+            if (skip)
+            {
+                skip = false;
+                return;
+            }
+
             builder.AppendLine(message);
+            skip = true;
         }
     }
 }

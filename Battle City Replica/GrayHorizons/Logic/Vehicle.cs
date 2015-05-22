@@ -4,6 +4,7 @@ using GrayHorizons.Entities;
 using System.Collections.Generic;
 using System.Diagnostics;
 using GrayHorizons.StaticObjects;
+using GrayHorizons.Extensions;
 
 namespace GrayHorizons.Logic
 {
@@ -11,11 +12,15 @@ namespace GrayHorizons.Logic
     {
         readonly List<Soldier> passengers = new List<Soldier>(0);
 
+        public event EventHandler EngineStarting;
+
         public event EventHandler EngineStarted;
 
         public Point AxisPosition { get; set; }
 
         bool engineStarted, isEngineStarting;
+
+        public bool UseDefaultEngineStartingSound { get; set; }
 
         public bool IsEngineStarted
         {
@@ -29,6 +34,11 @@ namespace GrayHorizons.Logic
 
                 if (value)
                     OnEngineStarted(EventArgs.Empty);
+                else
+                {
+                    CurrentTimeToStart = TimeToStart;
+                    IsEngineStarting = false;
+                }
             }
         }
 
@@ -43,7 +53,10 @@ namespace GrayHorizons.Logic
                 isEngineStarting = value;
 
                 if (isEngineStarting)
+                {
                     CurrentTimeToStart = TimeSpan.FromMilliseconds(TimeToStart.TotalMilliseconds);
+                    OnEngineStarting(EventArgs.Empty);
+                }
             }
         }
 
@@ -55,34 +68,25 @@ namespace GrayHorizons.Logic
 
         public TimeSpan CurrentTimeToStart { get; set; }
 
+        public TimeSpan IsMovingTime { get; set; }
+
+        public TimeSpan CurrentIsMovingTime { get; set; }
+
         public bool CanBeRunOverByTank
         {
-            get
-            {
-                return canBeRunOverByTank;
-            }
+            get { return canBeRunOverByTank; }
             set
             {
                 canBeRunOverByTank = value;
 
                 if (canBeRunOverByTank)
-                {
                     Collided += Vehicle_Collided;
-                }
                 else
-                {
                     Collided -= Vehicle_Collided;
-                }
             }
         }
 
-        public List<Soldier> Passengers
-        {
-            get
-            {
-                return passengers;
-            }
-        }
+        public List<Soldier> Passengers { get { return passengers; } }
 
         protected Vehicle()
         {
@@ -92,10 +96,15 @@ namespace GrayHorizons.Logic
             AxisPosition = new Point(DefaultSize.X / 2, DefaultSize.Y / 2);
             Moved += VehicleMoved;
             HasCollision = true;
-            MinimapColor = Color.Yellow;
+            MiniMapColor = Color.Yellow;
 
-            TimeToStart = TimeSpan.FromMilliseconds(500);
+            TimeToStart = TimeSpan.FromMilliseconds(2000);
             IsEngineStarted = false;
+            UseDefaultEngineStartingSound = true;
+            CanMoveOnSpot = false;
+            CanBeRunOverByTank = false;
+
+            IsMovingTime = TimeSpan.FromMilliseconds(100);
         }
 
         void Vehicle_Collided(object sender, CollideEventArgs e)
@@ -115,21 +124,6 @@ namespace GrayHorizons.Logic
             // TODO: Do something here.
         }
 
-        public override bool Move(MoveDirection direction, bool noClip)
-        {
-            if (engineStarted)
-            {
-                IsMoving = true;
-                return base.Move(direction, noClip);
-            }
-
-            if (!IsEngineStarting)
-                IsEngineStarting = true;
-
-            IsMoving = false;
-            return false;
-        }
-
         bool CheckEngine(TimeSpan gameTime)
         {
             if (IsEngineStarted)
@@ -147,7 +141,7 @@ namespace GrayHorizons.Logic
                 }
                 else
                 {
-                    Debug.WriteLine("{0}'s engine started.", GetType());
+                    Debug.WriteLine("{0}'s engine started.".FormatWith(GetType()), "ENGINE");
                     IsEngineStarted = true;
                     return true;
                 }
@@ -161,15 +155,40 @@ namespace GrayHorizons.Logic
             Entity.MoveDirection? moveDirection = default(Entity.MoveDirection?),
             bool noClip = false)
         {
-            if (!engineStarted)
+            Debug.WriteLine(IsMoving);
+            if (engineStarted && (IsMoving))
             {
+                CurrentIsMovingTime = IsMovingTime;
+                return base.Turn(turnDirection, moveDirection, noClip);
+            }
+
+            if (!IsEngineStarting)
+            {
+                Debug.WriteLine("Starting engine of {0}.".FormatWith(ToString()), "ENGINE");
                 IsEngineStarting = true;
                 return false;
             }
 
-            if (IsMoving || CanMoveOnSpot)
-                return base.Turn(turnDirection, moveDirection, noClip);
+            return false;
+        }
 
+        public override bool Move(MoveDirection direction, bool noClip)
+        {
+            if (IsEngineStarted)
+            {
+                IsMoving = true;
+                CurrentIsMovingTime = IsMovingTime;
+                return base.Move(direction, noClip);
+            }
+
+            if (!IsEngineStarting)
+            {
+                Debug.WriteLine("Starting engine of {0}.".FormatWith(ToString()), "ENGINE");
+                IsEngineStarting = true;
+                return false;
+            }
+
+            IsMoving = false;
             return false;
         }
 
@@ -183,9 +202,13 @@ namespace GrayHorizons.Logic
 
             GameData.ScreenManager.SpriteBatch.Draw(
                 texture,
-                position: new Vector2(position.X + Position.CollisionRectangle.Width / 2,
+                new Vector2(
+                    position.X + Position.CollisionRectangle.Width / 2,
                     position.Y + Position.CollisionRectangle.Height / 2),
-                origin: new Vector2(Position.CollisionRectangle.Width / 2, Position.CollisionRectangle.Height / 2),
+                sourceRectangle: Renderer.GetSpriteFromSpriteImage(texture, 0, 2, 1),
+                origin: new Vector2(
+                    Position.CollisionRectangle.Width / 2,
+                    Position.CollisionRectangle.Height / 2),
                 rotation: Position.Rotation,
                 scale: GameData.MapScale
             );
@@ -207,28 +230,33 @@ namespace GrayHorizons.Logic
 
             if (GameData.ActivePlayer.AssignedEntity == this && passControl)
             {
+                passenger.Position = null;
+                passenger.Location = new Point(
+                    (int)(Position.X + Position.Width / 2),
+                    Position.Y + Position.Height / 2
+                );
+
                 GameData.Map.CenterViewportAt(passenger);
 
-                passenger.Moved += (
-                    sender,
-                    e) => GameData.Map.CenterViewportAt(passenger);
-
+                passenger.Moved += (sender, e) => GameData.Map.CenterViewportAt(passenger);
                 GameData.ActivePlayer.AssignedEntity = passenger;
+
+                HasCollision &= !Position.Intersects(passenger.Position);
             }
+
+            // Turn the engine off if there are no passengers left in the vehicle.
+            IsEngineStarted &= Passengers.Count != 0;
         }
 
         public override void Use()
         {
             if (Passengers.Count > 0)
-            {
                 GetPassengerOff(Passengers[0], true);
-            }
         }
 
         public override void Destroy()
         {
             var wreck = new Wreck(GameData, this);
-            wreck.HasCollision = false;
             GameData.Map.QueueAddition(wreck);
 
             base.Destroy();
@@ -243,15 +271,27 @@ namespace GrayHorizons.Logic
         {
             CheckEngine(gameTime);
 
+            if (CurrentIsMovingTime > gameTime)
+                CurrentIsMovingTime -= gameTime;
+            else
+                IsMoving = false;
+
             base.Update(gameTime);
         }
 
         protected virtual void OnEngineStarted(EventArgs e)
         {
-            if (EngineStarted != null)
-            {
+            if (EngineStarted.IsNotNull())
                 EngineStarted(this, e);
-            }
+        }
+
+        protected virtual void OnEngineStarting(EventArgs e)
+        {
+            if (UseDefaultEngineStartingSound)
+                Sound.VehicleSounds.Starting.Play();
+
+            if (EngineStarting.IsNotNull())
+                EngineStarting(this, e);
         }
     }
 }

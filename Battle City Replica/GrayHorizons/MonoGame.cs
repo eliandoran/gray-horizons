@@ -8,14 +8,15 @@
                     __/ |                                         
                    |___/              © 2015 by Doran Adoris Elian
 */
-using GrayHorizons.Objectives;
-
 namespace GrayHorizons
 {
     #region Using Statements
     using System;
     using System.Diagnostics;
     using System.IO;
+    using System.Linq;
+    using System.Reflection;
+    using GrayHorizons.Extensions;
     using GrayHorizons.Logic;
     using GrayHorizons.ThirdParty.GameStateManagement;
     using GrayHorizons.Windows.DirectX;
@@ -42,9 +43,7 @@ namespace GrayHorizons
 
         public void LoadConfiguration()
         {
-            #if DEBUG
             Debug.WriteLine("[INIT] Loading configuration...");
-            #endif
 
             GameData.IOAgent = new FileStreamInputOutputAgent();
 
@@ -55,13 +54,11 @@ namespace GrayHorizons
                 GameData.Configuration = configuration;
                 Configuration.ConfigureGameDataInputBindings(GameData);
 
-                #if DEBUG
                 Debug.WriteLine("[INIT] Configuration loaded successfully.");
-                #endif
             }
         }
 
-        void CenterWindow(Game game)
+        static void CenterWindow(Game game)
         {
             var screenWidth = game.GraphicsDevice.Adapter.CurrentDisplayMode.Width;
             var screenHeight = game.GraphicsDevice.Adapter.CurrentDisplayMode.Height;
@@ -77,29 +74,24 @@ namespace GrayHorizons
 
         public void InitGraphics()
         {
-            #if DEBUG
             Debug.WriteLine("[INIT] Initializing GraphicsDeviceManager...");
-            #endif
 
             graphics = new GraphicsDeviceManager(this);
             graphics.PreferredBackBufferWidth = GameData.Configuration.WindowedModeResolution.Width;
             graphics.PreferredBackBufferHeight = GameData.Configuration.WindowedModeResolution.Height;
-            graphics.ApplyChanges();
+            graphics.CreateDevice();
 
             CenterWindow(this);
 
             GameData.ContentManager = Content;
             GameData.GraphicsDevice = graphics.GraphicsDevice;
             GameData.GraphicsDeviceManager = graphics;
-            GameData.DebuggingSettings.ShowGuides = true;
-            GameData.DebuggingSettings.ShowConsole = true;
 
             Window.AllowUserResizing = true;
             Window.Title = "Gray Horizons – © 2015 Doran Adoris Elian";
 
             #if DEBUG
-            var codeBase = System.Reflection.Assembly.GetExecutingAssembly().CodeBase;
-            Content.RootDirectory = new Uri(codeBase + @"/../../../../../../GrayHorizons.Content/bin/Windows").LocalPath;
+            Content.RootDirectory = new Uri(Assembly.GetExecutingAssembly().CodeBase + @"/../../../../GrayHorizons.Content/bin/Windows").LocalPath;
             #else
             Content.RootDirectory = "Content";
             #endif
@@ -112,15 +104,13 @@ namespace GrayHorizons
 
         public void InitScreens()
         {
-            #if DEBUG
             Debug.WriteLine("INIT: Initializing ScreenManager...");
-            #endif
 
             screenManager = new ScreenManager(this);
             GameData.ScreenManager = screenManager;
             Components.Add(screenManager);
-            //screenManager.AddScreen (new Screens.MainMenuScreen (GameData), null);
-            screenManager.AddScreen(new Screens.BattlefieldScreen(GameData), null);
+            screenManager.AddScreen(new Screens.MainMenuScreen(GameData), null);
+            //screenManager.AddScreen(new Screens.BattlefieldScreen(GameData, new Maps.TutorialMap(GameData)), null);
             screenManager.AddScreen(new Screens.OnScreenConsole(GameData), null);
         }
 
@@ -147,9 +137,6 @@ namespace GrayHorizons
             GameData.ActivePlayer = player;
             GameData.Game = this;
 
-            GameData.Objectives.Add(new Objective { Text = "Dolor sit amet adipiscing elit consticteur." });
-            GameData.Objectives.Add(new Objective { Text = "There" });
-
             LoadConfiguration();
             InitGraphics();
             InitScreens();
@@ -163,11 +150,10 @@ namespace GrayHorizons
             if (newScreenCount != screenCount)
             {
                 Debug.WriteLine(String.Empty);
-                Debug.WriteLine("SCREENS ({0}):", newScreenCount);
+                Debug.WriteLine("SCREENS ({0}):".FormatWith(newScreenCount));
 
                 var index = 1;
-                foreach (var screen in GameData.ScreenManager.GetScreens())
-                    Debug.WriteLine("\t{0}. {1}", index++, screen);
+                GameData.ScreenManager.GetScreens().ToList().ForEach(screen => Debug.WriteLine("{0}. {1}".FormatWith(index++, screen)));
 
                 Debug.WriteLine(String.Empty);
 

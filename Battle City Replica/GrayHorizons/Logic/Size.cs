@@ -1,27 +1,33 @@
 ﻿using System;
 using System.Xml.Serialization;
+using Microsoft.Xna.Framework;
 
 namespace GrayHorizons.Logic
 {
     public class Size
     {
-        [XmlAttribute ("width")]
+        [XmlAttribute("width")]
         public int Width { get; set; }
 
-        [XmlAttribute ("height")]
+        [XmlAttribute("height")]
         public int Height { get; set; }
 
-        public Size (int width,
-                     int height)
+        public Size(int width,
+                    int height)
         {
             Width = width;
             Height = height;
         }
 
-        public Size () : this (0,
-                               0)
+        public Size()
+            : this(0, 0)
         {
 
+        }
+
+        public Point ToPoint()
+        {
+            return new Point(Width, Height);
         }
     }
 }

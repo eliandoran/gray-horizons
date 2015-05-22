@@ -9,7 +9,7 @@ namespace GrayHorizons.Screens
 {
     public class HeadsUpScreen: GameScreen
     {
-        readonly HeadsUp.MinimapScreen minimapScreen;
+        readonly HeadsUp.MiniMapScreen minimapScreen;
         readonly HeadsUp.CurrentObjectiveScreen currentObjectiveScreen;
         readonly HeadsUp.PlayerStateScreen playerStateScreen;
 
@@ -18,7 +18,7 @@ namespace GrayHorizons.Screens
 
         public HeadsUpScreen(GameData gameData)
         {
-            minimapScreen = new HeadsUp.MinimapScreen(gameData, HeadsUp.MinimapScreen.MinimapPosition.TopRight);
+            minimapScreen = new HeadsUp.MiniMapScreen(gameData, HeadsUp.MiniMapScreen.MiniMapPosition.TopRight);
             currentObjectiveScreen = new HeadsUp.CurrentObjectiveScreen(gameData);
             playerStateScreen = new HeadsUp.PlayerStateScreen(gameData);
 
@@ -26,7 +26,7 @@ namespace GrayHorizons.Screens
             IsPopup = true;
         }
 
-        public HeadsUp.MinimapScreen MinimapScreen
+        public HeadsUp.MiniMapScreen MinimapScreen
         {
             get
             {
@@ -60,7 +60,11 @@ namespace GrayHorizons.Screens
         public override void Draw(GameTime gameTime)
         {            
             foreach (ObjectBase obj in gameData.Map.GetObjects())
-                obj.RenderHUD();
+            {
+                ScreenManager.SpriteBatch.Begin();
+                obj.RenderHud();
+                ScreenManager.SpriteBatch.End();
+            }
 
 //            ScreenManager.SpriteBatch.Begin();
 //            ScreenManager.SpriteBatch.DrawString(ScreenManager.Font, "Entities: {0}\nStatic Objects: {1}".FormatWith(gameData.Map.Entities.Count, gameData.Map.StaticObjects.Count), new Vector2(0, 0), Color.White);

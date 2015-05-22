@@ -1,8 +1,19 @@
-﻿using System;
+﻿/*
+   _____                   _    _            _                    
+  / ____|                 | |  | |          (_)                   
+ | |  __ _ __ __ _ _   _  | |__| | ___  _ __ _ _______  _ __  ___ 
+ | | |_ | '__/ _` | | | | |  __  |/ _ \| '__| |_  / _ \| '_ \/ __|
+ | |__| | | | (_| | |_| | | |  | | (_) | |  | |/ / (_) | | | \__ \
+  \_____|_|  \__,_|\__, | |_|  |_|\___/|_|  |_/___\___/|_| |_|___/
+                    __/ |                                         
+                   |___/              © 2015 by Doran Adoris Elian
+*/
+using System;
 using GrayHorizons.Input;
 using Microsoft.Xna.Framework.Input;
 using GrayHorizons.Entities;
 using GrayHorizons.Logic;
+using GrayHorizons.Extensions;
 
 namespace GrayHorizons.Actions.PlayerControl
 {
@@ -35,7 +46,7 @@ namespace GrayHorizons.Actions.PlayerControl
             EventArgs e)
         {
             var mouseAxisBinding = ParentInputBinding as MouseAxisBinding;
-            if (mouseAxisBinding != null)
+            if (mouseAxisBinding.IsNotNull())
             {
                 mouseAxisBinding.MouseStateChanged += MouseAxisChanged;
             }
@@ -47,10 +58,12 @@ namespace GrayHorizons.Actions.PlayerControl
         {
             var playerTank = Player.AssignedEntity;
 
-            if (playerTank != null)
+            if (playerTank.IsNotNull())
             {
-                var pos = Player.AssignedEntity.Position.CollisionRectangle.Center - e.State.Position;
-                pos = GameData.Map.CalculateViewportCoordinates(pos.ToVector2(), GameData.MapScale).ToPoint();
+                var pos = 
+                    ((GameData.MapScale * Player.AssignedEntity.Position.CollisionRectangle.Center.ToVector2()) -
+                    e.State.Position.ToVector2());
+                pos = GameData.Map.CalculateViewportCoordinates(pos, GameData.MapScale);
 
                 var currentRotation = playerTank.TurretRotation;
                 var rotation = Rotation.FromRadians((float)Math.Atan2(pos.Y, pos.X));

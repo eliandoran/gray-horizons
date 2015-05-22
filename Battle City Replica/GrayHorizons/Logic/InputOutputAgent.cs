@@ -5,7 +5,7 @@ namespace GrayHorizons.Logic
 {
     public interface InputOutputAgent
     {
-        Stream GetStream (string name, bool readOnly);
+        Stream GetStream(string name, FileMode fileMode);
     }
 }
 

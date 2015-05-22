@@ -10,6 +10,7 @@ using GrayHorizons.ThirdParty;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
+using GrayHorizons.Entities.Projectiles;
 
 namespace GrayHorizons.Logic
 {
@@ -40,42 +41,33 @@ namespace GrayHorizons.Logic
         [XmlElement("Score"), DefaultValue(0)]
         public int Score { get; set; }
 
-        public RotatedRectangle MuzzleRectangle { get; set; }
-
-        Vector2 muzzlePosition;
-
-        public Vector2 MuzzlePosition
-        {
-            get
-            {
-                return muzzlePosition;
-            }
-            protected set
-            {
-                muzzlePosition = value;
-                MuzzleRectangle = new RotatedRectangle(new Rectangle((int)muzzlePosition.X,
-                        (int)muzzlePosition.Y,
-                        10,
-                        10),
-                    0);
-            }
-        }
-
-        public TimeSpan CoolDown { get; set; }
-
         /// <summary>
         /// Configures a projectile to be fired at the tank's behest.
         /// </summary>
         public override void Shoot()
         {
-            var projectile = new Projectile();
+            var projectile = new TankShell();
+
+            if (CoolDown > TimeSpan.Zero)
+            {
+                Debug.WriteLine("<{0}> is still under cooldown.".FormatWith(ToString()), "SHOOT");
+
+                return;
+            }
+
+            if (AmmoLeft < 1)
+            {
+                Debug.WriteLine("SHOOT: {0} is out of ammunition.".FormatWith(ToString()), "SHOOT");
+                Sound.TankSounds.NoAmmo.Play();
+                return;
+            }
 
             if (CoolDown == TimeSpan.Zero)
             {
                 var xOffset = new Point(projectile.DefaultSize.X, 0);
                 var yOffset = new Point(0, projectile.DefaultSize.Y);
                 var muzzlePos = GetMuzzleRotatedRectangle();
-                if (muzzlePos == null)
+                if (muzzlePos.IsNull())
                     return;
 
                 var rect = muzzlePos.Offset(xOffset).Offset(yOffset);
@@ -83,25 +75,21 @@ namespace GrayHorizons.Logic
                 Debug.WriteLine("ROTATION: " + Rotation.FromRadians(TurretRect.Rotation));
 
                 projectile.Position = rect;
-                projectile.OwnerTank = this;
+                projectile.Owner = this;
 
                 var explosion = new Explosion();
                 explosion.Position = new RotatedRectangle(muzzlePos.CollisionRectangle, muzzlePos.Rotation);
                 GameData.Map.QueueAddition(explosion);
-
                 GameData.Map.QueueAddition(projectile);
                 CoolDown = projectile.CoolTimePenalty;
+                AmmoLeft--;
 
-                #if DEBUG
                 Debug.WriteLine("<{0}> shot with <{1}>.".FormatWith(ToString(), projectile), "SHOOT");
-                #endif
+
+                Sound.TankSounds.Firing.Play();
 
                 return;
             }
-
-            #if DEBUG
-            Debug.WriteLine("<{0}> is still under cooldown.".FormatWith(ToString()), "SHOOT");
-            #endif
         }
 
         /// <summary>
@@ -113,18 +101,27 @@ namespace GrayHorizons.Logic
             IsInvincible = false;
             CanMoveOnSpot = true;
 
-            Health = 1;
+            Health = 5;
             Score = 0;
             AccelerationFactor = 0.025f;
             Acceleration = 0.05f;
             Speed = 6;
+            AmmoLeft = 10;
             TurretRect = new RotatedRectangle();
             TurretRotation = new Rotation(0);
 
+
             DestructionDelay = TimeSpan.FromMilliseconds(500);
-            MinimapColor = Color.Red;
+            MiniMapColor = Color.Red;
+            UseDefaultEngineStartingSound = false;
 
             Moved += TankMoved;
+            EngineStarting += Tank_EngineStarting;
+        }
+
+        void Tank_EngineStarting(object sender, EventArgs e)
+        {
+            Sound.TankSounds.Starting.Play();
         }
 
         void TankMoved(
@@ -150,17 +147,17 @@ namespace GrayHorizons.Logic
         {
             base.Update(gameTime);
 
-            if (tankMovingSoundInstance == null)
+            if (tankMovingSoundInstance.IsNull())
             {
                 tankMovingSoundInstance = Sound.TankSounds.Moving.GetInstance();
                 tankMovingSoundInstance.IsLooped = true;
             }
-            if (tankIdleSoundInstance == null)
+            if (tankIdleSoundInstance.IsNull())
             {
                 tankIdleSoundInstance = Sound.TankSounds.Idle.GetInstance();
                 tankIdleSoundInstance.IsLooped = true;
 
-                //tankIdleSoundInstance.Play ();
+                tankIdleSoundInstance.Play();
                 //tankIdleSoundInstance.Apply3D (listener, emitter);
             }
             else
@@ -177,8 +174,8 @@ namespace GrayHorizons.Logic
             else
                 CoolDown = TimeSpan.Zero;
 
-            if (AI != null)
-                ;//AI.NextStep();
+            if (AI.IsNotNull())
+                AI.NextStep();
 
 //            Debug.WriteLine ("(hasMoved: {0}, IsMoving: {1}, IsTurning: {2}, hasFirstMoved: {3}".FormatWith (
 //                hasMoved,
@@ -263,41 +260,13 @@ namespace GrayHorizons.Logic
             var wreck = new Wreck(GameData, this);
             GameData.Map.QueueAddition(wreck);
 
+            if (tankIdleSoundInstance.IsNotNull())
+                tankIdleSoundInstance.Stop();
+
+            if (tankMovingSoundInstance.IsNotNull())
+                tankMovingSoundInstance.Stop();
+
             base.Destroy();
-        }
-
-
-        public RotatedRectangle GetMuzzleRotatedRectangle()
-        {    
-            if (MuzzleRectangle == null)
-                return null;
-
-            MuzzleRectangle.Rotation = TurretRotation.ToRadians();
-            TurretRect.Rotation = TurretRotation.ToRadians();
-            var muzzleX = ((MuzzleRectangle != null) ? MuzzleRectangle.X : 0);
-            var muzzleY = ((MuzzleRectangle != null) ? MuzzleRectangle.Y : 0);
-
-            var rect = new Rectangle(
-                           (int)(TurretRect.UpperLeftCorner().X),
-                           (int)(TurretRect.UpperLeftCorner().Y),
-                           ((MuzzleRectangle != null) ? MuzzleRectangle.CollisionRectangle.Width : 0),
-                           ((MuzzleRectangle != null) ? MuzzleRectangle.CollisionRectangle.Height : 0)
-                       );
-
-            var rads = TurretRotation.ToRadians();
-
-            var deltaX = new Point(
-                             (int)(Math.Cos(rads) * muzzleX),
-                             (int)(Math.Sin(rads) * muzzleX));
-            var deltaY = new Point(
-                             (int)(Math.Sin(rads) * -muzzleY),
-                             (int)(Math.Cos(rads) * muzzleY)
-                         );
-
-            rect.Offset(deltaX);
-            rect.Offset(deltaY);
-
-            return new RotatedRectangle(rect, rads);
         }
 
         public override void Explode()
@@ -361,7 +330,7 @@ namespace GrayHorizons.Logic
         {
             Debug.WriteLine("Engine started");
 
-            if (tankIdleSoundInstance == null)
+            if (tankIdleSoundInstance.IsNull())
             {
                 tankIdleSoundInstance = Sound.TankSounds.Idle.GetInstance();
                 tankIdleSoundInstance.IsLooped = true;

@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 using GrayHorizons.ThirdParty.GameStateManagement;
 using System.Diagnostics;
+using GrayHorizons.Extensions;
 
 namespace GrayHorizons.UI
 {
@@ -42,103 +43,103 @@ namespace GrayHorizons.UI
 
         public bool CenterVertically { get; set; }
 
-        public MenuItem (
+        public MenuItem(
             string text)
         {
             Text = text;
             Enabled = true;
 
             Color = SelectedColor = Color.Black;
-            SelectedBackColor = new Color (0, 0, 0, 150);
+            SelectedBackColor = new Color(0, 0, 0, 150);
 
-            TransitionOnTime = TimeSpan.FromMilliseconds (500);
-            TransitionOffTime = TimeSpan.FromMilliseconds (500);
+            TransitionOnTime = TimeSpan.FromMilliseconds(500);
+            TransitionOffTime = TimeSpan.FromMilliseconds(500);
 
-            ActivationCooltime = TimeSpan.FromMilliseconds (100);
-            CurrentActivationCooltime = TimeSpan.FromMilliseconds (ActivationCooltime.TotalMilliseconds);
+            ActivationCooltime = TimeSpan.FromMilliseconds(100);
+            CurrentActivationCooltime = TimeSpan.FromMilliseconds(ActivationCooltime.TotalMilliseconds);
 
             IsPopup = true;
         }
 
-        public override void LoadContent ()
+        public override void LoadContent()
         {
             spriteBatch = ScreenManager.SpriteBatch;
-            texture = ScreenManager.Game.Content.Load<Texture2D> ("Blank");
+            texture = ScreenManager.Game.Content.Load<Texture2D>("Blank");
         }
 
-        public override void Draw (
+        public override void Draw(
             GameTime gameTime)
         {
-            spriteBatch.Begin ();
+            spriteBatch.Begin();
 
-            if (Font != null)
+            if (Font.IsNotNull())
             {
                 var color = (Selected ? SelectedColor : Color);
-                color = new Color (color, TransitionAlpha);
+                color = new Color(color, TransitionAlpha);
 
                 if (Selected && Enabled)
                 {
-                    var backColor = new Color (SelectedBackColor, (int)(TransitionAlpha * SelectedBackColor.A));
+                    var backColor = new Color(SelectedBackColor, (int)(TransitionAlpha * SelectedBackColor.A));
 
-                    spriteBatch.Draw (
+                    spriteBatch.Draw(
                         texture,
                         Dimensions,
                         backColor);
                 }
 
-                var metrics = Font.MeasureString (Text);
-                var pos = new Vector2 (
+                var metrics = Font.MeasureString(Text);
+                var pos = new Vector2(
                               (CenterHorizontally ? Dimensions.X + ((Dimensions.Width / 2) - (metrics.X / 2)) : Dimensions.X + TextPosition.X),
                               (CenterVertically ? Dimensions.Y + ((Dimensions.Height / 2) - (metrics.Y / 2)) : Dimensions.Y + TextPosition.Y)
                           );
-                spriteBatch.DrawString (Font, Text, pos, color);
+                spriteBatch.DrawString(Font, Text, pos, color);
             }
 
-            spriteBatch.End ();
+            spriteBatch.End();
         }
 
-        internal void OnSelect (
+        internal void OnSelect(
             EventArgs e)
         {
-            if (Select != null)
-                Select (this, e);
+            if (Select.IsNotNull())
+                Select(this, e);
         }
 
-        internal void OnDeselect (
+        internal void OnDeselect(
             EventArgs e)
         {
-            if (Deselect != null)
-                Deselect (this, e);
+            if (Deselect.IsNotNull())
+                Deselect(this, e);
         }
 
-        internal void OnActivate (
+        internal void OnActivate(
             EventArgs e)
         {
-            if (CurrentActivationCooltime.TotalMilliseconds < 1 && Activate != null)
+            if (CurrentActivationCooltime.TotalMilliseconds < 1 && Activate.IsNotNull())
             {
-                Activate (this, e);
+                Activate(this, e);
                 CurrentActivationCooltime = ActivationCooltime;
             }
         }
 
-        public virtual void Execute ()
+        public virtual void Execute()
         {
-            OnActivate (EventArgs.Empty);
+            OnActivate(EventArgs.Empty);
         }
 
-        public override void Update (GameTime gameTime, bool otherScreenHasFocus, bool coveredByOtherScreen)
+        public override void Update(GameTime gameTime, bool otherScreenHasFocus, bool coveredByOtherScreen)
         {
             if (CurrentActivationCooltime > gameTime.ElapsedGameTime)
                 CurrentActivationCooltime -= gameTime.ElapsedGameTime;
             else
                 CurrentActivationCooltime = TimeSpan.Zero;
 
-            base.Update (gameTime, otherScreenHasFocus, coveredByOtherScreen);
+            base.Update(gameTime, otherScreenHasFocus, coveredByOtherScreen);
         }
 
-        public override string ToString ()
+        public override string ToString()
         {
-            return string.Format ("[MenuItem: {0}]", Text);
+            return string.Format("[MenuItem: {0}]", Text);
         }
     }
 }

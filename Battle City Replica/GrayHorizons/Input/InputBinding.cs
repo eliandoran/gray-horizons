@@ -1,22 +1,28 @@
 ﻿using System;
-using System.Xml.Serialization;
-using System.Reflection;
-using System.Diagnostics;
-using GrayHorizons.Extensions;
-using GrayHorizons.Attributes;
 using System.ComponentModel;
+using System.Diagnostics;
+using System.Reflection;
+using System.Xml.Serialization;
+using GrayHorizons.Attributes;
+using GrayHorizons.Extensions;
 using GrayHorizons.Logic;
+using Microsoft.Xna.Framework;
 
 namespace GrayHorizons.Input
 {
-    [XmlInclude (typeof(KeyBinding))]
-    [XmlInclude (typeof(AxisBinding))]
+    [XmlInclude(typeof(KeyBinding))]
+    [XmlInclude(typeof(AxisBinding))]
     public abstract class InputBinding
     {
-        readonly GameData gameData;
         GameAction boundAction;
 
-        [XmlIgnore ()]
+        [XmlIgnore]
+        public Game Game { get; set; }
+
+        [XmlIgnore]
+        public GameData GameData { get; set; }
+
+        [XmlIgnore]
         public GameAction BoundAction
         {
             get
@@ -27,13 +33,13 @@ namespace GrayHorizons.Input
             {
                 boundAction = value;
 
-                if (boundAction != null)
+                if (boundAction.IsNotNull())
                 {
                     boundAction.ParentInputBinding = this;
-                    var customAttrs = boundAction.GetType ().GetCustomAttributes (typeof(AllowContinuousPressAttribute),
-                                                                                  true);
+                    var customAttrs = boundAction.GetType().GetCustomAttributes(typeof(AllowContinuousPressAttribute),
+                                          true);
 
-                    if (customAttrs != null)
+                    if (customAttrs.IsNotNull())
                     {
                         AllowContinuousPress = (customAttrs.Length > 0);
                     }
@@ -41,40 +47,36 @@ namespace GrayHorizons.Input
             }
         }
 
-        [XmlAttribute ("with")]
+        [XmlAttribute("with")]
         public string BoundActionType
         {
             get
             {
-                if (boundAction != null)
-                    return boundAction.GetType ().Name;
+                if (boundAction.IsNotNull())
+                    return boundAction.GetType().Name;
                 else
                     return String.Empty;
             }
             set
             {
-                if (String.IsNullOrEmpty (value))
+                if (String.IsNullOrEmpty(value))
                     boundAction = null;
 
                 foreach (Type type in Assembly.GetExecutingAssembly().GetTypes())
                 {
                     if (type.Name == value)
                     {
-                        #if DEBUG
-                        Debug.WriteLine ("Found the bound action for <{1}>.".FormatWith (ToString (), value),
-                                         "ACTIONS");
-                        #endif
+                        Debug.WriteLine("Found the bound action for <{1}>.".FormatWith(ToString(), value),
+                            "ACTIONS");
 
                         try
                         {
-                            var constructor = type.GetConstructor (new Type[] { });
-                            BoundAction = constructor.Invoke (new object[] { }) as GameAction;
+                            var constructor = type.GetConstructor(new Type[] { });
+                            BoundAction = constructor.Invoke(new object[] { }) as GameAction;
                         }
                         catch (TargetParameterCountException)
                         {
-                            #if DEBUG
-                            Debug.WriteLine ("No suitable constructor for the bound action <{0}> has been found.".FormatWith (value));
-                            #endif
+                            Debug.WriteLine("No suitable constructor for the bound action <{0}> has been found.".FormatWith(value));
                         }
                     }
                 }
@@ -84,48 +86,41 @@ namespace GrayHorizons.Input
         [XmlIgnore]
         public Player Player { get; set; }
 
-        [XmlAttribute ("player")]
-        [DefaultValue (-1)]
-        public int PlayerID
+        [XmlAttribute("player")]
+        [DefaultValue(-1)]
+        public int PlayerId
         {
             get
             {
-                return (Player == null ? -1 : 1);
+                return (Player.IsNull() ? -1 : 1);
             }
             set
             {
-                if (GameData != null && GameData.ActivePlayer != null)
+                if (GameData.IsNotNull() && GameData.ActivePlayer.IsNotNull())
                     Player = GameData.ActivePlayer;
             }
         }
 
-        [XmlIgnore ()]
+        [XmlIgnore()]
         public bool AllowContinuousPress { get; set; }
 
-        GameData GameData
-        {
-            get
-            {
-                return gameData;
-            }
-        }
-
-        internal InputBinding (
+        internal InputBinding(
             GameData gameData,
             GameAction boundAction,
             Player player,
             bool allowContinousPress)
         {
-            this.gameData = gameData;
+            GameData = gameData;
             AllowContinuousPress = allowContinousPress;
             BoundAction = boundAction;
             Player = player;
         }
 
-        internal InputBinding (
+        internal InputBinding(
             GameData gameData,
             GameAction boundAction,
-            bool allowContinousPress) : this (
+            bool allowContinousPress)
+            : this(
                 gameData,
                 boundAction,
                 null,
@@ -134,8 +129,9 @@ namespace GrayHorizons.Input
             
         }
 
-        internal InputBinding (
-            GameData gameData) : this (
+        internal InputBinding(
+            GameData gameData)
+            : this(
                 gameData,
                 null,
                 false)
@@ -143,14 +139,14 @@ namespace GrayHorizons.Input
 
         }
 
-        public abstract void UpdateState ();
+        public abstract void UpdateState();
 
-        public abstract bool IsActive ();
+        public abstract bool IsActive();
 
-        public void RunIfActive ()
+        public void RunIfActive()
         {
-            if (IsActive ())
-                BoundAction.Execute ();
+            if (IsActive())
+                BoundAction.Execute();
         }
     }
 }

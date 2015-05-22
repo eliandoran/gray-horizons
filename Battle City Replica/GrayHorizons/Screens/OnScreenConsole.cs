@@ -12,7 +12,6 @@ namespace GrayHorizons.Screens
     {
         readonly StringBuilder console = new StringBuilder();
         readonly GameData gameData;
-        int width = 200;
         Vector2? metrics;
         Rectangle rect;
 
@@ -26,23 +25,17 @@ namespace GrayHorizons.Screens
             }
         }
 
-        public int Width
-        {
-            get
-            {
-                return width;
-            }
-            set
-            {
-                width = value;
-                rect = GetRectangle();
-            }
-        }
-
         public OnScreenConsole(GameData gameData)
         {
             this.gameData = gameData;
             IsPopup = true;
+
+            gameData.ResolutionChanged += GameData_ResolutionChanged;
+        }
+
+        void GameData_ResolutionChanged(object sender, EventArgs e)
+        {
+            rect = GetRectangle();
         }
 
         public override void Draw(GameTime gameTime)
@@ -70,7 +63,7 @@ namespace GrayHorizons.Screens
             ScreenManager.SpriteBatch.Draw(
                 gameData.BlankTexture,
                 destinationRectangle: new Rectangle(rect.X, rect.Y, rect.Width, rect.Height),
-                color: Color.Black * 0.2f
+                color: Color.Black * 0.6f
             );
 
             ScreenManager.SpriteBatch.DrawString(
@@ -109,6 +102,8 @@ namespace GrayHorizons.Screens
 
         static string TakeLastLines(string text, int count)
         {
+            ;
+
             StringBuilder builder = new StringBuilder();
             List<string> lines = new List<string>();
             Match match = Regex.Match(text, "^.*$", RegexOptions.Multiline | RegexOptions.RightToLeft);

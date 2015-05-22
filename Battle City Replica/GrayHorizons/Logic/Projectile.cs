@@ -11,7 +11,6 @@ namespace GrayHorizons.Entities
     /// <summary>
     /// Represents an in-game projectile entity.
     /// </summary>
-    [MappedTextures("Projectile")]
     public class Projectile: Entity
     {
         /// <summary>
@@ -33,7 +32,7 @@ namespace GrayHorizons.Entities
         /// <value>The initial size of the explosion.</value>
         public Vector2 InitialExplosionSize { get; set; }
 
-        public Tank OwnerTank { get; set; }
+        public ControllableEntity Owner { get; set; }
 
         public TimeSpan OwnerTankImmunity { get; set; }
 
@@ -43,14 +42,11 @@ namespace GrayHorizons.Entities
         public Projectile()
         {
             // Default values:
-            Health = 1;
-            Damage = 1;
             CoolTimePenalty = new TimeSpan(0, 0, 1);
             InitialExplosionSize = new Vector2(16, 16);
             DefaultSize = new Point(45, 7);
             HasCollision = true;
             IsInvincible = false;
-
             DestructionDelay = TimeSpan.Zero;
             OwnerTankImmunity = TimeSpan.FromMilliseconds(0x4c4b40);
         }
@@ -67,7 +63,7 @@ namespace GrayHorizons.Entities
             else
                 OwnerTankImmunity = TimeSpan.Zero;
 
-            const int step = 20;
+            int step = Speed;
             var rads = Rotation.FromRadians(Position.Rotation).OffsetBy(90).ToRadians();
 
             Point delta = GetDelta(rads, step);
@@ -78,13 +74,11 @@ namespace GrayHorizons.Entities
             {
                 if (obstacle != this && !obstacle.IsBeingDestroyed)
                 {
-                    if (obstacle == OwnerTank && OwnerTankImmunity.TotalMilliseconds > 0)
+                    if (obstacle == Owner && OwnerTankImmunity.TotalMilliseconds > 0)
                     {
-                        #if DEBUG
                         Debug.WriteLine(
                             "Owner tank immunity ({0}ms left).".FormatWith(OwnerTankImmunity.TotalMilliseconds),
                             "PROJECTILE");
-                        #endif
                         continue;
                     }
 

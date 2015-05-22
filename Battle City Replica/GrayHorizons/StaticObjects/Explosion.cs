@@ -2,10 +2,11 @@
 using GrayHorizons.Logic;
 using GrayHorizons.Attributes;
 using Microsoft.Xna.Framework;
+using GrayHorizons.Extensions;
 
 namespace GrayHorizons.StaticObjects
 {
-    [MappedTextures ("Explosion")]
+    [MappedTextures("Explosion")]
     public class Explosion: StaticObject
     {
         int currentState;
@@ -19,42 +20,52 @@ namespace GrayHorizons.StaticObjects
             set
             {
                 if (value > MaximumState)
-                    Destroy ();
+                {
+                    if (GameData.IsNotNull())
+                        GameData.Map.ShakeFactor = 0;
+
+                    Destroy();
+                }
                 else
+                {
+                    if (GameData.IsNotNull())
+                        GameData.Map.ShakeFactor = 4;
+
                     currentState = value;
+                }
             }
         }
 
         public int MaximumState { get; set; }
 
-        public Explosion ()
+        public Explosion()
         {
             MaximumState = 25;
             CurrentState = -1;
             HasCollision = false;
             IsInvincible = true;
-            MinimapColor = null;
+            MiniMapColor = null;
         }
 
-        public override void Update (
+        public override void Update(
             TimeSpan gameTime)
         {
             CurrentState += 1;
         }
 
-        public override void Render ()
+        public override void Render()
         {
-            var texture = GameData.MappedTextures [GetType ()];
-            var position = GameData.Map.CalculateViewportCoordinates (Position.UpperLeftCorner (), GameData.MapScale);
+            var texture = GameData.MappedTextures[GetType()];
+            var position = GameData.Map.CalculateViewportCoordinates(Position.UpperLeftCorner(), GameData.MapScale);
 
-            GameData.ScreenManager.SpriteBatch.Draw (
+            GameData.ScreenManager.SpriteBatch.Draw(
                 texture,
-                origin: new Vector2 (0, 0),
-                destinationRectangle: new Rectangle ((int)position.X,
-                                                     (int)position.Y,
-                                                     Position.CollisionRectangle.Width,
-                                                     Position.CollisionRectangle.Height),
-                sourceRectangle: Renderer.GetSpriteFromSpriteImage (texture, CurrentState, 5, 5),
+                origin: new Vector2(0, 0),
+                destinationRectangle: new Rectangle((int)position.X,
+                    (int)position.Y,
+                    Position.CollisionRectangle.Width,
+                    Position.CollisionRectangle.Height),
+                sourceRectangle: Renderer.GetSpriteFromSpriteImage(texture, CurrentState, 5, 5),
                 scale: GameData.MapScale
             );
         }

@@ -34,9 +34,9 @@ namespace GrayHorizons.Screens
 
             var menuItems = new []
             {
-                new MenuItem("Resume"),
-                new MenuItem("Main Menu"),
-                new MenuItem("Exit Game")
+                new MenuItem("Inapoi la joc"),
+                new MenuItem("Meniul principal"),
+                new MenuItem("Inchidere joc")
             };
 
             menuItems[0].Activate += (

@@ -2,6 +2,8 @@
 using Microsoft.Xna.Framework;
 using System;
 using GrayHorizons.Logic;
+using System.Diagnostics;
+using GrayHorizons.Extensions;
 
 namespace GrayHorizons.Input
 {
@@ -17,8 +19,8 @@ namespace GrayHorizons.Input
             }
         }
 
-        public MouseStateChangedEventArgs (
-            MouseState state = new MouseState ())
+        public MouseStateChangedEventArgs(
+            MouseState state = new MouseState())
         {
             this.state = state;
         }
@@ -34,54 +36,66 @@ namespace GrayHorizons.Input
 
         MouseState lastState;
 
-        public MouseAxisBinding (
+        public MouseAxisBinding(
             GameData gameData,
-            GameAction boundAction = null) : base (
+            GameAction boundAction = null)
+            : base(
                 gameData,
-                boundAction) { }
-
-        public MouseAxisBinding () : this (
-                null) { }
-
-        public override void UpdateState ()
+                boundAction)
         {
-            MouseState state = Mouse.GetState ();
+        }
+
+        public MouseAxisBinding()
+            : this(
+                null)
+        {
+        }
+
+        public override void UpdateState()
+        {
+            MouseState state = Mouse.GetState();
+
+            if (!IsActive())
+                return;
 
             if (state.X != lastX ||
                 state.Y != lastY)
             {
-                var delta = new Point (state.X - lastX, state.Y - lastY);
+                var delta = new Point(state.X - lastX, state.Y - lastY);
                 lastX = state.X;
                 lastY = state.Y;
-                OnAxisChanged (new AxisChangedEventArgs (state, delta));
+                OnAxisChanged(new AxisChangedEventArgs(state, delta));
             }
 
             if (state != lastState)
             {
                 lastState = state;
-                OnStateChanged (new MouseStateChangedEventArgs (state));
+                OnStateChanged(new MouseStateChangedEventArgs(state));
             }
         }
 
-        protected void OnStateChanged (
+        protected void OnStateChanged(
             MouseStateChangedEventArgs eventArgs)
         {
-            if (MouseStateChanged != null)
-                MouseStateChanged (this, eventArgs);
+            if (!IsActive())
+                return;
+
+            if (MouseStateChanged.IsNotNull())
+                MouseStateChanged(this, eventArgs);
         }
 
-        public override bool IsActive ()
+        public override bool IsActive()
         {
-            return true;
+            return Game.IsNotNull() && Game.IsActive;
         }
 
         /// <summary>
         /// Returns a <see cref="System.String"/> that represents the current <see cref="GrayHorizons.Input.MouseAxisBinding"/>.
         /// </summary>
         /// <returns>A <see cref="System.String"/> that represents the current <see cref="GrayHorizons.Input.MouseAxisBinding"/>.</returns>
-        public override string ToString ()
+        public override string ToString()
         {
-            return string.Format ("[MouseAxisBinding, lastX={0}, lastY={1}]", lastX, lastY);
+            return string.Format("[MouseAxisBinding, lastX={0}, lastY={1}]", lastX, lastY);
         }
     }
 }

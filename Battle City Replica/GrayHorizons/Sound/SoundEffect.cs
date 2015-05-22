@@ -11,8 +11,8 @@ namespace GrayHorizons.Sound
 {
     public class SoundEffect
     {
-        readonly List<Microsoft.Xna.Framework.Audio.SoundEffect> sounds = new List<Microsoft.Xna.Framework.Audio.SoundEffect> ();
-        readonly Random random = new Random ();
+        readonly List<Microsoft.Xna.Framework.Audio.SoundEffect> sounds = new List<Microsoft.Xna.Framework.Audio.SoundEffect>();
+        readonly Random random = new Random();
 
         public List<Microsoft.Xna.Framework.Audio.SoundEffect> Sounds
         {
@@ -22,61 +22,68 @@ namespace GrayHorizons.Sound
             }
         }
 
-        public void Play (
+        public void Play(
             Microsoft.Xna.Framework.Audio.SoundEffect sound = null)
         {
-            if (sound == null)
-                sound = GetRandomSound ();
+            if (sound.IsNull())
+                sound = GetRandomSound();
             
-            GetInstance (sound).Play ();
+            GetInstance(sound).Play();
         }
 
-        public SoundEffectInstance GetInstance (
+        public void PlayWithCallback(
+            Action callBack,
             Microsoft.Xna.Framework.Audio.SoundEffect sound = null)
         {
-            if (sound == null)
-                sound = GetRandomSound ();
-            
-            return sound.CreateInstance ();
+            // TODO: Implement.
         }
 
-        public Microsoft.Xna.Framework.Audio.SoundEffect GetRandomSound ()
+        public SoundEffectInstance GetInstance(
+            Microsoft.Xna.Framework.Audio.SoundEffect sound = null)
         {
-            var count = Sounds.Count - 1;
-            var randomSound = random.Next (0, count);
+            if (sound.IsNull())
+                sound = GetRandomSound();
+            
+            return sound.CreateInstance();
+        }
 
-            #if DEBUG
-            Debug.WriteLine (
-                "Played sound {0} out of {1}.".FormatWith (randomSound + 1, count),
+        public Microsoft.Xna.Framework.Audio.SoundEffect GetRandomSound()
+        {
+            var count = Sounds.Count;
+            var randomSound = random.Next(0, count - 1);
+
+            Debug.WriteLine(
+                "Played sound {0} out of {1}.".FormatWith(randomSound + 1, count),
                 "SOUND");
-            #endif
 
-            return Sounds [randomSound];
+            return Sounds[randomSound];
         }
 
-        public SoundEffectInstance PlayLooped ()
+        public SoundEffectInstance PlayLooped()
         {
-            var instance = GetInstance ();
+            var instance = GetInstance();
             instance.IsLooped = true;
-            instance.Play ();
+            instance.Play();
             return instance;
         }
 
-        public void Play3D (Rectangle listenerPosition,
-                            Rectangle emitterPosition,
-                            Microsoft.Xna.Framework.Audio.SoundEffect sound = null)
+        public void Play3D(Rectangle listenerPosition,
+                           Rectangle emitterPosition,
+                           Microsoft.Xna.Framework.Audio.SoundEffect sound = null)
         {
-            var instance = GetInstance (sound);
-            instance.Apply3D (
-                new AudioListener {
-                    Position = new Vector3 (listenerPosition.Location.ToVector2 (), 0)
+            var instance = GetInstance(sound);
+            instance.Apply3D(
+                new AudioListener
+                {
+                    Position = new Vector3(listenerPosition.Location.ToVector2(), 0)
                 },
                 
-                new AudioEmitter {
-                    Position = new Vector3 (emitterPosition.Location.ToVector2 (), 0)
+                new AudioEmitter
+                {
+                    Position = new Vector3(emitterPosition.Location.ToVector2(), 0)
                 }
             );
-            instance.Play ();
+            instance.Play();
         }
     }
 }

@@ -1,8 +1,6 @@
-﻿using System;
+﻿using GrayHorizons.ThirdParty.GameStateManagement;
 using Microsoft.Xna.Framework;
-using GrayHorizons.ThirdParty.GameStateManagement;
 using Microsoft.Xna.Framework.Graphics;
-using System.Diagnostics;
 
 namespace GrayHorizons.UI
 {
@@ -25,8 +23,7 @@ namespace GrayHorizons.UI
         public double Percentage
         {
             get
-            {
-                Debug.WriteLine("CV: {0}, MV: {1}, R: {2}", CurrentValue, MaximumValue, CurrentValue / MaximumValue);
+            {                
                 return (double)CurrentValue / (double)MaximumValue;
             }
         }
@@ -50,13 +47,8 @@ namespace GrayHorizons.UI
         {
             base.Draw(gameTime);
 
-            ScreenManager.SpriteBatch.Begin();
-
-            ScreenManager.SpriteBatch.Draw(
-                texture,
-                destinationRectangle: Position,
-                color: EmptyColor
-            );
+            ScreenManager.SpriteBatch.Begin();           
+            ScreenManager.SpriteBatch.Draw(texture, Position, EmptyColor);
 
             var rect = new Rectangle(
                            Position.X,
@@ -64,8 +56,8 @@ namespace GrayHorizons.UI
                            (int)(Percentage * Position.Width),
                            Position.Height
                        );
-            ScreenManager.SpriteBatch.Draw(texture, rect, FilledColor);
 
+            ScreenManager.SpriteBatch.Draw(texture, rect, FilledColor);
             ScreenManager.SpriteBatch.End();
         }
     }

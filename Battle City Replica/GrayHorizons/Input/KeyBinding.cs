@@ -4,6 +4,7 @@ using GrayHorizons.Attributes;
 using Microsoft.Xna.Framework.Input;
 using System.Diagnostics;
 using GrayHorizons.Logic;
+using GrayHorizons.Extensions;
 
 namespace GrayHorizons.Input
 {
@@ -26,33 +27,35 @@ namespace GrayHorizons.Input
         /// </summary>
         public event EventHandler<EventArgs> KeyUp;
 
-        [XmlAttribute ("key")]
+        [XmlAttribute("key")]
         public Keys Key { get; set; }
 
-        [XmlIgnore ()]
+        [XmlIgnore()]
         public bool IsPressed { get; set; }
 
-        public KeyBinding () : this (
+        public KeyBinding()
+            : this(
                 null)
         {
             
         }
 
-        public KeyBinding (
+        public KeyBinding(
             GameData gameData,
             GameAction action = null,
             Keys key = Keys.None,
-            bool allowContinuousPress = false) : base (
+            bool allowContinuousPress = false)
+            : base(
                 gameData,
                 action,
                 allowContinuousPress)
         {
-            if (key == Keys.None && action != null)
+            if (key == Keys.None && action.IsNotNull())
             {
                 foreach (Attribute attr in action.GetType ().GetCustomAttributes (true))
                 {
                     var defaultKeyAttr = attr as DefaultKeyAttribute;
-                    if (defaultKeyAttr != null)
+                    if (defaultKeyAttr.IsNotNull())
                     {
                         Key = defaultKeyAttr.Key;
                         break;
@@ -67,24 +70,25 @@ namespace GrayHorizons.Input
             AllowContinuousPress = allowContinuousPress;
         }
 
-        public KeyBinding (
-            GameAction action) : this (
+        public KeyBinding(
+            GameAction action)
+            : this(
                 null,
-                action) { }
-
-        public override void UpdateState ()
+                action)
         {
-            if (BoundAction == null)
+        }
+
+        public override void UpdateState()
+        {
+            if (BoundAction.IsNull())
             {
-                #if DEBUG
                 if (!updateFailed)
                 {
-                    Debug.WriteLine ("KeyBinding failed to update because there is no bound action.", "KEY");
-                    Debug.WriteLine (ToString ());
+                    Debug.WriteLine("KeyBinding failed to update because there is no bound action.", "KEY");
+                    Debug.WriteLine(ToString());
 
                     updateFailed = true;
                 }
-                #endif
 
                 return;
             }
@@ -93,89 +97,84 @@ namespace GrayHorizons.Input
             {                
                 if (IsPressed)
                 {
-                    if (IsActive ())
+                    if (IsActive())
                     {
-                        OnKeyDown (EventArgs.Empty);
-                        BoundAction.Execute ();
+                        OnKeyDown(EventArgs.Empty);
+                        BoundAction.Execute();
                     }
                     else
                     {
-                        OnKeyUp (EventArgs.Empty);
+                        OnKeyUp(EventArgs.Empty);
                     }
                 }
             }
             else
             {                
-                if (IsActive ())
+                if (IsActive())
                 {
                     if (IsPressed)
                     {
-                        OnKeyDown (EventArgs.Empty);
+                        OnKeyDown(EventArgs.Empty);
                     }
                     else
                     {
-                        OnKeyUp (EventArgs.Empty);
-                        BoundAction.Execute ();
+                        OnKeyUp(EventArgs.Empty);
+                        BoundAction.Execute();
                     }
                 }                    
             }
 
-            IsPressed = IsActive ();
+            IsPressed = IsActive();
         }
 
-        public override bool IsActive ()
+        public override bool IsActive()
         {
-            if (Keyboard.GetState ().IsKeyDown (Key))
-            {                
-                return true;
-            }
-
-            return false;
+            return GameData.IsNotNull() && (GameData.Game.IsActive && Keyboard.GetState().IsKeyDown(Key));
         }
 
         /// <summary>
         /// Raises the key pressed event.
         /// </summary>
         /// <param name="e">The <see cref="System.EventArgs"/> containing information for this event.</param>
-        protected virtual void OnKeyPressed (
+        protected virtual void OnKeyPressed(
             EventArgs e)
         {
-            if (KeyPressed != null)
-                KeyPressed (this, e);
+            if (KeyPressed.IsNotNull())
+                KeyPressed(this, e);
         }
 
         /// <summary>
         /// Raises the key down event.
         /// </summary>
         /// <param name="e">The <see cref="System.EventArgs"/> containing information for this event.</param>
-        protected virtual void OnKeyDown (
+        protected virtual void OnKeyDown(
             EventArgs e)
         {
-            if (KeyDown != null)
-                KeyDown (this, e);
+            if (KeyDown.IsNotNull())
+                KeyDown(this, e);
         }
 
         /// <summary>
         /// Raises the key up event.
         /// </summary>
         /// <param name="e">The <see cref="System.EventArgs"/> containing information for this event.</param>
-        protected virtual void OnKeyUp (
+        protected virtual void OnKeyUp(
             EventArgs e)
         {
-            if (KeyUp != null)
-                KeyUp (this, e);
+            if (KeyUp.IsNotNull())
+                KeyUp(this, e);
         }
 
         /// <summary>
         /// Returns a <see cref="System.String"/> that represents the current <see cref="GrayHorizons.Input.KeyBinding"/>.
         /// </summary>
         /// <returns>A <see cref="System.String"/> that represents the current <see cref="GrayHorizons.Input.KeyBinding"/>.</returns>
-        public override string ToString ()
+        public override string ToString()
         {
-            return string.Format ("[KeyBinding: Key={0}, Action={1}, AllowContinousPress={2}]",
-                                  Key,
-                                  BoundAction,
-                                  AllowContinuousPress);
+            return string.Format("[KeyBinding: Key={0}, Action={1}, AllowContinousPress={2}]",
+                Key,
+                BoundAction,
+                AllowContinuousPress);
         }
     }
 }

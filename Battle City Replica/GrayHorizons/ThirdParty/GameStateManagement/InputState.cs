@@ -39,7 +39,7 @@ namespace GrayHorizons.ThirdParty.GameStateManagement
 
         public TouchCollection TouchState;
 
-        public readonly List<GestureSample> Gestures = new List<GestureSample> ();
+        public readonly List<GestureSample> Gestures = new List<GestureSample>();
 
         #endregion
 
@@ -49,7 +49,7 @@ namespace GrayHorizons.ThirdParty.GameStateManagement
         /// <summary>
         /// Constructs a new input state.
         /// </summary>
-        public InputState ()
+        public InputState()
         {
             CurrentKeyboardStates = new KeyboardState[MaxInputs];
             CurrentGamePadStates = new GamePadState[MaxInputs];
@@ -73,26 +73,26 @@ namespace GrayHorizons.ThirdParty.GameStateManagement
         {
             for (int i = 0; i < MaxInputs; i++)
             {
-                LastKeyboardStates [i] = CurrentKeyboardStates [i];
-                LastGamePadStates [i] = CurrentGamePadStates [i];
+                LastKeyboardStates[i] = CurrentKeyboardStates[i];
+                LastGamePadStates[i] = CurrentGamePadStates[i];
 
-                CurrentKeyboardStates [i] = Keyboard.GetState ((PlayerIndex)i);
-                CurrentGamePadStates [i] = GamePad.GetState ((PlayerIndex)i);
+                CurrentKeyboardStates[i] = Keyboard.GetState((PlayerIndex)i);
+                CurrentGamePadStates[i] = GamePad.GetState((PlayerIndex)i);
 
                 // Keep track of whether a gamepad has ever been
                 // connected, so we can detect if it is unplugged.
-                if (CurrentGamePadStates [i].IsConnected)
+                if (CurrentGamePadStates[i].IsConnected)
                 {
-                    GamePadWasConnected [i] = true;
+                    GamePadWasConnected[i] = true;
                 }
             }
 
-            TouchState = TouchPanel.GetState ();
+            TouchState = TouchPanel.GetState();
 
-            Gestures.Clear ();
+            Gestures.Clear();
             while (TouchPanel.IsGestureAvailable)
             {
-                Gestures.Add (TouchPanel.ReadGesture ());
+                Gestures.Add(TouchPanel.ReadGesture());
             }
         }
 
@@ -104,8 +104,8 @@ namespace GrayHorizons.ThirdParty.GameStateManagement
         /// is detected, the output playerIndex reports which player pressed it.
         /// </summary>
         public bool IsNewKeyPress(Keys key,
-                             PlayerIndex? controllingPlayer,
-                             out PlayerIndex playerIndex)
+                                  PlayerIndex? controllingPlayer,
+                                  out PlayerIndex playerIndex)
         {
             if (controllingPlayer.HasValue)
             {
@@ -114,16 +114,16 @@ namespace GrayHorizons.ThirdParty.GameStateManagement
 
                 int i = (int)playerIndex;
 
-                return (CurrentKeyboardStates [i].IsKeyDown (key) &&
-                LastKeyboardStates [i].IsKeyUp (key));
+                return (CurrentKeyboardStates[i].IsKeyDown(key) &&
+                LastKeyboardStates[i].IsKeyUp(key));
             }
             else
             {
                 // Accept input from any player.
-                return (IsNewKeyPress (key, PlayerIndex.One, out playerIndex) ||
-                IsNewKeyPress (key, PlayerIndex.Two, out playerIndex) ||
-                IsNewKeyPress (key, PlayerIndex.Three, out playerIndex) ||
-                IsNewKeyPress (key, PlayerIndex.Four, out playerIndex));
+                return (IsNewKeyPress(key, PlayerIndex.One, out playerIndex) ||
+                IsNewKeyPress(key, PlayerIndex.Two, out playerIndex) ||
+                IsNewKeyPress(key, PlayerIndex.Three, out playerIndex) ||
+                IsNewKeyPress(key, PlayerIndex.Four, out playerIndex));
             }
         }
 
@@ -135,8 +135,8 @@ namespace GrayHorizons.ThirdParty.GameStateManagement
         /// is detected, the output playerIndex reports which player pressed it.
         /// </summary>
         public bool IsNewButtonPress(Buttons button,
-                                PlayerIndex? controllingPlayer,
-                                out PlayerIndex playerIndex)
+                                     PlayerIndex? controllingPlayer,
+                                     out PlayerIndex playerIndex)
         {
             if (controllingPlayer.HasValue)
             {
@@ -145,16 +145,16 @@ namespace GrayHorizons.ThirdParty.GameStateManagement
 
                 int i = (int)playerIndex;
 
-                return (CurrentGamePadStates [i].IsButtonDown (button) &&
-                LastGamePadStates [i].IsButtonUp (button));
+                return (CurrentGamePadStates[i].IsButtonDown(button) &&
+                LastGamePadStates[i].IsButtonUp(button));
             }
             else
             {
                 // Accept input from any player.
-                return (IsNewButtonPress (button, PlayerIndex.One, out playerIndex) ||
-                IsNewButtonPress (button, PlayerIndex.Two, out playerIndex) ||
-                IsNewButtonPress (button, PlayerIndex.Three, out playerIndex) ||
-                IsNewButtonPress (button, PlayerIndex.Four, out playerIndex));
+                return (IsNewButtonPress(button, PlayerIndex.One, out playerIndex) ||
+                IsNewButtonPress(button, PlayerIndex.Two, out playerIndex) ||
+                IsNewButtonPress(button, PlayerIndex.Three, out playerIndex) ||
+                IsNewButtonPress(button, PlayerIndex.Four, out playerIndex));
             }
         }
 
@@ -166,12 +166,12 @@ namespace GrayHorizons.ThirdParty.GameStateManagement
         /// is detected, the output playerIndex reports which player pressed it.
         /// </summary>
         public bool IsMenuSelect(PlayerIndex? controllingPlayer,
-                            out PlayerIndex playerIndex)
+                                 out PlayerIndex playerIndex)
         {
-            return IsNewKeyPress (Keys.Space, controllingPlayer, out playerIndex) ||
-            IsNewKeyPress (Keys.Enter, controllingPlayer, out playerIndex) ||
-            IsNewButtonPress (Buttons.A, controllingPlayer, out playerIndex) ||
-            IsNewButtonPress (Buttons.Start, controllingPlayer, out playerIndex);
+            return IsNewKeyPress(Keys.Space, controllingPlayer, out playerIndex) ||
+            IsNewKeyPress(Keys.Enter, controllingPlayer, out playerIndex) ||
+            IsNewButtonPress(Buttons.A, controllingPlayer, out playerIndex) ||
+            IsNewButtonPress(Buttons.Start, controllingPlayer, out playerIndex);
         }
 
 
@@ -182,11 +182,11 @@ namespace GrayHorizons.ThirdParty.GameStateManagement
         /// is detected, the output playerIndex reports which player pressed it.
         /// </summary>
         public bool IsMenuCancel(PlayerIndex? controllingPlayer,
-                            out PlayerIndex playerIndex)
+                                 out PlayerIndex playerIndex)
         {
-            return IsNewKeyPress (Keys.Escape, controllingPlayer, out playerIndex) ||
-            IsNewButtonPress (Buttons.B, controllingPlayer, out playerIndex) ||
-            IsNewButtonPress (Buttons.Back, controllingPlayer, out playerIndex);
+            return IsNewKeyPress(Keys.Escape, controllingPlayer, out playerIndex) ||
+            IsNewButtonPress(Buttons.B, controllingPlayer, out playerIndex) ||
+            IsNewButtonPress(Buttons.Back, controllingPlayer, out playerIndex);
         }
 
 
@@ -199,9 +199,9 @@ namespace GrayHorizons.ThirdParty.GameStateManagement
         {
             PlayerIndex playerIndex;
 
-            return IsNewKeyPress (Keys.Up, controllingPlayer, out playerIndex) ||
-            IsNewButtonPress (Buttons.DPadUp, controllingPlayer, out playerIndex) ||
-            IsNewButtonPress (Buttons.LeftThumbstickUp, controllingPlayer, out playerIndex);
+            return IsNewKeyPress(Keys.Up, controllingPlayer, out playerIndex) ||
+            IsNewButtonPress(Buttons.DPadUp, controllingPlayer, out playerIndex) ||
+            IsNewButtonPress(Buttons.LeftThumbstickUp, controllingPlayer, out playerIndex);
         }
 
 
@@ -214,9 +214,9 @@ namespace GrayHorizons.ThirdParty.GameStateManagement
         {
             PlayerIndex playerIndex;
 
-            return IsNewKeyPress (Keys.Down, controllingPlayer, out playerIndex) ||
-            IsNewButtonPress (Buttons.DPadDown, controllingPlayer, out playerIndex) ||
-            IsNewButtonPress (Buttons.LeftThumbstickDown, controllingPlayer, out playerIndex);
+            return IsNewKeyPress(Keys.Down, controllingPlayer, out playerIndex) ||
+            IsNewButtonPress(Buttons.DPadDown, controllingPlayer, out playerIndex) ||
+            IsNewButtonPress(Buttons.LeftThumbstickDown, controllingPlayer, out playerIndex);
         }
 
 
@@ -229,9 +229,9 @@ namespace GrayHorizons.ThirdParty.GameStateManagement
         {
             PlayerIndex playerIndex;
 
-            return IsNewKeyPress (Keys.Escape, controllingPlayer, out playerIndex) ||
-            IsNewButtonPress (Buttons.Back, controllingPlayer, out playerIndex) ||
-            IsNewButtonPress (Buttons.Start, controllingPlayer, out playerIndex);
+            return IsNewKeyPress(Keys.Escape, controllingPlayer, out playerIndex) ||
+            IsNewButtonPress(Buttons.Back, controllingPlayer, out playerIndex) ||
+            IsNewButtonPress(Buttons.Start, controllingPlayer, out playerIndex);
         }
 
 

@@ -5,45 +5,41 @@ namespace GrayHorizons.Logic
 {
     public class Rotation
     {
-        public float degrees;
-
         public float Degrees { get; set; }
 
-        public Rotation () : this (
+        public Rotation()
+            : this(
                 0)
         {
 			
         }
 
-        public Rotation (
+        public Rotation(
             float degrees)
         {
             Degrees = degrees;
         }
 
-        public float ToRadians ()
+        public float ToRadians()
         {
             return (float)((Math.PI / 180) * Degrees);
         }
 
-        public static Rotation FromRadians (
+        public static Rotation FromRadians(
             float radians)
         {
-            return new Rotation ((float)((180 / Math.PI) * radians));
+            return new Rotation((float)((180 / Math.PI) * radians));
         }
 
-        public Rotation OffsetBy (
+        public Rotation OffsetBy(
             float degrees)
         {
-            var orientation = Degrees + degrees;
-            orientation %= 360;
-
-            return new Rotation (orientation);
+            return new Rotation((Degrees + degrees) % 360);
         }
 
-        public override string ToString ()
+        public override string ToString()
         {
-            return string.Format ("[Rotation: Degrees={0}, Radians={1}]", Degrees, ToRadians ());
+            return string.Format("[Rotation: Degrees={0}, Radians={1}]", Degrees, ToRadians());
         }
     }
 }

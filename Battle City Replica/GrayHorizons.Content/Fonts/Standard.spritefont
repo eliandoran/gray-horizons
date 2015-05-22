@@ -11,7 +11,49 @@
       <CharacterRegion>
         <Start>32</Start>
         <End>127</End>
-      </CharacterRegion>
+	  </CharacterRegion>
+	  
+	  <!-- ă-Ă -->
+	  <CharacterRegion>
+		<Start>&#258;</Start>
+		<End>&#259;</End>
+	  </CharacterRegion>
+	  
+	  <!-- Â -->
+	  <CharacterRegion>
+		<Start>&#194;</Start>
+		<End>&#194;</End>
+	  </CharacterRegion>
+	  
+	  <!-- â -->
+	  <CharacterRegion>
+		<Start>&#226;</Start>
+		<End>&#226;</End>
+	  </CharacterRegion>
+	  
+	  <!-- Î -->
+	  <CharacterRegion>
+		<Start>&#206;</Start>
+		<End>&#206;</End>
+	  </CharacterRegion>
+	  
+	  <!-- î -->
+	  <CharacterRegion>
+		<Start>&#238;</Start>
+		<End>&#238;</End>
+	  </CharacterRegion>
+	  
+	  <!-- Ș-ș -->
+	  <CharacterRegion>
+		<Start>&#x0218;</Start>
+		<End>&#x0219;</End>
+	  </CharacterRegion>
+	  
+	  <!-- Ț-ț -->
+	  <CharacterRegion>
+		<Start>&#x021A;</Start>
+		<End>&#x021B;</End>
+	  </CharacterRegion>
     </CharacterRegions>
   </Asset>
 </XnaContent>

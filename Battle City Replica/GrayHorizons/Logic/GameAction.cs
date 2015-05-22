@@ -2,6 +2,7 @@
 using GrayHorizons.Input;
 using Microsoft.Xna.Framework.Input;
 using System.Xml.Serialization;
+using GrayHorizons.Extensions;
 
 namespace GrayHorizons.Logic
 {
@@ -12,13 +13,13 @@ namespace GrayHorizons.Logic
 
         InputBinding parentInputBinding;
 
-        [XmlIgnore ()]
+        [XmlIgnore()]
         public Player Player { get; set; }
 
-        [XmlIgnore ()]
+        [XmlIgnore()]
         public GameData GameData { get; set; }
 
-        [XmlIgnore ()]
+        [XmlIgnore()]
         public InputBinding ParentInputBinding
         {
             get
@@ -28,11 +29,11 @@ namespace GrayHorizons.Logic
             set
             {
                 parentInputBinding = value;
-                OnParentInputBindingChanged (EventArgs.Empty);
+                OnParentInputBindingChanged(EventArgs.Empty);
             }
         }
 
-        internal GameAction (
+        internal GameAction(
             GameData gameData = null,
             Player player = null,
             InputBinding parentInputBinding = null)
@@ -40,16 +41,17 @@ namespace GrayHorizons.Logic
             GameData = gameData;
 
 
-            if (player != null)
+            if (player.IsNotNull())
                 Player = player;
-            else if (GameData != null)
+            else if (GameData.IsNotNull())
                 Player = gameData.ActivePlayer;
             
             ParentInputBinding = parentInputBinding;
         }
 
-        internal GameAction (
-            Player player) : this (
+        internal GameAction(
+            Player player)
+            : this(
                 null,
                 player,
                 null)
@@ -57,29 +59,30 @@ namespace GrayHorizons.Logic
             
         }
 
-        internal GameAction () : this (
+        internal GameAction()
+            : this(
                 null)
         {
             
         }
 
-        protected void OnParentInputBindingChanged (
+        protected void OnParentInputBindingChanged(
             EventArgs e)
         {
-            if (ParentInputBindingChanged != null)
-                ParentInputBindingChanged (this, e);
+            if (ParentInputBindingChanged.IsNotNull())
+                ParentInputBindingChanged(this, e);
         }
 
-        protected void OnActionExecuted (
+        protected void OnActionExecuted(
             EventArgs e)
         {
-            if (ActionExecuted != null)
-                ActionExecuted (this, e);
+            if (ActionExecuted.IsNotNull())
+                ActionExecuted(this, e);
         }
 
-        public virtual void Execute ()
+        public virtual void Execute()
         {
-            OnActionExecuted (EventArgs.Empty);
+            OnActionExecuted(EventArgs.Empty);
         }
     }
 }

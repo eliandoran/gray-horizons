@@ -8,12 +8,9 @@ namespace GrayHorizons.Windows.DirectX
     {
         #region InputOutputAgent implementation
 
-        public Stream GetStream (string file, bool readOnly)
+        public Stream GetStream(string file, FileMode fileMode)
         {
-            FileMode fileMode = (readOnly ? FileMode.Open : FileMode.Create);
-            FileStream fs = new FileStream (file, fileMode);
-
-            return fs;
+            return new FileStream(file, fileMode);
         }
 
         #endregion

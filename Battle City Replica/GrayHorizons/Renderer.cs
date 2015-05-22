@@ -5,8 +5,7 @@
     using Microsoft.Xna.Framework.Graphics;
     using GrayHorizons.Logic;
     using GrayHorizons.ThirdParty;
-    using GrayHorizons.Attributes;
-    using GrayHorizons.Entities;
+    using GrayHorizons.Extensions;
 
     /// <summary>
     /// Represents a collection of types and MonoGame textures.
@@ -67,6 +66,35 @@
                 color: frontColor);
         }
 
+        static void DrawCollisionBoundaries(GameData gameData)
+        {
+            if (!gameData.DebuggingSettings.ShowGuides)
+                return;
+
+            var boundaries = gameData.Map.CollisionBoundaries;
+
+            foreach (CollisionBoundary boundary in boundaries)
+            {
+                var scaled = boundary.ToRectangle().ScaleTo(gameData.MapScale);
+
+                if (gameData.Map.IntersectsViewport(boundary.ToRotatedRectangle()))
+                {
+                    var viewportRect =
+                        new Rectangle(
+                            gameData.Map.CalculateViewportCoordinates(boundary.ToVector2(), gameData.MapScale).ToPoint(),
+                            scaled.Size);
+
+                    gameData.ScreenManager.SpriteBatch.Draw(
+                        gameData.BlankTexture,
+                        destinationRectangle: viewportRect,
+                        color: Color.Red * .45f,
+                        rotation: 0,
+                        origin: Vector2.Zero
+                    );
+                }
+            }
+        }
+
         /// <summary>
         /// Draws the guides.
         /// </summary>
@@ -76,30 +104,31 @@
             ObjectBase obj)
         {
             if (!gameData.DebuggingSettings.ShowGuides)
-                return;//return;
+                return;
 
             DrawRotatedRect(gameData, obj.Position);
 
             var tank = obj as Tank;
-            if (tank != null && tank.MuzzleRectangle != null)
+            if (tank.IsNotNull() && tank.MuzzleRectangle.IsNotNull())
             {
-                if (tank.TurretRect == null)
+                if (tank.TurretRect.IsNull())
                     return;
 
                 var muzzlePos = tank.GetMuzzleRotatedRectangle();
                 var muzzleX = muzzlePos.CollisionRectangle.X;
                 var muzzleY = muzzlePos.CollisionRectangle.Y;
 
-                var muzzleViewportPos = gameData.Map.CalculateViewportCoordinates(new Vector2(muzzleX, muzzleY),
+                var muzzleViewportPos = gameData.Map.CalculateViewportCoordinates(
+                                            new Vector2(muzzleX, muzzleY),
                                             gameData.MapScale);
-                var rect = new Rectangle((int)muzzleViewportPos.X,
+                var rect = new Rectangle(
+                               (int)muzzleViewportPos.X,
                                (int)muzzleViewportPos.Y,
                                muzzlePos.CollisionRectangle.Width,
                                muzzlePos.CollisionRectangle.Height);
 
-
-
-                gameData.ScreenManager.SpriteBatch.Draw(gameData.BlankTexture,
+                gameData.ScreenManager.SpriteBatch.Draw(
+                    gameData.BlankTexture,
                     destinationRectangle: rect,
                     rotation: muzzlePos.Rotation,
                     scale: gameData.MapScale);
@@ -133,13 +162,20 @@
 
         public void Render()
         {
-            gameData.Map.Render();
+            gameData.ScreenManager.SpriteBatch.End();
+            gameData.ScreenManager.SpriteBatch.Begin(
+                transformMatrix: gameData.TranslationMatrix);
 
-            foreach (ObjectBase obj in gameData.Map.GetObjects())
-            {
-                obj.Render();
-                Renderer.DrawGuides(gameData, obj);
-            }
+            gameData.Map.Render();
+            DrawCollisionBoundaries(gameData);
+
+            gameData.Map.GetObjects().ForEach(obj =>
+                {
+                    obj.Render();
+                    Renderer.DrawGuides(gameData, obj);
+                });
+
+            gameData.ScreenManager.SpriteBatch.End();
         }
     }
 }

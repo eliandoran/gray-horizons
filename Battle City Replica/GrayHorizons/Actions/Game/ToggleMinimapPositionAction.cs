@@ -1,38 +1,41 @@
-﻿using System;
+﻿/*
+   _____                   _    _            _                    
+  / ____|                 | |  | |          (_)                   
+ | |  __ _ __ __ _ _   _  | |__| | ___  _ __ _ _______  _ __  ___ 
+ | | |_ | '__/ _` | | | | |  __  |/ _ \| '__| |_  / _ \| '_ \/ __|
+ | |__| | | | (_| | |_| | | |  | | (_) | |  | |/ / (_) | | | \__ \
+  \_____|_|  \__,_|\__, | |_|  |_|\___/|_|  |_/___\___/|_| |_|___/
+                    __/ |                                         
+                   |___/              © 2015 by Doran Adoris Elian
+*/
+
+using System;
 using GrayHorizons.Attributes;
 using Microsoft.Xna.Framework.Input;
 using GrayHorizons.ThirdParty.GameStateManagement;
 using GrayHorizons.Logic;
 using GrayHorizons.Screens.HeadsUp;
+using System.Linq;
+using GrayHorizons.Extensions;
 
 namespace GrayHorizons.Actions.Game
 {
     [DefaultKey(Keys.F9)]
-    public class ToggleMinimapPositionAction: GameAction
+    public class ToggleMiniMapPositionAction: GameAction
     {
-        public ToggleMinimapPositionAction(GameData gameData)
-            : base(gameData)
-        {
-        }
-
-        public ToggleMinimapPositionAction()
-            : this(null)
-        {
-        }
-
         public override void Execute()
         {
-            foreach (GameScreen screen in GameData.ScreenManager.GetScreens())
-            {
-                var minimap = screen as MinimapScreen;
-                if (minimap != null)
+            GameData.ScreenManager.GetScreens().ToList().ForEach(screen =>
                 {
-                    if (minimap.Position < MinimapScreen.MinimapPosition.BottomRight)
-                        minimap.Position += 1;
-                    else
-                        minimap.Position = MinimapScreen.MinimapPosition.TopLeft;
-                }
-            }
+                    var miniMap = screen as MiniMapScreen;
+                    if (miniMap.IsNotNull())
+                    {
+                        if (miniMap.Position < MiniMapScreen.MiniMapPosition.BottomRight)
+                            miniMap.Position += 1;
+                        else
+                            miniMap.Position = MiniMapScreen.MiniMapPosition.TopLeft;
+                    }
+                });
         }
     }
 }

@@ -2,38 +2,48 @@
 using GrayHorizons.StaticObjects;
 using GrayHorizons.ThirdParty;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using GrayHorizons.Extensions;
 
 namespace GrayHorizons.Logic
 {
     /// <summary>
     /// Represents an immovable object on the in-game map.
     /// </summary>
-    [XmlInclude (typeof(Wall))]
+    [XmlInclude(typeof(Wall))]
     public abstract class StaticObject: ObjectBase
     {
-        protected StaticObject ()
+        protected StaticObject()
         {
-            MinimapColor = Color.Gray;
+            MiniMapColor = Color.Gray;
         }
 
-        public override void Render ()
+        public override void Render()
         {
-            if (Position.Intersects (new RotatedRectangle (GameData.Map.Viewport, 0)))
+            if (Position.Intersects(new RotatedRectangle(GameData.Map.ScaledViewport, 0)))
             {
-                var texture = CustomTexture ?? GameData.MappedTextures [GetType ()];
-                var viewportPosition = GameData.Map.CalculateViewportCoordinates (Position.UpperLeftCorner (),
-                                                                                  GameData.MapScale);
+                Texture2D texture;
+                if (CustomTexture.IsNotNull())
+                    texture = CustomTexture;
+                else if (GameData.MappedTextures.ContainsKey(GetType()))
+                    texture = GameData.MappedTextures[GetType()];
+                else
+                    return;
+
+                var viewportPosition = GameData.Map.CalculateViewportCoordinates(
+                                           Position.UpperLeftCorner(),
+                                           GameData.MapScale);
                 
 
-                GameData.ScreenManager.SpriteBatch.Draw (texture,
-                                                         viewportPosition,
-                                                         scale: GameData.MapScale,
-                                                         sourceRectangle: CustomTextureCrop,
-                                                         rotation: Position.Rotation);
+                GameData.ScreenManager.SpriteBatch.Draw(texture,
+                    viewportPosition,
+                    scale: GameData.MapScale,
+                    sourceRectangle: CustomTextureCrop,
+                    rotation: Position.Rotation);
             }
         }
 
-        public override void RenderHUD ()
+        public override void RenderHud()
         {
             // No implementation needed.
         }

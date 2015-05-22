@@ -1,11 +1,21 @@
-﻿using System;
+﻿/*
+   _____                   _    _            _                    
+  / ____|                 | |  | |          (_)                   
+ | |  __ _ __ __ _ _   _  | |__| | ___  _ __ _ _______  _ __  ___ 
+ | | |_ | '__/ _` | | | | |  __  |/ _ \| '__| |_  / _ \| '_ \/ __|
+ | |__| | | | (_| | |_| | | |  | | (_) | |  | |/ / (_) | | | \__ \
+  \_____|_|  \__,_|\__, | |_|  |_|\___/|_|  |_/___\___/|_| |_|___/
+                    __/ |                                         
+                   |___/              © 2015 by Doran Adoris Elian
+*/
+using System;
 
 namespace GrayHorizons.Extensions
 {
     /// <summary>
     /// Represents a set of formatting method extensions for the <see cref="System.String"/> class, in which the instance acts as the format specifier.
     /// </summary>
-    static class StringFormattingExtensions
+    public static class StringFormattingExtensions
     {
         /// <summary>
         /// Replaces one or more format items in a specified string with the string representation of the specified object.
@@ -16,7 +26,7 @@ namespace GrayHorizons.Extensions
         public static string FormatWith(this string format,
                                         object arg0)
         {
-            return String.Format (format, arg0);
+            return String.Format(format, arg0);
         }
 
         /// <summary>
@@ -30,7 +40,7 @@ namespace GrayHorizons.Extensions
                                         object arg0,
                                         object arg1)
         {
-            return String.Format (format, arg0, arg1);
+            return String.Format(format, arg0, arg1);
         }
 
         /// <summary>
@@ -46,7 +56,7 @@ namespace GrayHorizons.Extensions
                                         object arg1,
                                         object arg2)
         {
-            return String.Format (format, arg0, arg1, arg2);
+            return String.Format(format, arg0, arg1, arg2);
         }
 
         /// <summary>
@@ -58,7 +68,7 @@ namespace GrayHorizons.Extensions
         public static string FormatWith(this string format,
                                         params object[] args)
         {
-            return String.Format (format, args);
+            return String.Format(format, args);
         }
 
         /// <summary>
@@ -73,7 +83,7 @@ namespace GrayHorizons.Extensions
                                         IFormatProvider provider,
                                         object[] args)
         {
-            return String.Format (provider, format, args);
+            return String.Format(provider, format, args);
         }
     }
 }

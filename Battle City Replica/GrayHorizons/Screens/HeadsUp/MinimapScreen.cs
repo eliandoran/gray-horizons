@@ -3,14 +3,13 @@ using GrayHorizons.ThirdParty.GameStateManagement;
 using Microsoft.Xna.Framework;
 using System.Diagnostics;
 using GrayHorizons.Logic;
+using GrayHorizons.Extensions;
 
 namespace GrayHorizons.Screens.HeadsUp
 {
-    public class MinimapScreen: GameScreen
+    public class MiniMapScreen: GameScreen
     {
-        int lastScreenWidth, lastScreenHeight;
-
-        public enum MinimapPosition
+        public enum MiniMapPosition
         {
             TopLeft,
             TopRight,
@@ -22,9 +21,9 @@ namespace GrayHorizons.Screens.HeadsUp
 
         public Point Size { get; set; }
 
-        MinimapPosition position;
+        MiniMapPosition position;
 
-        public MinimapPosition Position
+        public MiniMapPosition Position
         {
             get
             {
@@ -43,7 +42,7 @@ namespace GrayHorizons.Screens.HeadsUp
 
         Rectangle rect;
 
-        public MinimapScreen(GameData gameData, MinimapPosition defaultPosition)
+        public MiniMapScreen(GameData gameData, MiniMapPosition defaultPosition)
         {
             IsPopup = true;
             this.gameData = gameData;
@@ -51,6 +50,13 @@ namespace GrayHorizons.Screens.HeadsUp
             Size = new Point(256, 256);
             Padding = new Point(10, 10);
             Position = defaultPosition;
+
+            gameData.ResolutionChanged += GameData_ResolutionChanged;
+            CalculatePosition();
+        }
+
+        void GameData_ResolutionChanged(object sender, EventArgs e)
+        {
             CalculatePosition();
         }
 
@@ -63,6 +69,8 @@ namespace GrayHorizons.Screens.HeadsUp
             DrawFrame(5);
             DrawBackground();
             DrawEntities();
+            if (gameData.DebuggingSettings.ShowGuides)
+                DrawCollisionRectangles();
 
             ScreenManager.SpriteBatch.End();
 
@@ -92,37 +100,37 @@ namespace GrayHorizons.Screens.HeadsUp
 
             foreach (ObjectBase entity in gameData.Map.GetObjects())
             {
-                if (!entity.MinimapColor.HasValue)
+                if (!entity.MiniMapColor.HasValue)
                     continue;
 
                 var pos = RealPosition.ToVector2() + (entity.Position.CollisionRectangle.Center.ToVector2() * scale);
-                ScreenManager.SpriteBatch.Draw(gameData.BlankTexture,
+                ScreenManager.SpriteBatch.Draw(
+                    gameData.BlankTexture,
                     pos,
-                    color: entity.MinimapColor.Value,
+                    color: entity.MiniMapColor.Value,
                     rotation: entity.Position.Rotation);
             }
+        }
+
+        void DrawCollisionRectangles()
+        {
+            var scale = new Vector2(Size.X / gameData.Map.MapSize.X, Size.Y / gameData.Map.MapSize.Y);
+
+            foreach (CollisionBoundary boundary in gameData.Map.CollisionBoundaries)
+                ScreenManager.SpriteBatch.Draw(
+                    gameData.BlankTexture,
+                    boundary.ToRectangle().ScaleTo(scale).OffsetBy(RealPosition),
+                    Color.Red * .60f
+                );
         }
 
         void CalculatePosition()
         {
             var screenWidth = gameData.GraphicsDevice.Viewport.Width;
             var screenHeight = gameData.GraphicsDevice.Viewport.Height;
-            var x = (Position == MinimapPosition.TopRight || Position == MinimapPosition.BottomRight ? screenWidth - Size.X - Padding.X : Padding.Y);
-            var y = (Position == MinimapPosition.BottomLeft || Position == MinimapPosition.BottomRight ? screenHeight - Size.Y - Padding.Y : Padding.Y);
-            lastScreenWidth = screenWidth;
-            lastScreenHeight = screenHeight;
+            var x = (Position == MiniMapPosition.TopRight || Position == MiniMapPosition.BottomRight ? screenWidth - Size.X - Padding.X : Padding.Y);
+            var y = (Position == MiniMapPosition.BottomLeft || Position == MiniMapPosition.BottomRight ? screenHeight - Size.Y - Padding.Y : Padding.Y);
             RealPosition = new Point(x, y);
-        }
-
-        public override void Update(GameTime gameTime, bool otherScreenHasFocus, bool coveredByOtherScreen)
-        {
-            if (lastScreenWidth != gameData.GraphicsDevice.Viewport.Width ||
-                lastScreenHeight != gameData.GraphicsDevice.Viewport.Height)
-            {
-                CalculatePosition();
-            }
-
-            base.Update(gameTime, otherScreenHasFocus, coveredByOtherScreen);
         }
 
         Rectangle GetRectangle()

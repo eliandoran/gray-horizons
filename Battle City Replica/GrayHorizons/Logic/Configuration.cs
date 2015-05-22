@@ -39,7 +39,7 @@ namespace GrayHorizons.Logic
 
         public void Save(InputOutputAgent agent, string filePath)
         {
-            using (var stream = agent.GetStream(filePath, false))
+            using (var stream = agent.GetStream(filePath, FileMode.Create))
             {
                 var xml = new XmlSerializer(GetType());
                 xml.Serialize(stream, this);
@@ -52,8 +52,10 @@ namespace GrayHorizons.Logic
             {
                 binding.Player = gameData.ActivePlayer;
 
-                if (binding.BoundAction != null)
+                if (binding.BoundAction.IsNotNull())
                 {
+                    binding.Game = gameData.Game;
+                    binding.GameData = gameData;
                     binding.BoundAction.GameData = gameData;
                     binding.BoundAction.Player = gameData.ActivePlayer;
                 }
@@ -64,7 +66,7 @@ namespace GrayHorizons.Logic
         {
             Configuration config = null;
 
-            using (var stream = agent.GetStream(filePath, true))
+            using (var stream = agent.GetStream(filePath, FileMode.Open))
             {
                 var xml = new XmlSerializer(typeof(Configuration));
 
@@ -74,20 +76,16 @@ namespace GrayHorizons.Logic
                 }
                 catch (InvalidOperationException e)
                 {
-                    #if DEBUG
                     Debug.WriteLine("Error loading configuration.", "CONFIG");
                     Debug.WriteLine(e.ToString());
-                    #endif
                 }
             }
 
             #if DEBUG
-            if (config != null)
+            if (config.IsNotNull())
             {
                 Debug.WriteLine("Input Bindings ({0}):".FormatWith(config.InputBindings.Count), "CONFIG");
-
-                foreach (InputBinding binding in config.InputBindings)
-                    Debug.WriteLine(binding.ToString());
+                config.InputBindings.ForEach(obj => Debug.WriteLine(obj));
             }
             #endif
 

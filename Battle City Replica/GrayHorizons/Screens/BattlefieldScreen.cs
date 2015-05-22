@@ -1,15 +1,13 @@
 ﻿using System;
 using System.Diagnostics;
-using GrayHorizons.Entities;
 using GrayHorizons.Extensions;
 using GrayHorizons.Input;
+using GrayHorizons.Logic;
 using GrayHorizons.StaticObjects;
 using GrayHorizons.ThirdParty;
 using GrayHorizons.ThirdParty.GameStateManagement;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using GrayHorizons.Maps;
-using GrayHorizons.Logic;
 
 namespace GrayHorizons.Screens
 {
@@ -21,17 +19,26 @@ namespace GrayHorizons.Screens
         Renderer renderer;
         readonly GameData gameData;
         HeadsUpScreen hud;
+        Map map;
         ControllableEntity playerVehicle = new Entities.Tanks.TankE100();
 
         public BattlefieldScreen(
-            GameData gameData)
+            GameData gameData,
+            Map map)
         {
             this.gameData = gameData;
+            this.map = map;
+            gameData.Map = map;
+            gameData.Map.Viewport = new Rectangle(
+                0, 0,
+                gameData.GraphicsDevice.Viewport.Width,
+                gameData.GraphicsDevice.Viewport.Height);
+            gameData.Map.ScaledViewport = gameData.Map.Viewport.ScaleTo(new Vector2(1, 1));
 
             TransitionOnTime = TimeSpan.FromMilliseconds(1000);
             TransitionOffTime = TimeSpan.FromMilliseconds(1000);
 
-            Debug.WriteLine("[BINDINGS] Count: {0}.", gameData.Configuration.InputBindings.Count);
+            Debug.WriteLine("[BINDINGS] Count: {0}.".FormatWith(gameData.Configuration.InputBindings.Count));
         }
 
         static void WallLine(
@@ -41,60 +48,10 @@ namespace GrayHorizons.Screens
             int y)
         {
             for (int x = startX; x <= endX; x++)
-                map.Add(new Wall() { Position = new RotatedRectangle(new Rectangle(x * 64, y * 64, 64, 64), 0) });
-        }
-
-        Map GetTestMap()
-        {
-            var map = new DesertMap(gameData);
-
-            gameData.ActivePlayer.AssignedEntity = playerVehicle;
-            playerVehicle.Position = new RotatedRectangle(new Rectangle(5 * 64,
-                    5 * 64,
-                    playerVehicle.DefaultSize.X,
-                    playerVehicle.DefaultSize.Y),
-                0);
-
-            map.Viewport = new Rectangle(
-                0, 0,
-                gameData.Game.GraphicsDevice.Viewport.Width,
-                gameData.Game.GraphicsDevice.Viewport.Height);
-
-            gameData.ViewportScale = new Vector2(1, 1);
-            map.ScaledViewport = map.Viewport.ScaleTo(gameData.ViewportScale.X);
-            map.GameData = gameData;
-
-            playerVehicle.Moved += (
-                sender,
-                e) => gameData.Map.CenterViewportAt(playerVehicle);
-
-            map.Add(playerVehicle);
-
-            var enemyTank = new Entities.Tanks.TankVK3601h();
-            enemyTank.CanBeBoarded = true;
-            enemyTank.Position = new RotatedRectangle(new Rectangle(8 * 64,
-                    6 * 64,
-                    enemyTank.DefaultSize.X,
-                    enemyTank.DefaultSize.Y),
-                90);
-            enemyTank.AI = new AI.VanillaAI();
-            enemyTank.AI.GameData = gameData;
-            map.Add(enemyTank);
-
-            var car = new Entities.Cars.MinelayerPickup();
-            car.Position = new RotatedRectangle(
-                new Rectangle(12 * 64, 12 * 64, car.DefaultSize.X, car.DefaultSize.Y),
-                0);
-            car.CanBeBoarded = true;
-            map.Add(car);
-
-            WallLine(map, 0, 9, 9);
-            WallLine(map, 0, 9, 0);
-
-            if (gameData.Configuration != null)
-                gameData.Configuration.Save(gameData.IOAgent, @"config.xml");
-
-            return map;
+                map.Add(new Wall
+                    {
+                        Position = new RotatedRectangle(new Rectangle(x * 64, y * 64, 64, 64), 0)
+                    });
         }
 
         public override void HandleInput(
@@ -104,9 +61,7 @@ namespace GrayHorizons.Screens
                 return;
 
             foreach (InputBinding binding in gameData.Configuration.InputBindings)
-            {
                 binding.UpdateState();
-            }
         }
 
         public override void LoadContent()
@@ -116,22 +71,21 @@ namespace GrayHorizons.Screens
             Loader.LoadSoundEffects(gameData);
 
             gameData.MapScale = new Vector2(1, 1);
+            gameData.ViewportScale = new Vector2(1, 1);
             renderer = new Renderer(gameData);
 
-            gameData.Map = GetTestMap();
+            gameData.Map = map;
             gameData.IsPaused = false;
-
-            //new GrayHorizons.Input.Actions.ToggleFullScreenAction (gameData).Execute ();
+            gameData.Map.CenterViewportAt(gameData.ActivePlayer.AssignedEntity);
         }
 
         public override void Draw(
             GameTime gameTime)
         {
-            #if DEBUG
-            if (gameTime.ElapsedGameTime.TotalMilliseconds > 17)
-                Debug.WriteLine(String.Format("{0}ms".FormatWith(gameTime.ElapsedGameTime.TotalMilliseconds.ToString())),
+            if (gameTime.ElapsedGameTime.TotalMilliseconds > 20)
+                Debug.WriteLine(String.Format("{0}ms".FormatWith(
+                            gameTime.ElapsedGameTime.TotalMilliseconds.ToString())),
                     "LAG");
-            #endif
 
             spriteBatch.Begin();
 
@@ -154,8 +108,10 @@ namespace GrayHorizons.Screens
                 hud = new HeadsUpScreen(gameData);
                 ScreenManager.AddScreen(hud, null);
                 firstTime = false;
+                gameData.Objectives.GetFirstUncompletedObjective().Startup();
             }
 
+            gameData.Objectives.Update(gameTime.ElapsedGameTime);
             HandleInput(new InputState());
 
             this.coveredByOtherScreen = coveredByOtherScreen;

@@ -1,11 +1,10 @@
 ﻿<Properties StartupItem="GrayHorizons.Windows.DirectX\GrayHorizons.Windows.DirectX.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="GrayHorizons\Screens\HeadsUp\PlayerStateScreen.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="GrayHorizons\Maps\TutorialMap.cs">
     <Files>
-      <File FileName="GrayHorizons\Logic\ObjectBase.cs" Line="16" Column="16" />
-      <File FileName="GrayHorizons\Screens\HeadsUpScreen.cs" Line="66" Column="66" />
-      <File FileName="GrayHorizons\Screens\HeadsUp\PlayerStateScreen.cs" Line="70" Column="70" />
-      <File FileName="GrayHorizons\UI\ProgressBar.cs" Line="10" Column="10" />
+      <File FileName="GrayHorizons\MonoGame.cs" Line="122" Column="13" />
+      <File FileName="GrayHorizons\Maps\TutorialMap.cs" Line="125" Column="66" />
+      <File FileName="GrayHorizons\Screens\MessageScreen.cs" Line="7" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

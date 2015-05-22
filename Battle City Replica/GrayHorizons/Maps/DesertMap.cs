@@ -1,5 +1,4 @@
-﻿using System;
-using GrayHorizons.Attributes;
+﻿using GrayHorizons.Attributes;
 using Microsoft.Xna.Framework;
 using GrayHorizons.ThirdParty;
 using GrayHorizons.AI;

@@ -1,46 +1,39 @@
 ﻿using System;
 using System.Collections.Generic;
-using GrayHorizons.ThirdParty.GameStateManagement;
-using Microsoft.Xna.Framework;
 using System.Diagnostics;
+using GrayHorizons.Actions.MenuNavigation;
 using GrayHorizons.Extensions;
 using GrayHorizons.Input;
+using GrayHorizons.ThirdParty.GameStateManagement;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using GrayHorizons.Actions.MenuNavigation;
 
 namespace GrayHorizons.UI
 {
     public class Menu: GameScreen
     {
-        readonly List<MenuItem> menuItems;
-        readonly List<InputBinding> inputBindings;
+        readonly List<MenuItem> menuItems = new List<MenuItem>();
+        readonly List<InputBinding> inputBindings = new List<InputBinding>();
         int? selectedIndex;
         SpriteFont font;
 
-        public Menu ()
+        public Menu()
         {
-            menuItems = new List<MenuItem> ();
-            inputBindings = new List<InputBinding> ();
+            Debug.WriteLine("Adding event handlers...", "MENU");
 
-            #if DEBUG
-            Debug.WriteLine ("Adding event handlers...", "MENU");
-            #endif
-
-            var menuUpAction = new MenuUp (this);
-
-            var menuDownAction = new MenuDown (this);
-
-            var menuSelectAction = new MenuSelect (this);
-
-            var menuMouseControlBinding = new MouseAxisBinding ();
-            var menuMouseControlActions = new MenuMouseControlAction (this, menuMouseControlBinding);
+            var menuUpAction = new MenuUp(this);
+            var menuDownAction = new MenuDown(this);
+            var menuSelectAction = new MenuSelect(this);
+            var menuMouseControlBinding = new MouseAxisBinding();
+            var menuMouseControlActions = new MenuMouseControlAction(this, menuMouseControlBinding);
             menuMouseControlBinding.BoundAction = menuMouseControlActions;
 
-            inputBindings.AddRange (
-                new InputBinding[] {
-                    new KeyBinding (menuUpAction),
-                    new KeyBinding (menuDownAction),
-                    new KeyBinding (menuSelectAction),
+            inputBindings.AddRange(
+                new InputBinding[]
+                {
+                    new KeyBinding(menuUpAction),
+                    new KeyBinding(menuDownAction),
+                    new KeyBinding(menuSelectAction),
                     menuMouseControlBinding
                 }
             );
@@ -49,27 +42,23 @@ namespace GrayHorizons.UI
             Enabled = true;
         }
 
-        public void AddComponents ()
+        public void AddComponents()
         {
-            #if DEBUG
-            Debug.WriteLine ("Adding components:", "MENU");
-            #endif
+            Debug.WriteLine("Adding components:", "MENU");
 
             int index = 0;
             foreach (var menuItem in menuItems)
             {
-                var pos = new Point (
+                var pos = new Point(
                               Position.X + index + ItemPadding.X,
                               Position.Y + index * (ItemSize.Y + ItemPadding.Y));
                 
                 menuItem.Font = font;
-                menuItem.Dimensions = new Rectangle (pos.X, pos.Y, ItemSize.X, ItemSize.Y);
+                menuItem.Dimensions = new Rectangle(pos.X, pos.Y, ItemSize.X, ItemSize.Y);
 
-                ScreenManager.AddScreen (menuItem, null);
+                ScreenManager.AddScreen(menuItem, null);
 
-                #if DEBUG
-                Debug.WriteLine ("\"{0}\" at {1}.".FormatWith (menuItem.Text, menuItem.Dimensions));
-                #endif
+                Debug.WriteLine("\"{0}\" at {1}.".FormatWith(menuItem.Text, menuItem.Dimensions));
 
                 index++;
             }
@@ -122,7 +111,7 @@ namespace GrayHorizons.UI
                 else
                     selectedIndex = value;
 
-                UpdateSelection ();
+                UpdateSelection();
             }
         }
 
@@ -132,7 +121,7 @@ namespace GrayHorizons.UI
             {
                 if (SelectedIndex.HasValue)
                 {
-                    return MenuItems [SelectedIndex.Value];
+                    return MenuItems[SelectedIndex.Value];
                 }
                 else
                 {
@@ -142,88 +131,70 @@ namespace GrayHorizons.UI
 
             set
             {
-                if (value != null)
+                if (value.IsNotNull())
                 {
-                    SelectedIndex = MenuItems.IndexOf (value);
+                    SelectedIndex = MenuItems.IndexOf(value);
                 }
                 else
                     SelectedIndex = null;
                 
-                UpdateSelection ();
+                UpdateSelection();
             }
         }
 
-        public MenuItem GetMenuItemAt (
+        public MenuItem GetMenuItemAt(
             Point position)
         {
-            foreach (MenuItem item in MenuItems)
-            {
-                if (item.Dimensions.Contains (position))
-                    return item;
-            }
-
-            return null;
+            return MenuItems.Find(item => item.Dimensions.Contains(position));
         }
 
-        protected virtual void UpdateSelection ()
+        protected virtual void UpdateSelection()
         {
-            foreach (var menuItem in MenuItems)
-            {
-                if (menuItem.Selected)
+            MenuItems.FindAll(item => item.Selected).ForEach(item =>
                 {
-                    menuItem.Selected = false;
-                    menuItem.OnDeselect (EventArgs.Empty);
-                }
-            }
+                    item.Selected = false;
+                    item.OnSelect(EventArgs.Empty); 
+                });
 
-            if (SelectedIndex != null)
+            if (SelectedIndex.IsNotNull())
             {
                 SelectedMenuItem.Selected = true;
-                SelectedMenuItem.OnSelect (EventArgs.Empty);
+                SelectedMenuItem.OnSelect(EventArgs.Empty);
             }
         }
 
-        public override void Update (
+        public override void Update(
             GameTime gameTime,
             bool otherScreenHasFocus,
             bool coveredByOtherScreen)
         {
             if (Enabled)
-            {
-                foreach (InputBinding inputBinding in inputBindings)
-                    inputBinding.UpdateState ();
-            }
+                inputBindings.ForEach(binding => binding.UpdateState());
 
-            base.Update (gameTime, otherScreenHasFocus, coveredByOtherScreen);
+            base.Update(gameTime, otherScreenHasFocus, coveredByOtherScreen);
         }
 
-        public override void HandleInput (
+        public override void HandleInput(
             InputState input)
         {
             
         }
 
-        public override void LoadContent ()
+        public override void LoadContent()
         {
-            font = ScreenManager.Game.Content.Load<SpriteFont> ("Fonts\\Menu");
+            font = ScreenManager.Game.Content.Load<SpriteFont>("Fonts\\Menu");
+            inputBindings.ForEach(binding => binding.Game = ScreenManager.Game);
         }
 
-        public void Unload ()
+        public void Unload()
         {
-            foreach (var menuItem in MenuItems)
-                menuItem.ExitScreen ();
-
-            ExitScreen ();
+            MenuItems.ForEach(item => item.ExitScreen());
+            ExitScreen();
         }
 
-        public override void UnloadContent ()
+        public override string ToString()
         {
-            base.UnloadContent ();
-        }
-
-        public override string ToString ()
-        {
-            return string.Format ("[Menu: ItemsCount={0}]", MenuItems.Count);
+            return string.Format("[Menu: ItemsCount={0}]", MenuItems.Count);
         }
     }
 }

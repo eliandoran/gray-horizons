@@ -1,13 +1,10 @@
 ﻿using System;
+using GrayHorizons.Logic;
 using GrayHorizons.ThirdParty.GameStateManagement;
-using System.Collections.Generic;
 using GrayHorizons.UI;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using System.Diagnostics;
 using Microsoft.Xna.Framework.Audio;
-using GrayHorizons.Extensions;
-using GrayHorizons.Logic;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace GrayHorizons.Screens
 {
@@ -57,7 +54,7 @@ namespace GrayHorizons.Screens
                 sender,
                 e) =>
             {
-                ScreenManager.AddScreen(new BattlefieldScreen(gameData), null);
+                ScreenManager.AddScreen(new BattlefieldScreen(gameData, new Maps.TutorialMap(gameData)), null);
                 menu.Unload();
                 ExitScreen();
             };
@@ -65,9 +62,7 @@ namespace GrayHorizons.Screens
             menuItems[2].Activate += (
                 sender,
                 e) =>
-            {
-                ScreenManager.AddScreen(new SettingsMenuScreen(gameData, this), null);
-            };
+            ScreenManager.AddScreen(new SettingsMenuScreen(gameData, this), null);
 
             menuItems[3].Activate += (
                 sender,
@@ -148,11 +143,6 @@ namespace GrayHorizons.Screens
             spriteBatch = ScreenManager.SpriteBatch;
             backgroundImage = ScreenManager.Game.Content.Load<Texture2D>("TankWallpaper");
             Sound.UISounds.MenuSelect.Sounds.Add(ScreenManager.Game.Content.Load<SoundEffect>("Sounds\\MenuSelect"));
-        }
-
-        public override void UnloadContent()
-        {
-            base.UnloadContent();
         }
     }
 }

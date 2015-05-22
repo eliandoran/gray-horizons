@@ -81,13 +81,26 @@ namespace GrayHorizons.Logic
         [XmlElement("Health"), DefaultValue(1)]
         public int Health { get; set; }
 
-        public int MaximumHealth { get; set; }
+        int maximumHealth;
+
+        public int MaximumHealth
+        {
+            get
+            {
+                return maximumHealth;
+            }
+            set
+            {
+                maximumHealth = value;
+                Health = value;
+            }
+        }
 
         public double HealthPercentage
         {
             get
             {
-                return MaximumHealth / Health;
+                return (double)Health / (double)MaximumHealth;
             }
         }
 
@@ -102,6 +115,41 @@ namespace GrayHorizons.Logic
         [XmlElement("Position")]
         public RotatedRectangle Position;
 
+        public Point? Location
+        {
+            get
+            {
+                return Position.IsNull() ? null : (Point?)Position.CollisionRectangle.Location;
+            }
+
+            set
+            {
+                if (value.HasValue)
+                {
+                    if (Position.IsNull())
+                        Position = value.HasValue ? new RotatedRectangle(new Rectangle(value.Value.X, value.Value.Y, DefaultSize.X, DefaultSize.Y), 0) : null;
+                    else
+                    {
+                        Position.CollisionRectangle.X = value.Value.X;
+                        Position.CollisionRectangle.Y = value.Value.Y;
+                    }
+                }
+            }
+        }
+
+        public float? Orientation
+        {
+            get
+            {
+                return Position.IsNull() ? null : (float?)Position.Rotation;
+            }
+            set
+            {
+                if (value.HasValue && Position.IsNotNull())
+                    Position.Rotation = value.Value;
+            }
+        }
+
         public Point DefaultSize { get; set; }
 
         public TimeSpan DestructionTimeLeft { get; set; }
@@ -110,7 +158,7 @@ namespace GrayHorizons.Logic
 
         public bool IsBeingDestroyed { get; set; }
 
-        public Color? MinimapColor { get; set; }
+        public Color? MiniMapColor { get; set; }
 
         /// <summary>
         /// This procedure should be called each time the object is hit by a projectile, to manage its health and destruction.
@@ -119,15 +167,13 @@ namespace GrayHorizons.Logic
         public virtual void WasHitByProjectile(
             Projectile hitter)
         {
-            #if DEBUG
             Debug.WriteLine("<{0}> was hit by <{1}>.".FormatWith(ToString(), hitter), "HIT");
-            #endif
 
             if (HasCollision)
             {
                 if (!IsInvincible)
                 {
-                    if (Health - hitter.Damage > 0)
+                    if (Health - hitter.Damage >= 0)
                         Health -= hitter.Damage;
                     else
                         Explode();
@@ -179,9 +225,7 @@ namespace GrayHorizons.Logic
         {
             GameData.Map.QueueRemoval(this);
 
-            #if DEBUG
             Debug.WriteLine("<{0}> was destroyed.".FormatWith(ToString()), "DESTROY");
-            #endif
         }
 
         /// <summary>
@@ -208,7 +252,7 @@ namespace GrayHorizons.Logic
 
         internal virtual void OnCollide(CollideEventArgs e)
         {
-            if (Collided != null)
+            if (Collided.IsNotNull())
             {
                 Collided(this, e);
             }
@@ -216,6 +260,6 @@ namespace GrayHorizons.Logic
 
         public abstract void Render();
 
-        public abstract void RenderHUD();
+        public abstract void RenderHud();
     }
 }

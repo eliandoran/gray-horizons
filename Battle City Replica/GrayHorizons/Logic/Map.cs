@@ -8,6 +8,8 @@ using Microsoft.Xna.Framework.Graphics;
 using GrayHorizons.ThirdParty;
 using GrayHorizons.StaticObjects;
 using GrayHorizons.Attributes;
+using GrayHorizons.Extensions;
+using System.Linq;
 
 namespace GrayHorizons.Logic
 {
@@ -23,6 +25,7 @@ namespace GrayHorizons.Logic
         readonly List<ObjectBase> objectAdditionList = new List<ObjectBase>(0);
         readonly Collection<StaticObject> staticObjects = new Collection<StaticObject>();
         readonly Collection<Entity> entities = new Collection<Entity>();
+        protected internal Collection<CollisionBoundary> collisionBoundaries = new Collection<CollisionBoundary>();
 
         /// <summary>
         /// Gets the size of the map.
@@ -39,11 +42,12 @@ namespace GrayHorizons.Logic
 
         public GameData GameData { get; set; }
 
+        public int ShakeFactor { get; set; }
+
         /// <summary>
         /// Gets a matrix containing static objects on the map.
         /// </summary>
         /// <value>The list of static objects.</value>
-        [XmlElement("StaticObjects")]
         public Collection<StaticObject> StaticObjects
         {
             get
@@ -64,6 +68,14 @@ namespace GrayHorizons.Logic
             }
         }
 
+        public Collection<CollisionBoundary> CollisionBoundaries
+        {
+            get
+            {
+                return collisionBoundaries;
+            }
+        }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="GrayHorizons.Logic.Map"/> class.
         /// </summary>
@@ -73,6 +85,20 @@ namespace GrayHorizons.Logic
         {
             MapSize = mapSize;
             GameData = gameData;
+
+            if (gameData.IsNotNull())
+            {
+                gameData.ResolutionChanged += GameData_ResolutionChanged;
+            }
+        }
+
+        void GameData_ResolutionChanged(object sender, EventArgs e)
+        {
+            Viewport = new Rectangle(0, 0, GameData.Game.GraphicsDevice.Viewport.Width, GameData.Game.GraphicsDevice.Viewport.Height);
+            ScaledViewport = Viewport.ScaleTo(GameData.ViewportScale);
+
+            if (GameData.ActivePlayer.IsNotNull() && GameData.ActivePlayer.AssignedEntity.IsNotNull())
+                CenterViewportAt(GameData.ActivePlayer.AssignedEntity);
         }
 
         /// <summary>
@@ -95,11 +121,11 @@ namespace GrayHorizons.Logic
         {
             var entity = obj as Entity;
 
-            if (entity != null)
+            if (entity.IsNotNull())
             {
                 entity.GameData = GameData;
 
-                if (entity.AI != null)
+                if (entity.AI.IsNotNull())
                 {
                     entity.AI.GameData = GameData;
                 }
@@ -110,7 +136,7 @@ namespace GrayHorizons.Logic
             {
                 var staticObject = obj as StaticObject;
 
-                if (staticObject != null)
+                if (staticObject.IsNotNull())
                 {
                     staticObject.GameData = GameData;
                     StaticObjects.Add(staticObject);
@@ -126,13 +152,13 @@ namespace GrayHorizons.Logic
             ObjectBase obj)
         {
             var entity = obj as Entity;
-            if (entity != null)
+            if (entity.IsNotNull())
                 Entities.Remove(entity);
             else
             {
                 var staticObject = obj as StaticObject;
 
-                if (staticObject != null)
+                if (staticObject.IsNotNull())
                     StaticObjects.Remove(staticObject);
             }
         }
@@ -164,13 +190,11 @@ namespace GrayHorizons.Logic
         public void FlushQueues()
         {
             // Remove the objects queued for removal.
-            foreach (ObjectBase obj in objectRemovalList)
-                Remove(obj);
+            objectRemovalList.ForEach(Remove);
             objectRemovalList.Clear();
 
             // Add the objects queued for addition.
-            foreach (ObjectBase obj in objectAdditionList)
-                Add(obj);
+            objectAdditionList.ForEach(Add);
             objectAdditionList.Clear();
         }
 
@@ -189,10 +213,14 @@ namespace GrayHorizons.Logic
                 obj.Update(timePassed);
         }
 
-        public bool IntersectsMap(
-            RotatedRectangle rect)
+        public bool IntersectsMap(RotatedRectangle rect)
         {
             return rect.Intersects(new Rectangle(0, 0, (int)MapSize.X, (int)MapSize.Y));
+        }
+
+        public bool IntersectsViewport(RotatedRectangle rect)
+        {
+            return rect.Intersects(ScaledViewport);
         }
 
         public List<ObjectBase> SearchMapObjects(
@@ -245,25 +273,25 @@ namespace GrayHorizons.Logic
             ObjectBase obj)
         {
             var pos = obj.Position.CollisionRectangle.Center;
-            var x = pos.X - (Viewport.Size.X / 2 + obj.Position.Width / 2);
-            var y = pos.Y - (Viewport.Size.Y / 2 + obj.Position.Height / 2);
+            var x = pos.X - (ScaledViewport.Size.X / 2 + obj.Position.Width / 2);
+            var y = pos.Y - (ScaledViewport.Size.Y / 2 + obj.Position.Height / 2);
 
             if (x < 0)
                 x = 0;
             if (y < 0)
                 y = 0;
 
-            var right = x + Viewport.Size.X;
+            var right = x + ScaledViewport.Size.X;
             if (right > MapSize.X)
                 x -= (int)(right - MapSize.X);
 
-            var bottom = y + Viewport.Size.Y;
+            var bottom = y + ScaledViewport.Size.Y;
             if (bottom > MapSize.Y)
                 y -= (int)(bottom - MapSize.Y);
 
-            Viewport = new Rectangle(
+            ScaledViewport = new Rectangle(
                 x, y,
-                Viewport.Width, Viewport.Height
+                ScaledViewport.Width, ScaledViewport.Height
             );
         }
 
@@ -284,8 +312,8 @@ namespace GrayHorizons.Logic
             Vector2 scale)
         {
             return new Vector2(
-                scale.X * (realPosition.X - Viewport.X),
-                scale.Y * (realPosition.Y - Viewport.Y)
+                scale.X * (realPosition.X - ScaledViewport.X),
+                scale.Y * (realPosition.Y - ScaledViewport.Y)
             );
         }
 
@@ -298,17 +326,33 @@ namespace GrayHorizons.Logic
                 Math.Pow(second.Position.Y - first.Position.Y, 2));
         }
 
+        Random random = new Random();
+
+        Vector3 Shake()
+        {
+            return new Vector3(
+                (float)((random.NextDouble() * 2) - 1),
+                (float)((random.NextDouble() * 2) - 1), 0);
+        }
+
         #region IRenderable implementation
 
         public void Render()
         {
             var mapSize = MapSize;
-            var texture = Texture;
-            if (texture == null)
+
+            GameData.TranslationMatrix = Matrix.CreateTranslation(ShakeFactor * Shake());
+
+            Texture2D texture;
+            if (GameData.MappedTextures.ContainsKey(GetType()))
+                texture = GameData.MappedTextures[GetType()];
+            else
             {
                 var attr = new MappedTexturesAttribute(new [] { "Dirt\\01" });
                 texture = GameData.ContentManager.Load<Texture2D>(attr.GetRandomTexture());
             }
+
+            Texture = texture;
 
             if (texture.Width >= mapSize.X && texture.Height >= mapSize.Y)
             {
@@ -343,7 +387,11 @@ namespace GrayHorizons.Logic
                                       ),
                                       GameData.MapScale);
 
-                        GameData.ScreenManager.SpriteBatch.Draw(texture, pos, scale: GameData.MapScale);
+                        GameData.ScreenManager.SpriteBatch.Draw(
+                            texture,
+                            pos,
+                            scale: GameData.MapScale
+                        );
                     }
             }
         }

@@ -1,7 +1,18 @@
-﻿using System;
+﻿/*
+   _____                   _    _            _                    
+  / ____|                 | |  | |          (_)                   
+ | |  __ _ __ __ _ _   _  | |__| | ___  _ __ _ _______  _ __  ___ 
+ | | |_ | '__/ _` | | | | |  __  |/ _ \| '__| |_  / _ \| '_ \/ __|
+ | |__| | | | (_| | |_| | | |  | | (_) | |  | |/ / (_) | | | \__ \
+  \_____|_|  \__,_|\__, | |_|  |_|\___/|_|  |_/___\___/|_| |_|___/
+                    __/ |                                         
+                   |___/              © 2015 by Doran Adoris Elian
+*/
+using System;
 using GrayHorizons.UI;
 using GrayHorizons.Input;
 using Microsoft.Xna.Framework.Input;
+using GrayHorizons.Extensions;
 
 namespace GrayHorizons.Actions.MenuNavigation
 {
@@ -25,7 +36,7 @@ namespace GrayHorizons.Actions.MenuNavigation
             EventArgs e)
         {
             var mouseAxisBinding = ParentInputBinding as MouseAxisBinding;
-            if (mouseAxisBinding != null)
+            if (mouseAxisBinding.IsNotNull())
             {
                 mouseAxisBinding.AxisChanged += MouseAxisBinding_AxisChanged;
                 mouseAxisBinding.MouseStateChanged += MouseAxisBinding_MouseStateChanged;
@@ -39,7 +50,7 @@ namespace GrayHorizons.Actions.MenuNavigation
             if (e.State.LeftButton == ButtonState.Pressed)
             {
                 var item = Menu.GetMenuItemAt(e.State.Position);
-                if (item != null)
+                if (item.IsNotNull())
                 {
                     item.Execute();
                     base.Execute();
@@ -54,7 +65,7 @@ namespace GrayHorizons.Actions.MenuNavigation
             var item = Menu.GetMenuItemAt(e.State.Position);
             Menu.SelectedMenuItem = item;
 
-            if (item != null && lastMenuItem != item)
+            if (item.IsNotNull() && lastMenuItem != item)
             {
                 Sound.UISounds.MenuSelect.Play();
             }

@@ -81,17 +81,24 @@ namespace GrayHorizons.Logic
             {
                 if (obj.HasCollision && obj.Position.Intersects(newPosition) && obj != this)
                 {
-                    #if DEBUG
                     Debug.WriteLine("<{0}> ({1}) collides with <{2}> ({3})".FormatWith(ToString(),
                             Position,
                             obj,
                             obj.Position),
                         "COLLISION");
-                    #endif
 
                     var eventArgs = new CollideEventArgs(this);
                     obj.OnCollide(eventArgs);
                     return eventArgs.PassThrough;
+                }
+            }
+
+            foreach (CollisionBoundary boundary in GameData.Map.CollisionBoundaries)
+            {
+                if (boundary.ToRotatedRectangle().Intersects(newPosition))
+                {
+                    Debug.WriteLine("<{0}> collides with a boundary.".FormatWith(ToString()));
+                    return false;
                 }
             }
 
@@ -116,10 +123,8 @@ namespace GrayHorizons.Logic
             var newPosition = new RotatedRectangle(Position.CollisionRectangle, Position.Rotation);
             var _step = (int)(Math.Round(AccelerationFactor * Speed));
 
-            #if DEBUG
             Debug.WriteLine("Factor: {0}, Speed: {1}, FStep: {2}.".FormatWith(AccelerationFactor, Speed, _step),
                 "MOVE");
-            #endif
 
             var delta = GetDelta(rads, _step, (direction == MoveDirection.Backward));
             newPosition.ChangePosition(delta.X, delta.Y);
@@ -184,14 +189,14 @@ namespace GrayHorizons.Logic
         protected virtual void OnMoved(
             EventArgs e)
         {
-            if (Moved != null)
+            if (Moved.IsNotNull())
                 Moved(this, e);
         }
 
         protected virtual void OnUpdated(
             EventArgs e)
         {
-            if (Updated != null)
+            if (Updated.IsNotNull())
                 Updated(this, e);
         }
 
@@ -208,15 +213,14 @@ namespace GrayHorizons.Logic
                 if (GameData.MappedTextures.ContainsKey(entityType))
                 {
                     texture = GameData.MappedTextures[entityType];
+
                     position = GameData.Map.CalculateViewportCoordinates(Position.CollisionRectangle.Center.ToVector2(),
                         GameData.MapScale);
                 }
                 else
                 {
-                    #if DEBUG
                     Debug.WriteLine("There is no mapped texture for type <{0}>.".FormatWith(entityType.Name),
                         "RENDERER");
-                    #endif
 
                     return;
                 }
@@ -236,7 +240,7 @@ namespace GrayHorizons.Logic
             );
         }
 
-        public override void RenderHUD()
+        public override void RenderHud()
         {
             // No implementation needed.
         }

@@ -1,4 +1,14 @@
-﻿using System;
+﻿/*
+   _____                   _    _            _                    
+  / ____|                 | |  | |          (_)                   
+ | |  __ _ __ __ _ _   _  | |__| | ___  _ __ _ _______  _ __  ___ 
+ | | |_ | '__/ _` | | | | |  __  |/ _ \| '__| |_  / _ \| '_ \/ __|
+ | |__| | | | (_| | |_| | | |  | | (_) | |  | |/ / (_) | | | \__ \
+  \_____|_|  \__,_|\__, | |_|  |_|\___/|_|  |_/___\___/|_| |_|___/
+                    __/ |                                         
+                   |___/              © 2015 by Doran Adoris Elian
+*/
+using System;
 using GrayHorizons.Attributes;
 using Microsoft.Xna.Framework.Input;
 using System.Diagnostics;
@@ -9,22 +19,6 @@ namespace GrayHorizons.Actions.Debugging
     [DefaultKey(Keys.F1)]
     public class ToggleGuidesAction: GameAction
     {
-        public ToggleGuidesAction(
-            GameData gameData)
-            : base(
-                gameData)
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="GrayHorizons.Input.Actions.ToggleGuidesTraceAction"/> class.
-        /// </summary>
-        public ToggleGuidesAction()
-            : this(
-                null)
-        {
-        }
-
         public override void Execute()
         {
             GameData.DebuggingSettings.ShowGuides = !GameData.DebuggingSettings.ShowGuides;

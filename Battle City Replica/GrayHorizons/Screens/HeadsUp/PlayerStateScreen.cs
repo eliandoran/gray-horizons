@@ -4,7 +4,6 @@ using GrayHorizons.Logic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using GrayHorizons.UI;
-using System.ComponentModel;
 
 namespace GrayHorizons.Screens.HeadsUp
 {
@@ -69,11 +68,12 @@ namespace GrayHorizons.Screens.HeadsUp
 //                color: Color.Black * .25f
 //            );
 
-            var health = 70;
             Texture2D healthIcon;
-            if (health > 50)
+            var health = gameData.ActivePlayer.AssignedEntity.Health;
+            var percentage = gameData.ActivePlayer.AssignedEntity.HealthPercentage;
+            if (percentage > .5)
                 healthIcon = healthFullIcon;
-            else if (health > 25)
+            else if (percentage > .25)
                 healthIcon = healthHalfIcon;
             else
                 healthIcon = healthEmptyIcon;
@@ -83,12 +83,14 @@ namespace GrayHorizons.Screens.HeadsUp
 
             spriteBatch.Draw(
                 healthIcon,
-                position: new Vector2(rect.X + Padding, rect.Y + Padding)
+                new Vector2(rect.X + Padding, rect.Y + Padding)
             );
 
+            var playerEntity = gameData.ActivePlayer.AssignedEntity;
             var progressBarWidth = rect.Width - iconWidth - Padding * 2;
             var progressBarHeight = iconHeight / 2;
             healthProgressBar.CurrentValue = health;
+            healthProgressBar.MaximumValue = playerEntity.MaximumHealth;
             var healthY = rect.Y + ((iconHeight / 2) - (progressBarHeight / 2)) + Padding;
             healthProgressBar.Position = new Rectangle(
                 rect.X + iconWidth + Padding * 2,
@@ -102,7 +104,8 @@ namespace GrayHorizons.Screens.HeadsUp
                 position: new Vector2(rect.X + Padding, rect.Y + Padding * 2 + healthIcon.Height)
             );
 
-            ammunitionProgressBar.CurrentValue = health;
+            ammunitionProgressBar.CurrentValue = playerEntity.AmmoLeft;
+            ammunitionProgressBar.MaximumValue = playerEntity.AmmoCapacity;
             ammunitionProgressBar.Position = new Rectangle(
                 rect.X + iconWidth + Padding * 2,
                 healthY + ((iconHeight / 2) - (progressBarHeight / 2)) + Padding * 2,

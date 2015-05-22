@@ -1,11 +1,20 @@
-﻿using GrayHorizons.Attributes;
+﻿/*
+   _____                   _    _            _                    
+  / ____|                 | |  | |          (_)                   
+ | |  __ _ __ __ _ _   _  | |__| | ___  _ __ _ _______  _ __  ___ 
+ | | |_ | '__/ _` | | | | |  __  |/ _ \| '__| |_  / _ \| '_ \/ __|
+ | |__| | | | (_| | |_| | | |  | | (_) | |  | |/ / (_) | | | \__ \
+  \_____|_|  \__,_|\__, | |_|  |_|\___/|_|  |_/___\___/|_| |_|___/
+                    __/ |                                         
+                   |___/              © 2015 by Doran Adoris Elian
+*/
+using GrayHorizons.Attributes;
+using GrayHorizons.Extensions;
+using GrayHorizons.Logic;
+using GrayHorizons.StaticObjects;
+using GrayHorizons.ThirdParty;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using GrayHorizons.Logic;
-using GrayHorizons.Extensions;
-using System.Diagnostics;
-using GrayHorizons.ThirdParty;
-using GrayHorizons.StaticObjects;
 
 namespace GrayHorizons.Entities.Cars
 {
@@ -27,9 +36,10 @@ namespace GrayHorizons.Entities.Cars
             CanMoveOnSpot = true;
             CanBeRunOverByTank = true;
             Speed = 6;
+            Health = 10;
         }
 
-        public override void RenderHUD()
+        public override void RenderHud()
         {
             if (firstTime)
             {
@@ -41,15 +51,11 @@ namespace GrayHorizons.Entities.Cars
             if (GameData.ActivePlayer.AssignedEntity != this)
                 return;
 
-            spriteBatch.Begin();
-
             var rect = GetRect();
-            spriteBatch.Draw(crosshairTexture,
-                position: GameData.Map.CalculateViewportCoordinates(rect.UpperLeftCorner(),
-                    GameData.MapScale),
+            spriteBatch.Draw(
+                crosshairTexture,
+                GameData.Map.CalculateViewportCoordinates(rect.UpperLeftCorner(), GameData.MapScale),
                 rotation: rect.Rotation);
-
-            spriteBatch.End();
         }
 
         public override void Shoot()
@@ -63,7 +69,7 @@ namespace GrayHorizons.Entities.Cars
 
         RotatedRectangle GetRect()
         {
-            if (crosshairTexture == null)
+            if (crosshairTexture.IsNull())
                 return null;
 
             var xOffset = new Point(-crosshairTexture.Width - 20, 0);

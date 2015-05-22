@@ -31,7 +31,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Actions\PlayerControl\TurnLeftAction.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Actions\PlayerControl\TurnRightAction.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Actions\PlayerControl\UseAction.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)AI\VanillaAI.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Attributes\AllowContinuousPressAttribute.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Attributes\DefaultKeyAttribute.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Attributes\DefaultMouseButtonAttribute.cs" />
@@ -103,17 +102,39 @@
     <Compile Include="$(MSBuildThisFileDirectory)Logic\IRenderable.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Logic\StringBuilderTraceListener.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Entities\Tanks\TankVK3601H.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Objectives\Objective.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Objectives\ObjectiveList.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Screens\HeadsUp\CurrentObjectiveScreen.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Screens\HeadsUp\MinimapScreen.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Screens\HeadsUpScreen.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Screens\HeadsUp\PlayerStateScreen.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UI\ProgressBar.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Sound\VehicleSounds.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Maps\TutorialMap.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Entities\Projectiles\MachineGunBullet.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Logic\CollisionBoundary.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Actions\Debugging\RemoveUnnecessaryObjectsAction.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Actions\Debugging\WiggleWiggleAction.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Objectives\ReachPointObjective.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)StaticObjects\Waypoint.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Objectives\BoardVehicleObjective.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)StaticObjects\AmmoCrate.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Sound\MiscSounds.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)StaticObjects\DummyTarget.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Objectives\TimedObjective.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Actions\Debugging\SavePositionAction.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Screens\MessageScreen.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Objectives\DestroyTargetObjective.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Objectives\DestroyMultipleObjective.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Logic\VanillaAI.cs">
+      <DependentUpon>AIBase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Logic\Objective.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Logic\ObjectiveList.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Entities\Projectiles\TankShell.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\ObjectExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Objectives\" />
-    <Folder Include="$(MSBuildThisFileDirectory)Enumerations\" />
     <Folder Include="$(MSBuildThisFileDirectory)Screens\HeadsUp\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Entities\Projectiles\" />
   </ItemGroup>
 </Project>

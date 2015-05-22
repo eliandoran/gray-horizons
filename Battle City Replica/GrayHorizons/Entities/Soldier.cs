@@ -1,12 +1,22 @@
-﻿using System;
+﻿/*
+   _____                   _    _            _                    
+  / ____|                 | |  | |          (_)                   
+ | |  __ _ __ __ _ _   _  | |__| | ___  _ __ _ _______  _ __  ___ 
+ | | |_ | '__/ _` | | | | |  __  |/ _ \| '__| |_  / _ \| '_ \/ __|
+ | |__| | | | (_| | |_| | | |  | | (_) | |  | |/ / (_) | | | \__ \
+  \_____|_|  \__,_|\__, | |_|  |_|\___/|_|  |_/___\___/|_| |_|___/
+                    __/ |                                         
+                   |___/              © 2015 by Doran Adoris Elian
+*/
+using System;
 using System.Diagnostics;
 using GrayHorizons.Attributes;
 using GrayHorizons.Extensions;
+using GrayHorizons.Logic;
 using GrayHorizons.ThirdParty;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
-using GrayHorizons.Logic;
 
 namespace GrayHorizons.Entities
 {
@@ -15,10 +25,17 @@ namespace GrayHorizons.Entities
     {
         const int moveStatesCount = 7;
         int currentMoveState = 0;
+        int spriteColumn = 0;
+
+        bool isMoving, firstTimeMoving;
         TimeSpan moveStateTime, currentMoveStateTime;
         TimeSpan currentIsMovingTime, isMovingTime;
-        bool isMoving, firstTimeMoving;
-        SoundEffectInstance footstepsSound;
+
+        bool isShooting, firstTimeShooting;
+        TimeSpan shootingStateTime, currentShootingStateTime;
+        TimeSpan currentIsShootingTime, isShootingTime;
+
+        SoundEffectInstance footstepsSound, firingSound;
         RotatedRectangle usageRect;
         float lastMouseAngle;
 
@@ -30,39 +47,100 @@ namespace GrayHorizons.Entities
             DefaultSize = new Point(75, 50);
             moveStateTime = TimeSpan.FromMilliseconds(75);
             isMovingTime = TimeSpan.FromMilliseconds(350);
+            isShootingTime = TimeSpan.FromMilliseconds(350);
             HasCollision = true;
             Speed = 6;
+            MuzzlePosition = new Vector2(74, 40);
+            MaximumHealth = 2;
+            AmmoCapacity = 50;
         }
 
         public override bool Move(
             MoveDirection direction,
             bool noClip)
         {
+            TurretRect.CollisionRectangle.X = Position.CollisionRectangle.X;
+            TurretRect.CollisionRectangle.Y = Position.CollisionRectangle.Y;
+            TurretRect.Rotation = Position.Rotation;
+
             isMoving = true;
             currentIsMovingTime = isMovingTime;
             return base.Move(direction, noClip);
         }
 
+        public override void Shoot()
+        {
+            if (CoolDown == TimeSpan.Zero)
+            {
+                var projectile = new Projectiles.MachineGunBullet();
+
+                if (AmmoLeft <= 0)
+                {
+                    Sound.TankSounds.NoAmmo.Play();
+                    CoolDown = projectile.CoolTimePenalty;
+                    return;
+                }
+
+                isShooting = true;
+                currentIsShootingTime = isShootingTime;
+
+                if (firstTimeShooting)
+                {
+                    firingSound = Sound.SoldierSounds.Firing.GetInstance();
+                    firingSound.IsLooped = true;
+                    firingSound.Play();
+                    firstTimeShooting = false;
+                }
+
+                var xOffset = new Point(projectile.DefaultSize.X, 0);
+                var yOffset = new Point(0, projectile.DefaultSize.Y);
+                var muzzlePos = GetMuzzleRotatedRectangle();
+                if (muzzlePos.IsNull())
+                    return;
+
+                var rect = muzzlePos.Offset(xOffset).Offset(yOffset);
+
+                Debug.WriteLine("ROTATION: " + Rotation.FromRadians(TurretRect.Rotation));
+
+                projectile.Position = rect;
+                projectile.Owner = this;
+
+//                var explosion = new Explosion();
+//                explosion.Position = new RotatedRectangle(muzzlePos.CollisionRectangle, muzzlePos.Rotation);
+//                GameData.Map.QueueAddition(explosion);
+                GameData.Map.QueueAddition(projectile);
+                CoolDown = projectile.CoolTimePenalty;
+                AmmoLeft--;
+
+                #if DEBUG
+                Debug.WriteLine("<{0}> shot with <{1}>.".FormatWith(ToString(), projectile), "SHOOT");
+                #endif
+            }
+        }
+
         public override void Render()
         {
             var texture = GameData.MappedTextures[GetType()];
-            var position = GameData.Map.CalculateViewportCoordinates(Position.CollisionRectangle.Center.ToVector2(),
+            var position = GameData.Map.CalculateViewportCoordinates(
+                               Position.CollisionRectangle.Center.ToVector2(),
                                GameData.MapScale);
 
-            int x = 0, y = currentMoveState * 90;
-
-            var rect = new Rectangle(x, y, 90, 90);
+            var size = new Size(100, 90);
+            var origin = new Point(29, 22);
+            int x = spriteColumn * size.Width;
+            int y = currentMoveState * size.Height;
+            var rect = new Rectangle(x, y, size.Width, size.Height);
 
             GameData.ScreenManager.SpriteBatch.Draw(
                 texture,
                 sourceRectangle: rect,
                 position: position,
-                origin: new Vector2(29, 22),
+                origin: origin.ToVector2(),
                 rotation: Position.Rotation,
                 scale: GameData.MapScale
             );
 
-            if (usageRect == null)
+            if (usageRect.IsNull())
                 return;
 
             position = GameData.Map.CalculateViewportCoordinates(
@@ -79,7 +157,9 @@ namespace GrayHorizons.Entities
                         (int)position.Y,
                         usageRect.CollisionRectangle.Width,
                         usageRect.CollisionRectangle.Height),
-                    rotation: usageRect.Rotation
+                    color: Color.Black * .25f,
+                    rotation: usageRect.Rotation,
+                    scale: GameData.MapScale
                 );
             }
         }
@@ -87,10 +167,10 @@ namespace GrayHorizons.Entities
         public override void Update(
             TimeSpan gameTime)
         {
-            if (TurretRotation != null)
+            if (TurretRotation.IsNotNull())
             {
                 var mouseAngle = TurretRotation.ToRadians();
-                if (mouseAngle != lastMouseAngle)
+                if (Math.Abs(mouseAngle - lastMouseAngle) > .025)
                 {
                     Position.Rotation = mouseAngle;
                     lastMouseAngle = mouseAngle;
@@ -128,6 +208,26 @@ namespace GrayHorizons.Entities
                 firstTimeMoving = true;
             }
 
+            if (currentIsShootingTime > gameTime)
+                currentIsShootingTime -= gameTime;
+            else
+            {
+                isShooting = false;
+                firstTimeShooting = true;
+
+                if (firingSound.IsNotNull())
+                    firingSound.Stop();
+            }
+
+            if (CoolDown > gameTime)
+            {
+                CoolDown -= gameTime;
+            }
+            else
+            {
+                CoolDown = TimeSpan.Zero;
+            }
+
             if (isMoving)
             {
                 if (firstTimeMoving)
@@ -143,12 +243,9 @@ namespace GrayHorizons.Entities
                 else
                 {
                     if (currentMoveState < moveStatesCount - 1)
-                    {
                         currentMoveState++;
-                    }
                     else
                         currentMoveState = 1;
-
                     currentMoveStateTime = moveStateTime;
                 }
             }
@@ -156,9 +253,11 @@ namespace GrayHorizons.Entities
             {
                 currentMoveState = 0;
 
-                if (footstepsSound != null)
+                if (footstepsSound.IsNotNull())
                     footstepsSound.Stop();
-            }                
+            }         
+
+            spriteColumn = (isShooting ? (isMoving ? 1 : 2) : 0);
 
             base.Update(gameTime);
         }
@@ -171,11 +270,9 @@ namespace GrayHorizons.Entities
                     continue;
 
                 var vehicle = obj as Vehicle;
-                if (vehicle != null && vehicle.CanBeBoarded)
+                if (vehicle.IsNotNull() && vehicle.CanBeBoarded)
                 {
-                    #if DEBUG
-                    Debug.WriteLine("[USE] Identified vehicle of type <{0}>.", vehicle.GetType());
-                    #endif
+                    Debug.WriteLine("[USE] Identified vehicle of type <{0}>.".FormatWith(vehicle.GetType()));
 
                     isMoving = false;
                     vehicle.BoardPassenger(this);
@@ -189,24 +286,14 @@ namespace GrayHorizons.Entities
                             e) => GameData.Map.CenterViewportAt(vehicle);
                         GameData.ActivePlayer.AssignedEntity = vehicle;
 
-                        #if DEBUG
-                        Debug.WriteLine(
-                            "[USE] Player's assigned entity was changed to <{0}>.", vehicle.GetType());
-                        #endif
+                        Debug.WriteLine("[USE] Player's assigned entity was changed to <{0}>.".FormatWith(vehicle.GetType()));
                     }
 
                     return;
                 }
             }
 
-            #if DEBUG
             Debug.WriteLine("[USE] No suitable objects found.");
-            #endif
-        }
-
-        public override void Shoot()
-        {
-            throw new NotImplementedException();
         }
     }
 }

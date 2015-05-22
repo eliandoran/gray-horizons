@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using GrayHorizons.Objectives;
+using GrayHorizons.Extensions;
 
 namespace GrayHorizons.Logic
 {
@@ -18,6 +19,8 @@ namespace GrayHorizons.Logic
         readonly ObjectiveList objectives = new ObjectiveList();
         StringBuilderTraceListener traceListener;
 
+        public event EventHandler ResolutionChanged;
+
         public StringBuilderTraceListener TraceListener
         {
             get
@@ -28,7 +31,7 @@ namespace GrayHorizons.Logic
             {
                 traceListener = value;
 
-                if (value != null)
+                if (value.IsNotNull())
                     Debug.Listeners.Add(value);
             }
         }
@@ -57,9 +60,11 @@ namespace GrayHorizons.Logic
 
         public ScreenManager ScreenManager { get; set; }
 
-        public Texture2D BlankTexture;
+        public Texture2D BlankTexture { get; set; }
 
-        public InputOutputAgent IOAgent;
+        public InputOutputAgent IOAgent { get; set; }
+
+        public Matrix TranslationMatrix { get; set; }
 
         public List<Player> Players
         {
@@ -99,6 +104,12 @@ namespace GrayHorizons.Logic
             {
                 return objectives;
             }
+        }
+
+        internal void OnResolutionChanged(EventArgs e)
+        {
+            if (ResolutionChanged.IsNotNull())
+                ResolutionChanged(this, e);
         }
     }
 }
