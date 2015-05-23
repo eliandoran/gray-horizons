@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using GrayHorizons.Logic;
-using GrayHorizons.ThirdParty.GameStateManagement;
+using GameStateManagement;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -81,11 +81,11 @@ namespace GrayHorizons.Screens
             ScreenManager.SpriteBatch.End();
         }
 
-        public override void LoadContent()
+        public override void Activate(bool instancePreserved)
         {
             font = gameData.ContentManager.Load<SpriteFont>(@"Fonts\Large");
             destroyOtherMessages = !AllowOverlap;
-            base.LoadContent();
+            base.Activate(instancePreserved);
         }
 
         public override void Update(GameTime gameTime, bool otherScreenHasFocus, bool coveredByOtherScreen)

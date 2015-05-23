@@ -1,6 +1,4 @@
-﻿using GrayHorizons.Entities;
-
-namespace GrayHorizons.Logic
+﻿namespace GrayHorizons.Logic
 {
     /// <summary>
     /// Represents the artificial intelligence that controls the computer's tanks.

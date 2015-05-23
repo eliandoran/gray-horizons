@@ -47,7 +47,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Input\KeyBinding.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Input\MouseAxisBinding.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Logic\AIBase.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Logic\Configuration.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Logic\ControllableEntity.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Logic\Coordinate.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Logic\DamageInfo.cs" />
@@ -55,7 +54,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Logic\Entity.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Logic\GameAction.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Logic\GameData.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Logic\InputOutputAgent.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Logic\Map.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Logic\MouseButtonState.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Logic\ObjectBase.cs" />
@@ -67,7 +65,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Logic\StaticObject.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Logic\TankBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Logic\Vehicle.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Maps\DesertMap.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Screens\BattlefieldScreen.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Screens\MainMenuScreen.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Screens\OnScreenConsole.cs" />
@@ -82,9 +79,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)StaticObjects\Wall.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)StaticObjects\Wreck.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ThirdParty\RotatedRectangle.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ThirdParty\GameStateManagement\GameScreen.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ThirdParty\GameStateManagement\InputState.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ThirdParty\GameStateManagement\ScreenManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UI\Menu.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UI\MenuItem.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MonoGame.cs" />
@@ -124,17 +118,25 @@
     <Compile Include="$(MSBuildThisFileDirectory)Screens\MessageScreen.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Objectives\DestroyTargetObjective.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Objectives\DestroyMultipleObjective.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Logic\VanillaAI.cs">
-      <DependentUpon>AIBase.cs</DependentUpon>
-    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Logic\Objective.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Logic\ObjectiveList.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Entities\Projectiles\TankShell.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\ObjectExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\ListExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)FileStreamInputOutputAgent.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Logic\GameConfig.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Events\AxisChangedEventArgs.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Events\MouseStateChangedEventArgs.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)AI\VanillaAI.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Events\CollideEventArgs.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Logic\IInputOutputAgent.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Sound\SoundEffectCollection.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Objectives\" />
     <Folder Include="$(MSBuildThisFileDirectory)Screens\HeadsUp\" />
     <Folder Include="$(MSBuildThisFileDirectory)Entities\Projectiles\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Events\" />
+    <Folder Include="$(MSBuildThisFileDirectory)AI\" />
   </ItemGroup>
 </Project>

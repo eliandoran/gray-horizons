@@ -6,8 +6,8 @@ namespace GrayHorizons.Sound
     [SoundAutoLoad]
     public static class MiscSounds
     {
-        [MappedSounds(@"Sounds\\AmmoCrate")]
-        public static SoundEffect AmmoCrate = new SoundEffect();
+        [MappedSounds(@"Sounds/AmmoCrate")]
+        public static SoundEffect AmmoCrate { get; internal set; }
     }
 }
 

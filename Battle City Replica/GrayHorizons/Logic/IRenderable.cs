@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace GrayHorizons.Logic
+﻿namespace GrayHorizons.Logic
 {
     public interface IRenderable
     {

@@ -1,5 +1,5 @@
 ﻿using System;
-using GrayHorizons.ThirdParty.GameStateManagement;
+using GameStateManagement;
 using Microsoft.Xna.Framework;
 using System.Diagnostics;
 using GrayHorizons.Logic;

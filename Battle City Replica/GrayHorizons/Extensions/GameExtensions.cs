@@ -1,22 +1,10 @@
-﻿/*
-   _____                   _    _            _                    
-  / ____|                 | |  | |          (_)                   
- | |  __ _ __ __ _ _   _  | |__| | ___  _ __ _ _______  _ __  ___ 
- | | |_ | '__/ _` | | | | |  __  |/ _ \| '__| |_  / _ \| '_ \/ __|
- | |__| | | | (_| | |_| | | |  | | (_) | |  | |/ / (_) | | | \__ \
-  \_____|_|  \__,_|\__, | |_|  |_|\___/|_|  |_/___\___/|_| |_|___/
-                    __/ |                                         
-                   |___/              © 2015 by Doran Adoris Elian
-*/
-using System;
-using Microsoft.Xna.Framework;
-using System.Collections.Generic;
-
-namespace GrayHorizons.Extensions
+﻿namespace GrayHorizons.Extensions
 {
+    using Microsoft.Xna.Framework;
+
     public static class GameExtensions
     {
-        public static void CenterGameWindow (this Game game)
+        public static void CenterGameWindow(this Game game)
         {
 //            var screenWidth = game.GraphicsDevice.Adapter.CurrentDisplayMode.Width;
 //            var screenHeight = game.GraphicsDevice.Adapter.CurrentDisplayMode.Height;

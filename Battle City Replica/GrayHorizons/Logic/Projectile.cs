@@ -1,13 +1,12 @@
-﻿using System;
-using System.ComponentModel;
-using System.Diagnostics;
-using GrayHorizons.Logic;
-using Microsoft.Xna.Framework;
-using GrayHorizons.Extensions;
-using GrayHorizons.Attributes;
-
-namespace GrayHorizons.Entities
+﻿namespace GrayHorizons.Logic
 {
+    using System;
+    using System.ComponentModel;
+    using System.Diagnostics;
+    using GrayHorizons.Extensions;
+    using GrayHorizons.Logic;
+    using Microsoft.Xna.Framework;
+
     /// <summary>
     /// Represents an in-game projectile entity.
     /// </summary>

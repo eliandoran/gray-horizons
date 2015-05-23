@@ -1,6 +1,6 @@
 ﻿using System;
 using GrayHorizons.Objectives;
-using GrayHorizons.ThirdParty.GameStateManagement;
+using GameStateManagement;
 using Microsoft.Xna.Framework;
 using GrayHorizons.Logic;
 using Microsoft.Xna.Framework.Graphics;

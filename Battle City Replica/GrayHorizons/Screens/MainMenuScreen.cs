@@ -1,6 +1,6 @@
 ﻿using System;
 using GrayHorizons.Logic;
-using GrayHorizons.ThirdParty.GameStateManagement;
+using GameStateManagement;
 using GrayHorizons.UI;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
@@ -50,7 +50,7 @@ namespace GrayHorizons.Screens
                 new MenuItem("Iesire")
             };
 
-            menuItems[0].Activate += (
+            menuItems[0].Executed += (
                 sender,
                 e) =>
             {
@@ -59,12 +59,12 @@ namespace GrayHorizons.Screens
                 ExitScreen();
             };
 
-            menuItems[2].Activate += (
+            menuItems[2].Executed += (
                 sender,
                 e) =>
             ScreenManager.AddScreen(new SettingsMenuScreen(gameData, this), null);
 
-            menuItems[3].Activate += (
+            menuItems[3].Executed += (
                 sender,
                 e) =>
                 ScreenManager.Game.Exit();
@@ -94,8 +94,8 @@ namespace GrayHorizons.Screens
             const string footerText = "Pentru \"Grigore Moisil\", Lugoj \n(C) 2015 Doran Adoris Elian";
             var metrics = font.MeasureString(footerText);
             const int padding = 10;
-            var x = ScreenManager.Game.GraphicsDevice.Adapter.CurrentDisplayMode.Width - metrics.X - padding;
-            var y = ScreenManager.Game.GraphicsDevice.Adapter.CurrentDisplayMode.Height - metrics.Y - padding;
+            var x = ScreenManager.Game.GraphicsDevice.Viewport.Width - metrics.X - padding;
+            var y = ScreenManager.Game.GraphicsDevice.Viewport.Height - metrics.Y - padding;
             var color = new Color(255, 255, 255, 100);
 
             spriteBatch.DrawString(ScreenManager.Font, footerText, new Vector2(x, y), color);
@@ -137,12 +137,13 @@ namespace GrayHorizons.Screens
             }
         }
 
-        public override void LoadContent()
+        public override void Activate(bool instancePreserved)
         {
             loaded = false;
             spriteBatch = ScreenManager.SpriteBatch;
             backgroundImage = ScreenManager.Game.Content.Load<Texture2D>("TankWallpaper");
-            Sound.UISounds.MenuSelect.Sounds.Add(ScreenManager.Game.Content.Load<SoundEffect>("Sounds\\MenuSelect"));
+            Sound.UISounds.MenuSelect = new GrayHorizons.Sound.SoundEffect();
+            Sound.UISounds.MenuSelect.Sounds.Add(ScreenManager.Game.Content.Load<SoundEffect>("Sounds/MenuSelect"));
         }
     }
 }

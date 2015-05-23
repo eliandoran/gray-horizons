@@ -1,9 +1,8 @@
-﻿using System;
-using System.Diagnostics;
-using System.Text;
-
-namespace GrayHorizons.Logic
+﻿namespace GrayHorizons.Logic
 {
+    using System.Diagnostics;
+    using System.Text;
+
     public class StringBuilderTraceListener: TextWriterTraceListener
     {
         readonly StringBuilder builder;

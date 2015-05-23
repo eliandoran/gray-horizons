@@ -1,8 +1,8 @@
-﻿using System;
-using System.Diagnostics;
-
-namespace GrayHorizons.Objectives
+﻿namespace GrayHorizons.Objectives
 {
+    using System;
+    using GrayHorizons.Logic;
+
     public class TimedObjective: Objective
     {
         public TimeSpan TimeLeft { get; set; }

@@ -1,9 +1,8 @@
-﻿using System;
-using System.Xml.Serialization;
-using Microsoft.Xna.Framework;
-
-namespace GrayHorizons.Logic
+﻿namespace GrayHorizons.Logic
 {
+    using System.Xml.Serialization;
+    using Microsoft.Xna.Framework;
+
     public class Size
     {
         [XmlAttribute("width")]

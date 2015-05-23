@@ -1,23 +1,13 @@
-﻿/*
-   _____                   _    _            _                    
-  / ____|                 | |  | |          (_)                   
- | |  __ _ __ __ _ _   _  | |__| | ___  _ __ _ _______  _ __  ___ 
- | | |_ | '__/ _` | | | | |  __  |/ _ \| '__| |_  / _ \| '_ \/ __|
- | |__| | | | (_| | |_| | | |  | | (_) | |  | |/ / (_) | | | \__ \
-  \_____|_|  \__,_|\__, | |_|  |_|\___/|_|  |_/___\___/|_| |_|___/
-                    __/ |                                         
-                   |___/              © 2015 by Doran Adoris Elian
-*/
-using GrayHorizons.Attributes;
-using GrayHorizons.Extensions;
-using GrayHorizons.Logic;
-using GrayHorizons.StaticObjects;
-using GrayHorizons.ThirdParty;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-
-namespace GrayHorizons.Entities.Cars
+﻿namespace GrayHorizons.Entities.Cars
 {
+    using GrayHorizons.Attributes;
+    using GrayHorizons.Extensions;
+    using GrayHorizons.Logic;
+    using GrayHorizons.StaticObjects;
+    using GrayHorizons.ThirdParty;
+    using Microsoft.Xna.Framework;
+    using Microsoft.Xna.Framework.Graphics;
+
     [MappedTextures(@"Vehicles\Pickup")]
     public class MinelayerPickup: Vehicle
     {

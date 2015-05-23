@@ -1,13 +1,14 @@
-﻿using System;
-using Microsoft.Xna.Framework;
-using GrayHorizons.Entities;
-using System.Collections.Generic;
-using System.Diagnostics;
-using GrayHorizons.StaticObjects;
-using GrayHorizons.Extensions;
-
-namespace GrayHorizons.Logic
+﻿namespace GrayHorizons.Logic
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Diagnostics;
+    using GrayHorizons.Entities;
+    using GrayHorizons.Events;
+    using GrayHorizons.Extensions;
+    using GrayHorizons.StaticObjects;
+    using Microsoft.Xna.Framework;
+
     public abstract class Vehicle: ControllableEntity
     {
         readonly List<Soldier> passengers = new List<Soldier>(0);

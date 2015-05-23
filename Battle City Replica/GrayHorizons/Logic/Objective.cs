@@ -1,11 +1,10 @@
-﻿using System;
-using GrayHorizons.Logic;
-using GrayHorizons.Screens;
-using System.Diagnostics;
-using GrayHorizons.Extensions;
-
-namespace GrayHorizons.Objectives
+﻿namespace GrayHorizons.Logic
 {
+    using System;
+    using GrayHorizons.Screens;
+    using System.Diagnostics;
+    using GrayHorizons.Extensions;
+
     public abstract class Objective
     {
         public event EventHandler Starting;

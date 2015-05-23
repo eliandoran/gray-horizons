@@ -1,10 +1,11 @@
-﻿using GrayHorizons.Logic;
-using System.Diagnostics;
-using Microsoft.Xna.Framework;
-using System;
-
-namespace GrayHorizons.AI
+﻿namespace GrayHorizons.AI
 {
+    using GrayHorizons.Logic;
+    using System.Diagnostics;
+    using Microsoft.Xna.Framework;
+    using System;
+    using GrayHorizons.Extensions;
+
     /// <summary>
     /// Represents a computer artificial intelligence controlling the tanks that is similar to the original game, Battle City.
     /// </summary>
@@ -14,7 +15,7 @@ namespace GrayHorizons.AI
 
         public VanillaAI()
         {
-            MaximumVisibilityRange = 300;
+            MaximumVisibilityRange = 2000;
         }
 
         /// <summary>
@@ -47,7 +48,7 @@ namespace GrayHorizons.AI
                 }
             }
 
-            if (nearestEntity == null)
+            if (nearestEntity.IsNull())
                 return null;
 
             if (minimumDist <= MaximumVisibilityRange)
@@ -60,7 +61,7 @@ namespace GrayHorizons.AI
 
         bool CheckInterest(ObjectBase obj)
         {
-            return obj != this.ControllingEntity && obj is Tank;
+            return obj != ControllingEntity && obj is Tank;
         }
 
 
@@ -68,7 +69,7 @@ namespace GrayHorizons.AI
         {
             var tank = ControllingEntity as Tank;
 
-            if (tank != null)
+            if (tank.IsNotNull())
             {
                 var a = ControllingEntity.Position.CollisionRectangle.Center.ToVector2();
                 var b = position;
@@ -77,22 +78,29 @@ namespace GrayHorizons.AI
                 var rotation = Rotation.FromRadians((float)Math.Atan2(pos.Y, pos.X)).OffsetBy(180);
                 var delta = currentRotation - rotation.ToRadians();
                 var sign = (delta > 1) ? -1 : 1;
-                var step = new Rotation(70).ToRadians();
-                Debug.WriteLine("Current: {0}, Rotation: {1}, Delta: {2}", currentRotation, rotation, delta);
+                var step = new Rotation(160).ToRadians();
+                Debug.WriteLine("Current: {0}, Rotation: {1}, Delta: {2}".FormatWith(
+                        currentRotation,
+                        rotation,
+                        delta));
 
                 tank.TurretRect = new GrayHorizons.ThirdParty.RotatedRectangle(
                     tank.Position.CollisionRectangle,
                     tank.Position.Rotation);
 
                 if (Math.Abs(delta) < 0.16f)
-                {
-                    tank.Shoot();
+                { 
+                    if (tank.CoolDown == TimeSpan.Zero && tank.AmmoLeft > 0)
+                    {
+                        tank.Shoot();
+                    }                        
+
                     return;
                 }
 
                 if (Math.Abs(delta) < step)
                 {
-                    step = new Rotation(20).ToRadians();
+                    step = new Rotation(50).ToRadians();
                 }
                 tank.TurretRotation = tank.TurretRotation.OffsetBy(sign * step);
                 //tank.TurretRotation = rotation.OffsetBy(180);

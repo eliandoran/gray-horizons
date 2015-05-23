@@ -1,8 +1,8 @@
-﻿using System;
-using System.Diagnostics;
-
-namespace GrayHorizons.Logic
+﻿namespace GrayHorizons.Logic
 {
+    using System;
+    using GrayHorizons.Extensions;
+
     public class Rotation
     {
         public float Degrees { get; set; }
@@ -39,7 +39,7 @@ namespace GrayHorizons.Logic
 
         public override string ToString()
         {
-            return string.Format("[Rotation: Degrees={0}, Radians={1}]", Degrees, ToRadians());
+            return "[Rotation: Degrees={0}, Radians={1}]".FormatWith(Degrees, ToRadians());
         }
     }
 }

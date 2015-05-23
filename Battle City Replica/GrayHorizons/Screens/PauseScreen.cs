@@ -1,5 +1,5 @@
 ﻿using System;
-using GrayHorizons.ThirdParty.GameStateManagement;
+using GameStateManagement;
 using GrayHorizons.UI;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -39,7 +39,7 @@ namespace GrayHorizons.Screens
                 new MenuItem("Inchidere joc")
             };
 
-            menuItems[0].Activate += (
+            menuItems[0].Executed += (
                 sender,
                 e) =>
             {
@@ -48,7 +48,7 @@ namespace GrayHorizons.Screens
                 gameData.IsPaused = false;
             };
 
-            menuItems[1].Activate += (
+            menuItems[1].Executed += (
                 sender,
                 e) =>
             {
@@ -61,7 +61,7 @@ namespace GrayHorizons.Screens
                 gameData.ScreenManager.AddScreen(new MainMenuScreen(gameData), null);
             };
 
-            menuItems[2].Activate += (
+            menuItems[2].Executed += (
                 sender,
                 e) =>
                 ScreenManager.Game.Exit();
@@ -95,20 +95,20 @@ namespace GrayHorizons.Screens
             ScreenManager.FadeBackBufferToBlack(0.5f * TransitionAlpha);
         }
 
-        public override void LoadContent()
+        public override void Activate(bool instancePreserved)
         {
             spriteBatch = ScreenManager.SpriteBatch;
         }
 
-        public override void UnloadContent()
+        public override void Unload()
         {
             menu.ExitScreen();
-            base.UnloadContent();
+            base.Unload();
         }
 
-        public override void HandleInput(
-            InputState input)
+        public override void HandleInput(GameTime gameTime, InputState input)
         {
+            base.HandleInput(gameTime, input);
         }
 
         public override void Update(

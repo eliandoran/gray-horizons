@@ -1,43 +1,10 @@
-﻿using System;
-using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework;
-using GrayHorizons.Logic;
-using System.Xml.Serialization;
-using GrayHorizons.Extensions;
-
-namespace GrayHorizons.Input
+﻿namespace GrayHorizons.Input
 {
-    public class AxisChangedEventArgs: EventArgs
-    {
-        public MouseState State { get; set; }
-
-        public Point Delta { get; set; }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="GrayHorizons.Input.AxisChangedEventArgs"/> class.
-        /// </summary>
-        public AxisChangedEventArgs()
-        {
-        }
-
-        public AxisChangedEventArgs(
-            MouseState state,
-            Point delta)
-        {
-            State = state;
-            Delta = delta;
-        }
-
-        /// <summary>
-        /// Returns a <see cref="System.String"/> that represents the current <see cref="GrayHorizons.Input.AxisChangedEventArgs"/>.
-        /// </summary>
-        /// <returns>A <see cref="System.String"/> that represents the current <see cref="GrayHorizons.Input.AxisChangedEventArgs"/>.</returns>
-        public override string ToString()
-        {
-            return string.Format("[AxisChangedEventArgs: Position={0}, Delta={1}]", State.Position, Delta);
-        }
-    }
-
+    using System;
+    using System.Xml.Serialization;
+    using GrayHorizons.Events;
+    using GrayHorizons.Extensions;
+    using GrayHorizons.Logic;
 
     [XmlInclude(typeof(MouseAxisBinding))]
     public abstract class AxisBinding: InputBinding
@@ -47,13 +14,8 @@ namespace GrayHorizons.Input
         /// </summary>
         public event EventHandler<AxisChangedEventArgs> AxisChanged;
 
-        protected AxisBinding(
-            GameData gameData,
-            GameAction boundAction = null)
-            : base(
-                gameData,
-                boundAction,
-                true)
+        protected AxisBinding(GameData gameData, GameAction boundAction = null)
+            : base(gameData, boundAction, true)
         {
         }
 

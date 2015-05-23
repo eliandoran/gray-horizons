@@ -171,7 +171,7 @@ namespace GrayHorizons.Input
         /// <returns>A <see cref="System.String"/> that represents the current <see cref="GrayHorizons.Input.KeyBinding"/>.</returns>
         public override string ToString()
         {
-            return string.Format("[KeyBinding: Key={0}, Action={1}, AllowContinousPress={2}]",
+            return "[KeyBinding: Key={0}, Action={1}, AllowContinousPress={2}]".FormatWith(
                 Key,
                 BoundAction,
                 AllowContinuousPress);

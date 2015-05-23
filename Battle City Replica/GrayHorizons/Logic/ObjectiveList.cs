@@ -1,11 +1,11 @@
-﻿using System.Linq;
-using System.Collections.Generic;
-using GrayHorizons.Logic;
-using System;
-using GrayHorizons.Extensions;
-
-namespace GrayHorizons.Objectives
+﻿namespace GrayHorizons.Objectives
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using GrayHorizons.Extensions;
+    using GrayHorizons.Logic;
+
     public class ObjectiveList: List<Objective>
     {
         public string Summary { get; set; }

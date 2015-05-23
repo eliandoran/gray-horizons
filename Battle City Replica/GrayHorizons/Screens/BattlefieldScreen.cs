@@ -5,7 +5,7 @@ using GrayHorizons.Input;
 using GrayHorizons.Logic;
 using GrayHorizons.StaticObjects;
 using GrayHorizons.ThirdParty;
-using GrayHorizons.ThirdParty.GameStateManagement;
+using GameStateManagement;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -54,18 +54,20 @@ namespace GrayHorizons.Screens
                     });
         }
 
-        public override void HandleInput(
-            InputState input)
+        public override void HandleInput(GameTime gameTime, InputState input)
         {
             if (gameData.IsPaused)
                 return;
 
             foreach (InputBinding binding in gameData.Configuration.InputBindings)
                 binding.UpdateState();
+            base.HandleInput(gameTime, input);
         }
 
-        public override void LoadContent()
+        public override void Activate(bool instancePreserved)
         {
+            base.Activate(instancePreserved);
+
             spriteBatch = ScreenManager.SpriteBatch;
 
             Loader.LoadSoundEffects(gameData);
@@ -86,6 +88,9 @@ namespace GrayHorizons.Screens
                 Debug.WriteLine(String.Format("{0}ms".FormatWith(
                             gameTime.ElapsedGameTime.TotalMilliseconds.ToString())),
                     "LAG");
+
+            if (spriteBatch.IsNull())
+                return;
 
             spriteBatch.Begin();
 
@@ -112,7 +117,7 @@ namespace GrayHorizons.Screens
             }
 
             gameData.Objectives.Update(gameTime.ElapsedGameTime);
-            HandleInput(new InputState());
+            HandleInput(gameTime, new InputState());
 
             this.coveredByOtherScreen = coveredByOtherScreen;
             gameData.GameTime = gameTime;

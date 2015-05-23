@@ -1,25 +1,24 @@
-﻿using System;
-using GrayHorizons.Input;
-using Microsoft.Xna.Framework.Input;
-using System.Xml.Serialization;
-using GrayHorizons.Extensions;
-
-namespace GrayHorizons.Logic
+﻿namespace GrayHorizons.Logic
 {
+    using System;
+    using System.Xml.Serialization;
+    using GrayHorizons.Extensions;
+    using GrayHorizons.Input;
+
     public abstract class GameAction
     {
-        public event EventHandler<EventArgs> ParentInputBindingChanged;
-        public event EventHandler<EventArgs> ActionExecuted;
+        public event EventHandler ParentInputBindingChanged;
+        public event EventHandler ActionExecuted;
 
         InputBinding parentInputBinding;
 
-        [XmlIgnore()]
+        [XmlIgnore]
         public Player Player { get; set; }
 
-        [XmlIgnore()]
+        [XmlIgnore]
         public GameData GameData { get; set; }
 
-        [XmlIgnore()]
+        [XmlIgnore]
         public InputBinding ParentInputBinding
         {
             get

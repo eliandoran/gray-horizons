@@ -1,5 +1,5 @@
 ﻿using System;
-using GrayHorizons.ThirdParty.GameStateManagement;
+using GameStateManagement;
 using GrayHorizons.Logic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -118,7 +118,7 @@ namespace GrayHorizons.Screens.HeadsUp
             base.Draw(gameTime);
         }
 
-        public override void LoadContent()
+        public override void Activate(bool instancePreserved)
         {
             healthFullIcon = gameData.ContentManager.Load<Texture2D>(@"Icons\HealthFull");
             healthHalfIcon = gameData.ContentManager.Load<Texture2D>(@"Icons\HealthHalf");
@@ -127,7 +127,7 @@ namespace GrayHorizons.Screens.HeadsUp
 
             ScreenManager.AddScreen(healthProgressBar, null);
             ScreenManager.AddScreen(ammunitionProgressBar, null);
-            base.LoadContent();
+            base.Activate(instancePreserved);
         }
     }
 }

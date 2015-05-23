@@ -1,6 +1,7 @@
 ﻿namespace GrayHorizons
 {
     using System;
+    using System.Linq;
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
     using GrayHorizons.Logic;
@@ -30,36 +31,35 @@
             RotatedRectangle rect)
         {
             var rotation = rect.Rotation;
-            var lowerLeft = rect.LowerLeftCorner();
-            var lowerRight = rect.LowerRightCorner();
-            var upperLeft = rect.UpperLeftCorner();
-            var upperRight = rect.UpperRightCorner();
-
             var blankTexture = gameData.ContentManager.Load<Texture2D>("blank");
 
             var frontColor = new Color(0, 0, 255);
             var rearColor = new Color(255, 0, 0);
 
             gameData.ScreenManager.SpriteBatch.Draw(blankTexture,
-                gameData.Map.CalculateViewportCoordinates(lowerLeft,
+                gameData.Map.CalculateViewportCoordinates(
+                    rect.LowerLeftCorner(),
                     gameData.MapScale),
                 rotation: rotation,
                 scale: gameData.MapScale,
                 color: rearColor);
             gameData.ScreenManager.SpriteBatch.Draw(blankTexture,
-                gameData.Map.CalculateViewportCoordinates(lowerRight,
+                gameData.Map.CalculateViewportCoordinates(
+                    rect.LowerRightCorner(),
                     gameData.MapScale),
                 rotation: rotation,
                 scale: gameData.MapScale,
                 color: frontColor);
             gameData.ScreenManager.SpriteBatch.Draw(blankTexture,
-                gameData.Map.CalculateViewportCoordinates(upperLeft,
+                gameData.Map.CalculateViewportCoordinates(
+                    rect.UpperLeftCorner(),
                     gameData.MapScale),
                 rotation: rotation,
                 scale: gameData.MapScale,
                 color: rearColor);
             gameData.ScreenManager.SpriteBatch.Draw(blankTexture,
-                gameData.Map.CalculateViewportCoordinates(upperRight,
+                gameData.Map.CalculateViewportCoordinates(
+                    rect.UpperRightCorner(),
                     gameData.MapScale),
                 rotation: rotation,
                 scale: gameData.MapScale,
@@ -79,10 +79,15 @@
 
                 if (gameData.Map.IntersectsViewport(boundary.ToRotatedRectangle()))
                 {
+                    var coords = gameData.Map.CalculateViewportCoordinates(boundary.ToVector2(), gameData.MapScale).ToPoint();
+
                     var viewportRect =
                         new Rectangle(
-                            gameData.Map.CalculateViewportCoordinates(boundary.ToVector2(), gameData.MapScale).ToPoint(),
-                            scaled.Size);
+                            coords.X,
+                            coords.Y,
+                            scaled.Size.X,
+                            scaled.Size.Y
+                        );
 
                     gameData.ScreenManager.SpriteBatch.Draw(
                         gameData.BlankTexture,
@@ -108,33 +113,33 @@
 
             DrawRotatedRect(gameData, obj.Position);
 
-            var tank = obj as Tank;
-            if (tank.IsNotNull() && tank.MuzzleRectangle.IsNotNull())
-            {
-                if (tank.TurretRect.IsNull())
-                    return;
+            obj.TryCast<Tank>(tank =>
+                {
+                    if (tank.TurretRect.IsNull() || tank.MuzzleRectangle.IsNull())
+                        return;
 
-                var muzzlePos = tank.GetMuzzleRotatedRectangle();
-                var muzzleX = muzzlePos.CollisionRectangle.X;
-                var muzzleY = muzzlePos.CollisionRectangle.Y;
+                    var muzzlePos = tank.GetMuzzleRotatedRectangle();
 
-                var muzzleViewportPos = gameData.Map.CalculateViewportCoordinates(
-                                            new Vector2(muzzleX, muzzleY),
-                                            gameData.MapScale);
-                var rect = new Rectangle(
-                               (int)muzzleViewportPos.X,
-                               (int)muzzleViewportPos.Y,
-                               muzzlePos.CollisionRectangle.Width,
-                               muzzlePos.CollisionRectangle.Height);
+                    var muzzleViewportPos = gameData.Map.CalculateViewportCoordinates(
+                                                new Vector2(
+                                                    muzzlePos.CollisionRectangle.X,
+                                                    muzzlePos.CollisionRectangle.Y),
+                                                gameData.MapScale);
+                    var rect = new Rectangle(
+                                   (int)muzzleViewportPos.X,
+                                   (int)muzzleViewportPos.Y,
+                                   muzzlePos.CollisionRectangle.Width,
+                                   muzzlePos.CollisionRectangle.Height);
 
-                gameData.ScreenManager.SpriteBatch.Draw(
-                    gameData.BlankTexture,
-                    destinationRectangle: rect,
-                    rotation: muzzlePos.Rotation,
-                    scale: gameData.MapScale);
+                    gameData.ScreenManager.SpriteBatch.Draw(
+                        gameData.BlankTexture,
+                        destinationRectangle: rect,
+                        rotation: muzzlePos.Rotation,
+                        scale: gameData.MapScale);
 
-                DrawRotatedRect(gameData, tank.TurretRect);
-            }
+                    DrawRotatedRect(gameData, tank.TurretRect);
+                }
+            );
         }
 
         public static Rectangle GetSpriteFromSpriteImage(

@@ -1,30 +1,21 @@
-﻿/*
-   _____                   _    _            _                    
-  / ____|                 | |  | |          (_)                   
- | |  __ _ __ __ _ _   _  | |__| | ___  _ __ _ _______  _ __  ___ 
- | | |_ | '__/ _` | | | | |  __  |/ _ \| '__| |_  / _ \| '_ \/ __|
- | |__| | | | (_| | |_| | | |  | | (_) | |  | |/ / (_) | | | \__ \
-  \_____|_|  \__,_|\__, | |_|  |_|\___/|_|  |_/___\___/|_| |_|___/
-                    __/ |                                         
-                   |___/              © 2015 by Doran Adoris Elian
-*/
-using System;
-
-namespace GrayHorizons.Attributes
+﻿namespace GrayHorizons.Attributes
 {
+    using System;
+    using System.Collections.Generic;
+
     /// <summary>
     /// Represents a set texture names that will be loaded by the <see cref="GrayHorizons.Renderer"/> and then used to display an <see cref="GrayHorizons.Logic.ObjectBase"/>.
     /// </summary>
     [AttributeUsage(AttributeTargets.Class)]
     public sealed class MappedTexturesAttribute: Attribute
     {
-        readonly string[] textureNames;
+        readonly List<String> textureNames;
 
         /// <summary>
         /// Gets the name of the textures.
         /// </summary>
         /// <value>An array of texture names that will be loaded by with a <see cref="Microsoft.Xna.Framework.Content.ContentManager"/>.</value>
-        public string[] TextureNames
+        public List<String> TextureNames
         {
             get
             {
@@ -39,7 +30,7 @@ namespace GrayHorizons.Attributes
         public MappedTexturesAttribute(
             string textureName)
         {
-            textureNames = new [] { textureName };
+            textureNames = new List<String> { textureName };
         }
 
         /// <summary>
@@ -49,7 +40,7 @@ namespace GrayHorizons.Attributes
         public MappedTexturesAttribute(
             string[] textureNames)
         {
-            this.textureNames = textureNames;
+            this.textureNames = new List<String>(textureNames);
         }
 
         /// <summary>
@@ -58,7 +49,7 @@ namespace GrayHorizons.Attributes
         /// <returns>The random texture name.</returns>
         public string GetRandomTexture()
         {
-            return TextureNames[new Random().Next(TextureNames.Length)];
+            return TextureNames[new Random().Next(TextureNames.Count)];
         }
     }
 }

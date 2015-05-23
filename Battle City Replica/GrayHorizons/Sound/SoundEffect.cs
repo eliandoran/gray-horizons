@@ -6,15 +6,16 @@ using System.Diagnostics;
 using System.Collections.Generic;
 using GrayHorizons.Extensions;
 using Microsoft.Xna.Framework;
+using System.Collections.ObjectModel;
 
 namespace GrayHorizons.Sound
 {
     public class SoundEffect
     {
-        readonly List<Microsoft.Xna.Framework.Audio.SoundEffect> sounds = new List<Microsoft.Xna.Framework.Audio.SoundEffect>();
+        readonly Collection<Microsoft.Xna.Framework.Audio.SoundEffect> sounds = new Collection<Microsoft.Xna.Framework.Audio.SoundEffect>();
         readonly Random random = new Random();
 
-        public List<Microsoft.Xna.Framework.Audio.SoundEffect> Sounds
+        public Collection<Microsoft.Xna.Framework.Audio.SoundEffect> Sounds
         {
             get
             {

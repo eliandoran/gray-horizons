@@ -1,4 +1,4 @@
-﻿using GrayHorizons.ThirdParty.GameStateManagement;
+﻿using GameStateManagement;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -37,7 +37,7 @@ namespace GrayHorizons.UI
             MaximumValue = 100;
         }
 
-        public override void LoadContent()
+        public override void Activate(bool instancePreserved)
         {
             spriteBatch = ScreenManager.SpriteBatch;
             texture = ScreenManager.Game.Content.Load<Texture2D>("Blank");

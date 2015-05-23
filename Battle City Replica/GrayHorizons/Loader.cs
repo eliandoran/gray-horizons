@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.Graphics;
-using System.Reflection;
-using System.Linq;
 using System.Diagnostics;
-using GrayHorizons.Logic;
+using System.Linq;
+using System.Reflection;
 using GrayHorizons.Attributes;
 using GrayHorizons.Extensions;
+using GrayHorizons.Logic;
 using GrayHorizons.Sound;
+using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace GrayHorizons
 {
@@ -23,11 +23,13 @@ namespace GrayHorizons
         {
             Debug.WriteLine("MAPPED TEXTURES:");
 
-            (from type in Assembly.GetExecutingAssembly().GetTypes()
-                      where (type.IsClass && type.Namespace.StartsWith("GrayHorizons.") && (type.GetCustomAttributes(
-                              typeof(MappedTexturesAttribute),
-                              true).FirstOrDefault().IsNotNull()))
-                      select type).ToList().ForEach(type =>
+            Assembly.GetExecutingAssembly()
+                .GetTypes()
+                .Where(
+                type => (type.IsClass && type.Namespace.StartsWith("GrayHorizons.", StringComparison.Ordinal) &&
+                (type.GetCustomAttributes(typeof(MappedTexturesAttribute), true).FirstOrDefault().IsNotNull())))
+                .ToList()
+                .ForEach(type =>
                 {
                     if (!fullReload && gameData.MappedTextures.ContainsKey(type))
                         return;
@@ -61,31 +63,29 @@ namespace GrayHorizons
             string[] namespaces = { "GrayHorizons.Sound" };
 
             Debug.WriteLine("Loading sounds...", "LOADER");
+            Debug.Indent();
 
             FilterTypes(namespaces, typeof(SoundAutoLoadAttribute)).ForEach(type =>
                 {
                     Debug.WriteLine("Loading pack <{0}>...".FormatWith(type.Name));
+                    Debug.Indent();
 
-                    type.GetFields().ToList().ForEach(member =>
-                        {
-                            if (member.FieldType != typeof(SoundEffect))
-                                return;
-
-                            var attribute = member.GetCustomAttributes(typeof(MappedSoundsAttribute), true).FirstOrDefault() as MappedSoundsAttribute;
-                            if (attribute.IsNull())
-                                return;
-
-                            var soundEffect = member.GetValue(null) as SoundEffect;
-                            if (soundEffect.IsNotNull())
+                    type.GetProperties().ToList().ForEach(member =>
+                        member.GetCustomAttributes(typeof(MappedSoundsAttribute), true).FirstOrDefault().TryCast<MappedSoundsAttribute>(attribute =>
                             {
-                                Debug.WriteLine("{0} -> {1}".FormatWith(member.Name, attribute.SoundNames));
-
+                                Debug.Write("{0} -> {1} ".FormatWith(member.Name, attribute));
+                                var soundEffect = new SoundEffect();
+                                member.SetValue(null, soundEffect, null);
                                 // TODO: Exception handling here?
-                                attribute.SoundNames.ForEach(soundName =>
-                                    soundEffect.Sounds.Add(gameData.Game.Content.Load<Microsoft.Xna.Framework.Audio.SoundEffect>(soundName)));
-                            }
-                        });
+                                attribute.SoundNames.ForEach(soundName => soundEffect.Sounds.Add(gameData.Game.Content.Load<Microsoft.Xna.Framework.Audio.SoundEffect>(soundName)));
+                                Debug.WriteLine("[Done]");
+                            })
+                    );
+
+                    Debug.Unindent();
                 });
+
+            Debug.Unindent();
         }
 
         static List<Type> FilterTypes(
@@ -93,12 +93,13 @@ namespace GrayHorizons
             Type attributeType,
             Type classType = null)
         {
-            return (from type in Assembly.GetExecutingAssembly().GetTypes()
-                             where (
-                                     (classType.IsNotNull() ? type == classType : type.IsClass) &&
-                                     namespaces.Contains(type.Namespace) &&
-                                     (type.GetCustomAttributes(attributeType, true).FirstOrDefault().IsNotNull()))
-                             select type).ToList();            
+            return (Assembly.GetExecutingAssembly()
+                .GetTypes()
+                .Where(type =>
+                ((classType.IsNotNull() ? type == classType : type.IsClass) &&
+                namespaces.Contains(type.Namespace) &&
+                (type.GetCustomAttributes(attributeType, true).FirstOrDefault().IsNotNull())))
+            ).ToList();            
         }
     }
 }

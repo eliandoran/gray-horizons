@@ -9,10 +9,8 @@
                    |___/              © 2015 by Doran Adoris Elian
 */
 
-using System;
 using GrayHorizons.Attributes;
 using Microsoft.Xna.Framework.Input;
-using GrayHorizons.ThirdParty.GameStateManagement;
 using GrayHorizons.Logic;
 using GrayHorizons.Screens.HeadsUp;
 using System.Linq;

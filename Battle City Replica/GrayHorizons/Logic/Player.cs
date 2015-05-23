@@ -1,7 +1,4 @@
-﻿using System;
-using GrayHorizons.Entities;
-
-namespace GrayHorizons.Logic
+﻿namespace GrayHorizons.Logic
 {
     public class Player
     {
@@ -9,13 +6,14 @@ namespace GrayHorizons.Logic
 
         public int Score { get; set; }
 
-        public Player (
+        public Player(
             ControllableEntity assignedEntity)
         {
             AssignedEntity = assignedEntity;
         }
 
-        public Player () : this (
+        public Player()
+            : this(
                 null)
         {
             

@@ -1,11 +1,11 @@
-﻿using System;
-using GrayHorizons.Logic;
-using GrayHorizons.Attributes;
-using Microsoft.Xna.Framework;
-using GrayHorizons.Extensions;
-
-namespace GrayHorizons.StaticObjects
+﻿namespace GrayHorizons.StaticObjects
 {
+    using GrayHorizons.Attributes;
+    using GrayHorizons.Events;
+    using GrayHorizons.Extensions;
+    using GrayHorizons.Logic;
+    using Microsoft.Xna.Framework;
+
     [MappedTextures("AmmoCrate")]
     public class AmmoCrate: StaticObject
     {

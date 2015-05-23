@@ -3,12 +3,10 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
-using System.Xml;
 using System.Xml.Serialization;
 using GrayHorizons.Extensions;
 using GrayHorizons.Logic;
 using GrayHorizons.StaticObjects;
-using GrayHorizons.Windows.DirectX;
 
 namespace GrayHorizons.CollisionMaker
 {

@@ -1,15 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using GrayHorizons.ThirdParty.GameStateManagement;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.Graphics;
-using GrayHorizons.Objectives;
-using GrayHorizons.Extensions;
-
-namespace GrayHorizons.Logic
+﻿namespace GrayHorizons.Logic
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Diagnostics;
+    using GameStateManagement;
+    using GrayHorizons.Extensions;
+    using GrayHorizons.Objectives;
+    using Microsoft.Xna.Framework;
+    using Microsoft.Xna.Framework.Content;
+    using Microsoft.Xna.Framework.Graphics;
+
     public class GameData
     {
         readonly List<Player> players = new List<Player>();
@@ -50,7 +50,7 @@ namespace GrayHorizons.Logic
 
         public Player ActivePlayer { get; set; }
 
-        public Configuration Configuration { get; set; }
+        public GameConfig Configuration { get; set; }
 
         public Vector2 MapScale { get; set; }
 
@@ -62,7 +62,7 @@ namespace GrayHorizons.Logic
 
         public Texture2D BlankTexture { get; set; }
 
-        public InputOutputAgent IOAgent { get; set; }
+        public IInputOutputAgent IOAgent { get; set; }
 
         public Matrix TranslationMatrix { get; set; }
 

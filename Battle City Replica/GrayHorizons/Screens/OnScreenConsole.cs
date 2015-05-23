@@ -1,10 +1,10 @@
 ﻿using System;
-using System.Text;
-using GrayHorizons.Logic;
-using GrayHorizons.ThirdParty.GameStateManagement;
-using Microsoft.Xna.Framework;
 using System.Collections.Generic;
+using System.Text;
 using System.Text.RegularExpressions;
+using GrayHorizons.Logic;
+using GameStateManagement;
+using Microsoft.Xna.Framework;
 
 namespace GrayHorizons.Screens
 {

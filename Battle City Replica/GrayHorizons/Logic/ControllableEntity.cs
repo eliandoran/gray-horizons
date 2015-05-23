@@ -1,10 +1,10 @@
-﻿using System;
-using GrayHorizons.ThirdParty;
-using Microsoft.Xna.Framework;
-using GrayHorizons.Extensions;
-
-namespace GrayHorizons.Logic
+﻿namespace GrayHorizons.Logic
 {
+    using System;
+    using GrayHorizons.Extensions;
+    using GrayHorizons.ThirdParty;
+    using Microsoft.Xna.Framework;
+
     public abstract class ControllableEntity: Entity
     {
 

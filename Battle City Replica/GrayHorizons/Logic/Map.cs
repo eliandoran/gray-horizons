@@ -1,18 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Xml.Serialization;
-using Microsoft.Xna.Framework;
-using GrayHorizons.Entities;
-using System.Collections.ObjectModel;
-using Microsoft.Xna.Framework.Graphics;
-using GrayHorizons.ThirdParty;
-using GrayHorizons.StaticObjects;
-using GrayHorizons.Attributes;
-using GrayHorizons.Extensions;
-using System.Linq;
-
-namespace GrayHorizons.Logic
+﻿namespace GrayHorizons.Logic
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Collections.ObjectModel;
+    using System.Xml.Serialization;
+    using GrayHorizons.Attributes;
+    using GrayHorizons.Extensions;
+    using GrayHorizons.StaticObjects;
+    using GrayHorizons.ThirdParty;
+    using Microsoft.Xna.Framework;
+    using Microsoft.Xna.Framework.Graphics;
+
     /// <summary>
     /// Represents a game map containing tanks, walls, power-ups, etc.
     /// </summary>
@@ -348,7 +346,7 @@ namespace GrayHorizons.Logic
                 texture = GameData.MappedTextures[GetType()];
             else
             {
-                var attr = new MappedTexturesAttribute(new [] { "Dirt\\01" });
+                var attr = new MappedTexturesAttribute(new [] { "Dirt/01" });
                 texture = GameData.ContentManager.Load<Texture2D>(attr.GetRandomTexture());
             }
 

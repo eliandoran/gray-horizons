@@ -1,15 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using GrayHorizons.Actions.MenuNavigation;
-using GrayHorizons.Extensions;
-using GrayHorizons.Input;
-using GrayHorizons.ThirdParty.GameStateManagement;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-
-namespace GrayHorizons.UI
+﻿namespace GrayHorizons.UI
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Diagnostics;
+    using GrayHorizons.Actions.MenuNavigation;
+    using GrayHorizons.Extensions;
+    using GrayHorizons.Input;
+    using GameStateManagement;
+    using Microsoft.Xna.Framework;
+    using Microsoft.Xna.Framework.Graphics;
+
     public class Menu: GameScreen
     {
         readonly List<MenuItem> menuItems = new List<MenuItem>();
@@ -119,25 +119,12 @@ namespace GrayHorizons.UI
         {
             get
             {
-                if (SelectedIndex.HasValue)
-                {
-                    return MenuItems[SelectedIndex.Value];
-                }
-                else
-                {
-                    return null;
-                }
+                return SelectedIndex.HasValue ? MenuItems[SelectedIndex.Value] : null;
             }
 
             set
             {
-                if (value.IsNotNull())
-                {
-                    SelectedIndex = MenuItems.IndexOf(value);
-                }
-                else
-                    SelectedIndex = null;
-                
+                SelectedIndex = value.IsNotNull() ? (int?)MenuItems.IndexOf(value) : null;                
                 UpdateSelection();
             }
         }
@@ -174,27 +161,20 @@ namespace GrayHorizons.UI
             base.Update(gameTime, otherScreenHasFocus, coveredByOtherScreen);
         }
 
-        public override void HandleInput(
-            InputState input)
+        public override void Activate(bool instancePreserved)
         {
-            
-        }
-
-        public override void LoadContent()
-        {
-            font = ScreenManager.Game.Content.Load<SpriteFont>("Fonts\\Menu");
+            font = ScreenManager.Game.Content.Load<SpriteFont>("Fonts/Menu");
             inputBindings.ForEach(binding => binding.Game = ScreenManager.Game);
         }
 
-        public void Unload()
+        public override void Unload()
         {
             MenuItems.ForEach(item => item.ExitScreen());
-            ExitScreen();
         }
 
         public override string ToString()
         {
-            return string.Format("[Menu: ItemsCount={0}]", MenuItems.Count);
+            return "[Menu: ItemsCount={0}]".FormatWith(MenuItems.Count);           
         }
     }
 }

@@ -1,19 +1,21 @@
-﻿using System;
-using System.ComponentModel;
-using System.Diagnostics;
-using System.Xml.Serialization;
-using GrayHorizons.Entities;
-using GrayHorizons.Extensions;
-using GrayHorizons.Logic;
-using GrayHorizons.StaticObjects;
-using GrayHorizons.ThirdParty;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
-using Microsoft.Xna.Framework.Graphics;
-using GrayHorizons.Entities.Projectiles;
-
-namespace GrayHorizons.Logic
+﻿namespace GrayHorizons.Logic
 {
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel;
+    using System.Diagnostics;
+    using System.Linq;
+    using System.Reflection;
+    using System.Xml.Serialization;
+    using GrayHorizons.Entities.Projectiles;
+    using GrayHorizons.Extensions;
+    using GrayHorizons.Logic;
+    using GrayHorizons.StaticObjects;
+    using GrayHorizons.ThirdParty;
+    using Microsoft.Xna.Framework;
+    using Microsoft.Xna.Framework.Audio;
+    using Microsoft.Xna.Framework.Graphics;
+
     /// <summary>
     /// Represents an in-game tank entity.
     /// </summary>
@@ -338,6 +340,14 @@ namespace GrayHorizons.Logic
 
             tankIdleSoundInstance.Play();
             base.OnEngineStarted(e);
+        }
+
+        public static List<Type> GetTankTypes()
+        {
+            return Assembly.GetExecutingAssembly()
+                .GetTypes()
+                .Where(type => (type.BaseType == typeof(Tank)))
+                .ToList();
         }
     }
 }

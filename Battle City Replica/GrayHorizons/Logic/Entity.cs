@@ -1,12 +1,13 @@
-﻿using System;
-using System.Diagnostics;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using GrayHorizons.Extensions;
-using GrayHorizons.ThirdParty;
-
-namespace GrayHorizons.Logic
+﻿namespace GrayHorizons.Logic
 {
+    using System;
+    using System.Diagnostics;
+    using Microsoft.Xna.Framework;
+    using Microsoft.Xna.Framework.Graphics;
+    using GrayHorizons.Events;
+    using GrayHorizons.Extensions;
+    using GrayHorizons.ThirdParty;
+
     /// <summary>
     /// Represents a moving object on the in-game map.
     /// </summary>
@@ -14,8 +15,8 @@ namespace GrayHorizons.Logic
     {
         AIBase ai;
 
-        public event EventHandler<EventArgs> Moved;
-        public event EventHandler<EventArgs> Updated;
+        public event EventHandler Moved;
+        public event EventHandler Updated;
 
         public enum TurnDirection
         {

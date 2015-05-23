@@ -1,31 +1,11 @@
-﻿using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework;
-using System;
-using GrayHorizons.Logic;
-using System.Diagnostics;
-using GrayHorizons.Extensions;
-
-namespace GrayHorizons.Input
+﻿namespace GrayHorizons.Input
 {
-    public class MouseStateChangedEventArgs: EventArgs
-    {
-        MouseState state;
-
-        public MouseState State
-        {
-            get
-            {
-                return state;
-            }
-        }
-
-        public MouseStateChangedEventArgs(
-            MouseState state = new MouseState())
-        {
-            this.state = state;
-        }
-    }
-
+    using System;
+    using GrayHorizons.Events;
+    using GrayHorizons.Extensions;
+    using GrayHorizons.Logic;
+    using Microsoft.Xna.Framework;
+    using Microsoft.Xna.Framework.Input;
 
     public class MouseAxisBinding: AxisBinding
     {
@@ -95,7 +75,8 @@ namespace GrayHorizons.Input
         /// <returns>A <see cref="System.String"/> that represents the current <see cref="GrayHorizons.Input.MouseAxisBinding"/>.</returns>
         public override string ToString()
         {
-            return string.Format("[MouseAxisBinding, lastX={0}, lastY={1}]", lastX, lastY);
+            return "[MouseAxisBinding, lastX={0}, lastY={1}]".FormatWith(
+                lastX, lastY);
         }
     }
 }

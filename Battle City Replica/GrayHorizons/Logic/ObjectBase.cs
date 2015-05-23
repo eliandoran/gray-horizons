@@ -1,43 +1,15 @@
-﻿using System;
-using System.Xml.Serialization;
-using System.ComponentModel;
-using System.Diagnostics;
-using Microsoft.Xna.Framework;
-using GrayHorizons.Entities;
-using GrayHorizons.ThirdParty;
-using GrayHorizons.StaticObjects;
-using GrayHorizons.Extensions;
-using Microsoft.Xna.Framework.Graphics;
-
-namespace GrayHorizons.Logic
+﻿namespace GrayHorizons.Logic
 {
-    public class CollideEventArgs: EventArgs
-    {
-        readonly ObjectBase collidedWith;
-
-        public ObjectBase CollidedWith
-        {
-            get
-            {
-                return collidedWith;
-            }
-        }
-
-        public bool PassThrough { get; set; }
-
-        public CollideEventArgs(ObjectBase collidedWith, bool passThrough)
-        {
-            this.collidedWith = collidedWith;
-            PassThrough = passThrough;
-        }
-
-        public CollideEventArgs(ObjectBase collidedWith)
-            : this(collidedWith, false)
-        {
-         
-        }
-    }
-
+    using System;
+    using System.ComponentModel;
+    using System.Diagnostics;
+    using System.Xml.Serialization;
+    using GrayHorizons.Events;
+    using GrayHorizons.Extensions;
+    using GrayHorizons.StaticObjects;
+    using GrayHorizons.ThirdParty;
+    using Microsoft.Xna.Framework;
+    using Microsoft.Xna.Framework.Graphics;
 
     /// <summary>
     /// Represents either an entity or a static object that can be placed on the map.

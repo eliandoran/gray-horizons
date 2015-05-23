@@ -6,7 +6,7 @@
 /platform:Windows
 /config:
 /profile:Reach
-/compress:False
+/compress:True
 
 #-------------------------------- References --------------------------------#
 
@@ -186,7 +186,7 @@
 /processorParam:GenerateMipmaps=False
 /processorParam:PremultiplyAlpha=True
 /processorParam:ResizeToPowerOfTwo=False
-/processorParam:TextureFormat=Color
+/processorParam:TextureFormat=Compressed
 /build:Dirt.png
 
 #begin Explosion.png
@@ -197,7 +197,7 @@
 /processorParam:GenerateMipmaps=False
 /processorParam:PremultiplyAlpha=True
 /processorParam:ResizeToPowerOfTwo=False
-/processorParam:TextureFormat=Color
+/processorParam:TextureFormat=Compressed
 /build:Explosion.png
 
 #begin Projectile.png
@@ -242,7 +242,7 @@
 #begin Sounds/TankMoving.mp3
 /importer:Mp3Importer
 /processor:SoundEffectProcessor
-/processorParam:Quality=Best
+/processorParam:Quality=Low
 /build:Sounds/TankMoving.mp3
 
 #begin Sounds/MenuSelect.wav
@@ -427,7 +427,7 @@
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
+/processorParam:ColorKeyEnabled=False
 /processorParam:GenerateMipmaps=False
 /processorParam:PremultiplyAlpha=True
 /processorParam:ResizeToPowerOfTwo=False
@@ -487,7 +487,7 @@
 /processorParam:GenerateMipmaps=False
 /processorParam:PremultiplyAlpha=True
 /processorParam:ResizeToPowerOfTwo=False
-/processorParam:TextureFormat=Color
+/processorParam:TextureFormat=Compressed
 /build:DummyTarget.png
 
 #begin Projectiles/01.png

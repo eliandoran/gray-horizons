@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
-using GrayHorizons.ThirdParty.GameStateManagement;
+using GameStateManagement;
 using System.Diagnostics;
 using GrayHorizons.Extensions;
 
@@ -12,7 +12,7 @@ namespace GrayHorizons.UI
     {
         public event EventHandler<EventArgs> Select;
         public event EventHandler<EventArgs> Deselect;
-        public event EventHandler<EventArgs> Activate;
+        public event EventHandler<EventArgs> Executed;
 
         SpriteBatch spriteBatch;
         Texture2D texture;
@@ -61,8 +61,9 @@ namespace GrayHorizons.UI
             IsPopup = true;
         }
 
-        public override void LoadContent()
+        public override void Activate(bool instancePreserved)
         {
+            base.Activate(instancePreserved);                
             spriteBatch = ScreenManager.SpriteBatch;
             texture = ScreenManager.Game.Content.Load<Texture2D>("Blank");
         }
@@ -112,19 +113,19 @@ namespace GrayHorizons.UI
                 Deselect(this, e);
         }
 
-        internal void OnActivate(
+        internal void OnExecute(
             EventArgs e)
         {
-            if (CurrentActivationCooltime.TotalMilliseconds < 1 && Activate.IsNotNull())
+            if (CurrentActivationCooltime.TotalMilliseconds < 1 && Executed.IsNotNull())
             {
-                Activate(this, e);
+                Executed(this, e);
                 CurrentActivationCooltime = ActivationCooltime;
             }
         }
 
         public virtual void Execute()
         {
-            OnActivate(EventArgs.Empty);
+            OnExecute(EventArgs.Empty);
         }
 
         public override void Update(GameTime gameTime, bool otherScreenHasFocus, bool coveredByOtherScreen)
@@ -139,7 +140,7 @@ namespace GrayHorizons.UI
 
         public override string ToString()
         {
-            return string.Format("[MenuItem: {0}]", Text);
+            return "[MenuItem: {0}]".FormatWith(Text);
         }
     }
 }

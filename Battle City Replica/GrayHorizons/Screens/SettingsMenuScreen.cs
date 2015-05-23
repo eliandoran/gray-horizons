@@ -2,7 +2,7 @@
 using GrayHorizons.UI;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using GrayHorizons.ThirdParty.GameStateManagement;
+using GameStateManagement;
 using GrayHorizons.Logic;
 
 namespace GrayHorizons.Screens
@@ -48,7 +48,7 @@ namespace GrayHorizons.Screens
                 new MenuItem("< Back")
             };
 
-            menuItems[3].Activate += (
+            menuItems[3].Executed += (
                 sender,
                 e) =>
             {
@@ -81,7 +81,7 @@ namespace GrayHorizons.Screens
             spriteBatch.End();
         }
 
-        public override void LoadContent()
+        public override void Activate(bool instancePreserved)
         {
             spriteBatch = ScreenManager.SpriteBatch;
         }

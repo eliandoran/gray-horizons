@@ -1,8 +1,7 @@
-﻿using System;
-using Microsoft.Xna.Framework.Input;
-
-namespace GrayHorizons.Logic
+﻿namespace GrayHorizons.Logic
 {
+    using Microsoft.Xna.Framework.Input;
+
     public enum MouseButtons
     {
         Left,
@@ -25,12 +24,12 @@ namespace GrayHorizons.Logic
 
         ButtonState XButton2 { get; set; }
 
-        public MouseButtonState ()
+        public MouseButtonState()
         {
             
         }
 
-        public MouseButtonState (
+        public MouseButtonState(
             MouseState state)
         {
             LeftButton = state.LeftButton;

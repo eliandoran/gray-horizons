@@ -1,13 +1,11 @@
-﻿using System;
-using System.Xml;
-using System.Xml.Serialization;
-using System.Collections.Generic;
-using System.IO;
-using Microsoft.Xna.Framework;
-using GrayHorizons.ThirdParty;
-
-namespace GrayHorizons.Logic
+﻿namespace GrayHorizons.Logic
 {
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Xml.Serialization;
+    using GrayHorizons.ThirdParty;
+    using Microsoft.Xna.Framework;
+
     public class CollisionBoundary
     {
         const string ListSerializationRoot = "CollisionBoundaries";
@@ -72,7 +70,7 @@ namespace GrayHorizons.Logic
 
         #region Static Methods
 
-        public static void SerializeList(List<CollisionBoundary> source, InputOutputAgent ioAgent, string path)
+        public static void SerializeList(List<CollisionBoundary> source, IInputOutputAgent ioAgent, string path)
         {
             using (Stream stream = ioAgent.GetStream(path, FileMode.Create))
             using (var writer = new StreamWriter(stream))
@@ -84,7 +82,7 @@ namespace GrayHorizons.Logic
             }
         }
 
-        public static List<CollisionBoundary> DeserializeList(InputOutputAgent ioAgent, string path)
+        public static List<CollisionBoundary> DeserializeList(IInputOutputAgent ioAgent, string path)
         {
             using (Stream stream = ioAgent.GetStream(path, FileMode.Open))
             {

@@ -1,12 +1,12 @@
-﻿using System.Xml.Serialization;
-using GrayHorizons.StaticObjects;
-using GrayHorizons.ThirdParty;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using GrayHorizons.Extensions;
-
-namespace GrayHorizons.Logic
+﻿namespace GrayHorizons.Logic
 {
+    using System.Xml.Serialization;
+    using GrayHorizons.Extensions;
+    using GrayHorizons.StaticObjects;
+    using GrayHorizons.ThirdParty;
+    using Microsoft.Xna.Framework;
+    using Microsoft.Xna.Framework.Graphics;
+
     /// <summary>
     /// Represents an immovable object on the in-game map.
     /// </summary>
