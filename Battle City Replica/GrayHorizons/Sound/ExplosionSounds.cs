@@ -6,16 +6,16 @@ namespace GrayHorizons.Sound
     [SoundAutoLoad]
     public static class ExplosionSounds
     {
-        [MappedSounds(@"Sounds/WallExplosion")]
+        [MappedSounds(@"Sounds\\WallExplosion")]
         public static SoundEffect WallExplosion { get; internal set; }
 
-        [MappedSounds(@"Sounds/TankExplosion")]
+        [MappedSounds(@"Sounds\\TankExplosion")]
         public static SoundEffect TankExplosion { get; internal set; }
 
-        [MappedSounds(@"Sounds/ExplosionEcho")]
+        [MappedSounds(@"Sounds\\ExplosionEcho")]
         public static SoundEffect ExplosionEcho { get; internal set; }
 
-        [MappedSounds(@"Sounds/StandardExplosion")]
+        [MappedSounds(@"Sounds\\StandardExplosion")]
         public static SoundEffect StandardExplosion { get; internal set; }
     }
 }

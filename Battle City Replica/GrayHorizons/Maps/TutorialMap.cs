@@ -44,7 +44,7 @@ namespace GrayHorizons.Maps
             #region Collision Boundaries
             var boundaries = CollisionBoundary.DeserializeList(
                                  GameData.IOAgent,
-                                 GameData.ContentManager.RootDirectory + @"/Data/Tutorial.collision.xml"
+                                 GameData.ContentManager.RootDirectory + @"\Data\Tutorial.collision.xml"
                              );
 
             collisionBoundaries = new Collection<CollisionBoundary>(boundaries);
@@ -74,7 +74,7 @@ namespace GrayHorizons.Maps
                     Orientation = 4.15997f
                 });
 
-            var path = GameData.ContentManager.RootDirectory + @"/Data/Tutorial.dummies.xml";
+            var path = GameData.ContentManager.RootDirectory + @"\Data\Tutorial.dummies.xml";
             List<DummyTarget> dummyTargets;
             using (Stream stream = GameData.IOAgent.GetStream(path, FileMode.Open))
             {

@@ -2,20 +2,21 @@
 {
     using Microsoft.Xna.Framework;
 
+    /// <summary>
+    /// Represents a set of extensions attached to the <see cref="Microsoft.Xna.Framework.Game"/> class.
+    /// </summary>
     public static class GameExtensions
     {
+        /// <summary>
+        /// Positions the game window at the center of the screen.
+        /// </summary>
+        /// <param name="game">The game whose window to center.</param>
         public static void CenterGameWindow(this Game game)
         {
-//            var screenWidth = game.GraphicsDevice.Adapter.CurrentDisplayMode.Width;
-//            var screenHeight = game.GraphicsDevice.Adapter.CurrentDisplayMode.Height;
-//
-//            var windowWidth = game.Window.ClientBounds.Width;
-//            var windowHeight = game.Window.ClientBounds.Height;
-//
-//            var newX = (screenWidth - windowWidth) / 2;
-//            var newY = (screenHeight - windowHeight) / 2;
-//
-//            game.Window.Position = new Point (newX, newY);
+            game.Window.Position = new Point(
+                (game.GraphicsDevice.Adapter.CurrentDisplayMode.Width - game.Window.ClientBounds.Width) / 2,
+                (game.GraphicsDevice.Adapter.CurrentDisplayMode.Height - game.Window.ClientBounds.Height) / 2
+            );
         }
     }
 }

@@ -10,7 +10,7 @@ namespace GrayHorizons.Sound
         /// The menu select.
         /// Original source: http://www.freesound.org/people/DrMinky/sounds/166186/
         /// </summary>
-        [MappedSounds(@"Sounds/MenuSelect")]
+        [MappedSounds(@"Sounds\MenuSelect")]
         public static SoundEffect MenuSelect { get; internal set; }
     }
 }

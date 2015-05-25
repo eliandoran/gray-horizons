@@ -163,7 +163,7 @@
 
         public override void Activate(bool instancePreserved)
         {
-            font = ScreenManager.Game.Content.Load<SpriteFont>("Fonts/Menu");
+            font = ScreenManager.Game.Content.Load<SpriteFont>("Fonts\\Menu");
             inputBindings.ForEach(binding => binding.Game = ScreenManager.Game);
         }
 

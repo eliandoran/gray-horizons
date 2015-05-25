@@ -65,6 +65,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Logic\StaticObject.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Logic\TankBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Logic\Vehicle.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Maps\DesertMap.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Screens\BattlefieldScreen.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Screens\MainMenuScreen.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Screens\OnScreenConsole.cs" />

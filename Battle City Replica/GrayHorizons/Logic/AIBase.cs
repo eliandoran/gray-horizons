@@ -6,9 +6,9 @@
     public abstract class AIBase
     {
         /// <summary>
-        /// Gets or sets the tank that is being controlled by the AI.
+        /// Gets or sets the <see cref="GrayHorizons.Logic.Entity"/> that is being controlled by the AI.
         /// </summary>
-        /// <value>The controlling tank.</value>
+        /// <value>The entity that the AI is controlling.</value>
         public Entity ControllingEntity { get; set; }
 
         public GameData GameData { get; set; }

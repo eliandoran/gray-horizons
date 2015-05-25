@@ -1,9 +1,9 @@
-﻿using System;
-using GrayHorizons.Logic;
-using System.IO;
-
-namespace GrayHorizons
+﻿namespace GrayHorizons
 {
+    using System;
+    using System.IO;
+    using GrayHorizons.Logic;
+
     public class FileStreamInputOutputAgent: IInputOutputAgent
     {
         #region InputOutputAgent implementation

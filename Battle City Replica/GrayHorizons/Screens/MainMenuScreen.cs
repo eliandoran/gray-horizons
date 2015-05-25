@@ -143,7 +143,7 @@ namespace GrayHorizons.Screens
             spriteBatch = ScreenManager.SpriteBatch;
             backgroundImage = ScreenManager.Game.Content.Load<Texture2D>("TankWallpaper");
             Sound.UISounds.MenuSelect = new GrayHorizons.Sound.SoundEffect();
-            Sound.UISounds.MenuSelect.Sounds.Add(ScreenManager.Game.Content.Load<SoundEffect>("Sounds/MenuSelect"));
+            Sound.UISounds.MenuSelect.Sounds.Add(ScreenManager.Game.Content.Load<SoundEffect>("Sounds\\MenuSelect"));
         }
     }
 }

@@ -6,7 +6,7 @@ namespace GrayHorizons.Sound
     [SoundAutoLoad]
     public static class VehicleSounds
     {
-        [MappedSounds(@"Sounds/VehicleStarting")]
+        [MappedSounds(@"Sounds\\VehicleStarting")]
         public static SoundEffect Starting { get; internal set; }
     }
 }

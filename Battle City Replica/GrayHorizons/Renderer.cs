@@ -1,7 +1,6 @@
 ﻿namespace GrayHorizons
 {
     using System;
-    using System.Linq;
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
     using GrayHorizons.Logic;
@@ -36,34 +35,18 @@
             var frontColor = new Color(0, 0, 255);
             var rearColor = new Color(255, 0, 0);
 
-            gameData.ScreenManager.SpriteBatch.Draw(blankTexture,
-                gameData.Map.CalculateViewportCoordinates(
-                    rect.LowerLeftCorner(),
-                    gameData.MapScale),
-                rotation: rotation,
-                scale: gameData.MapScale,
-                color: rearColor);
-            gameData.ScreenManager.SpriteBatch.Draw(blankTexture,
-                gameData.Map.CalculateViewportCoordinates(
-                    rect.LowerRightCorner(),
-                    gameData.MapScale),
-                rotation: rotation,
-                scale: gameData.MapScale,
-                color: frontColor);
-            gameData.ScreenManager.SpriteBatch.Draw(blankTexture,
-                gameData.Map.CalculateViewportCoordinates(
-                    rect.UpperLeftCorner(),
-                    gameData.MapScale),
-                rotation: rotation,
-                scale: gameData.MapScale,
-                color: rearColor);
-            gameData.ScreenManager.SpriteBatch.Draw(blankTexture,
-                gameData.Map.CalculateViewportCoordinates(
-                    rect.UpperRightCorner(),
-                    gameData.MapScale),
-                rotation: rotation,
-                scale: gameData.MapScale,
-                color: frontColor);
+            Action<Vector2, Color> drawPoint = (pos, color) =>
+                gameData.ScreenManager.SpriteBatch.Draw(
+                                                   blankTexture,
+                                                   gameData.Map.CalculateViewportCoordinates(pos, gameData.MapScale),
+                                                   rotation: rotation,
+                                                   scale: gameData.MapScale,
+                                                   color: color);
+
+            drawPoint(rect.LowerLeftCorner(), rearColor);
+            drawPoint(rect.LowerRightCorner(), frontColor);
+            drawPoint(rect.UpperLeftCorner(), rearColor);
+            drawPoint(rect.UpperRightCorner(), frontColor);
         }
 
         static void DrawCollisionBoundaries(GameData gameData)
@@ -169,7 +152,8 @@
         {
             gameData.ScreenManager.SpriteBatch.End();
             gameData.ScreenManager.SpriteBatch.Begin(
-                transformMatrix: gameData.TranslationMatrix);
+                transformMatrix: gameData.TranslationMatrix
+            );
 
             gameData.Map.Render();
             DrawCollisionBoundaries(gameData);

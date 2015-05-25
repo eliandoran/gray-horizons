@@ -1,21 +1,14 @@
-﻿<Properties StartupConfiguration="{C894AFF9-74FD-46FF-BA4B-529E5414B644}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="GrayHorizons/Logic/Map.cs">
+﻿<Properties StartupItem="GrayHorizons.Windows.OpenGL\GrayHorizons.Windows.OpenGL.csproj">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="GrayHorizons\Extensions\RotatedRectangleExtensions.cs">
     <Files>
-      <File FileName="GrayHorizons/Logic/CollisionBoundary.cs" Line="1" Column="1" />
-      <File FileName="GrayHorizons/Maps/TutorialMap.cs" Line="1" Column="1" />
-      <File FileName="GrayHorizons/Logic/Vehicle.cs" Line="198" Column="1" />
-      <File FileName="GrayHorizons.Windows.OpenGL/Program.cs" Line="12" Column="1" />
-      <File FileName="GrayHorizons/Loader.cs" Line="1" Column="1" />
-      <File FileName="GrayHorizons/Logic/Map.cs" Line="268" Column="10" />
+      <File FileName="GrayHorizons\Extensions\RotatedRectangleExtensions.cs" Line="30" Column="16" />
+      <File FileName="GrayHorizons\Extensions\StringExtensions.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
-  <MonoDevelop.Ide.ItemProperties.GrayHorizons.Windows.OpenGL PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
-  <MonoDevelop.Ide.ItemProperties.GrayHorizons.Content PreferredExecutionTarget="MonoDevelop.Default" />
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <AuthorInfo Name="Doran Adoris Elian" Email="elinnum@gmail.com" Copyright="© 2015 Doran Adoris Elian" Company="" Trademark="" />
-  <MultiItemStartupConfigurations />
 </Properties>

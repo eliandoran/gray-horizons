@@ -8,7 +8,6 @@
 #endregion
 
 #region Using Statements
-using System.IO;
 using System.Diagnostics;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
@@ -130,7 +129,7 @@ namespace GameStateManagement
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // HACK: Texture paths replaced with the game's ones.
-            font = content.Load<SpriteFont>("Fonts/Standard");
+            font = content.Load<SpriteFont>(@"Fonts\Standard");
             blankTexture = content.Load<Texture2D>("blank");
 
             // Tell each of the screens to load their content.

@@ -346,7 +346,7 @@
                 texture = GameData.MappedTextures[GetType()];
             else
             {
-                var attr = new MappedTexturesAttribute(new [] { "Dirt/01" });
+                var attr = new MappedTexturesAttribute(new [] { "Dirt\\01" });
                 texture = GameData.ContentManager.Load<Texture2D>(attr.GetRandomTexture());
             }
 

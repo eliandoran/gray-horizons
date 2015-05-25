@@ -78,7 +78,7 @@ namespace GrayHorizons
             graphics = new GraphicsDeviceManager(this);
             graphics.PreferredBackBufferWidth = GameData.Configuration.WindowedModeResolution.Width;
             graphics.PreferredBackBufferHeight = GameData.Configuration.WindowedModeResolution.Height;
-            graphics.ApplyChanges();
+            graphics.CreateDevice();
 
             CenterWindow(this);
 
@@ -90,7 +90,7 @@ namespace GrayHorizons
             Window.Title = "Gray Horizons – © 2015 Doran Adoris Elian";
 
             #if DEBUG
-            Content.RootDirectory = new Uri(Assembly.GetExecutingAssembly().EscapedCodeBase + @"/../../../../GrayHorizons.Content/bin/Windows").LocalPath;
+            Content.RootDirectory = new Uri(Assembly.GetExecutingAssembly().CodeBase + @"/../../../../GrayHorizons.Content/bin/Windows").LocalPath;
             #else
             Content.RootDirectory = "Content";
             #endif

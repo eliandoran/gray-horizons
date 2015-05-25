@@ -7,22 +7,22 @@ namespace GrayHorizons.Sound
     public static class TankSounds
     {
         [MappedSounds(
-            @"Sounds/TankFiring01",
-            @"Sounds/TankFiring02",
-            @"Sounds/TankFiring03",
-            @"Sounds/TankFiring04")]
+            @"Sounds\TankFiring01",
+            @"Sounds\TankFiring02",
+            @"Sounds\TankFiring03",
+            @"Sounds\TankFiring04")]
         public static SoundEffect Firing { get; internal set; }
 
-        [MappedSounds(@"Sounds/TankIdle")]
+        [MappedSounds(@"Sounds\\TankIdle")]
         public static SoundEffect Idle { get; internal set; }
 
-        [MappedSounds(@"Sounds/TankMoving")]
+        [MappedSounds(@"Sounds\\TankMoving")]
         public static SoundEffect Moving { get; internal set; }
 
-        [MappedSounds(@"Sounds/TankStarting")]
+        [MappedSounds(@"Sounds\\TankStarting")]
         public static SoundEffect Starting { get; internal set; }
 
-        [MappedSounds(@"Sounds/TankNoAmmo")]
+        [MappedSounds(@"Sounds\\TankNoAmmo")]
         public static SoundEffect NoAmmo { get; internal set; }
     }
 }

@@ -10,6 +10,9 @@
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Input;
 
+    /// <summary>
+    /// Represents a <see cref="GrayHorizons.Logic.GameAction"/> that changes the player's actor with a random tank.
+    /// </summary>
     [DefaultKey(Keys.F2)]
     public class MetamorphizeTankAction: GameAction
     {
@@ -17,7 +20,11 @@
 
         public override void Execute()
         {        
-            var newTank = (Tank)Tank.GetTankTypes().RandomElement().GetConstructor(new Type[] { }).Invoke(new Type[] { });
+            var newTank = (Tank)Tank
+                .GetTankTypes()
+                .RandomElement()
+                .GetConstructor(new Type[] { })
+                .Invoke(new Type[] { });
 
             newTank.Position = new RotatedRectangle(
                 new Rectangle(
