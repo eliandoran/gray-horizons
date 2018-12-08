@@ -1,52 +1,66 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
-VisualStudioVersion = 12.0.31101.0
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29613.14
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GrayHorizons.Windows.DirectX", "GrayHorizons.Windows.DirectX\GrayHorizons.Windows.DirectX.csproj", "{46C78150-7010-41C2-8AB4-450AD87B9797}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{F77078C4-4740-4F73-A16E-1C8799F6976C}"
 	ProjectSection(SolutionItems) = preProject
 		Sounds Used.txt = Sounds Used.txt
 	EndProjectSection
 EndProject
-Project("{9344BDBB-3E7F-41FC-A0DD-8665D75EE146}") = "GrayHorizons.Content", "GrayHorizons.Content\GrayHorizons.Content.mdproj", "{6430DC1A-3584-4389-B966-9CEDE635CAD9}"
-EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "GrayHorizons", "GrayHorizons\GrayHorizons.shproj", "{2A2267A1-4FB2-4355-845C-77CEB4A3B868}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GrayHorizons.CollisionMaker", "GrayHorizons.CollisionMaker\GrayHorizons.CollisionMaker.csproj", "{6FE5EA11-CAF7-461D-AA42-D0AB59AE3BF0}"
 EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "GrayHorizons.Content", "GrayHorizons.Content\GrayHorizons.Content.shproj", "{33021A27-CE14-4B2F-8195-282F24268E64}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GrayHorizons.Windows.DirectX", "GrayHorizons.Windows.DirectX\GrayHorizons.Windows.DirectX.csproj", "{7EC9B87C-8066-4A00-9285-65C7D17778B1}"
+EndProject
 Global
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		GrayHorizons\GrayHorizons.projitems*{2a2267a1-4fb2-4355-845c-77ceb4a3b868}*SharedItemsImports = 13
+		GrayHorizons.Content\GrayHorizons.Content.projitems*{33021a27-ce14-4b2f-8195-282f24268e64}*SharedItemsImports = 13
+		GrayHorizons\GrayHorizons.projitems*{7ec9b87c-8066-4a00-9285-65c7d17778b1}*SharedItemsImports = 4
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
 		Debug|x86 = Debug|x86
-		Release|x86 = Release|x86
 		Default|Any CPU = Default|Any CPU
+		Default|x86 = Default|x86
+		Release|Any CPU = Release|Any CPU
+		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{46C78150-7010-41C2-8AB4-450AD87B9797}.Debug|x86.ActiveCfg = Debug|x86
-		{46C78150-7010-41C2-8AB4-450AD87B9797}.Debug|x86.Build.0 = Debug|x86
-		{46C78150-7010-41C2-8AB4-450AD87B9797}.Default|Any CPU.ActiveCfg = Debug|x86
-		{46C78150-7010-41C2-8AB4-450AD87B9797}.Default|Any CPU.Build.0 = Debug|x86
-		{46C78150-7010-41C2-8AB4-450AD87B9797}.Release|x86.ActiveCfg = Release|x86
-		{46C78150-7010-41C2-8AB4-450AD87B9797}.Release|x86.Build.0 = Release|x86
-		{6430DC1A-3584-4389-B966-9CEDE635CAD9}.Debug|x86.ActiveCfg = Default|Any CPU
-		{6430DC1A-3584-4389-B966-9CEDE635CAD9}.Debug|x86.Build.0 = Default|Any CPU
-		{6430DC1A-3584-4389-B966-9CEDE635CAD9}.Default|Any CPU.ActiveCfg = Default|Any CPU
-		{6430DC1A-3584-4389-B966-9CEDE635CAD9}.Default|Any CPU.Build.0 = Default|Any CPU
-		{6430DC1A-3584-4389-B966-9CEDE635CAD9}.Release|x86.ActiveCfg = Default|Any CPU
-		{6430DC1A-3584-4389-B966-9CEDE635CAD9}.Release|x86.Build.0 = Default|Any CPU
+		{6FE5EA11-CAF7-461D-AA42-D0AB59AE3BF0}.Debug|Any CPU.ActiveCfg = Debug|x86
 		{6FE5EA11-CAF7-461D-AA42-D0AB59AE3BF0}.Debug|x86.ActiveCfg = Debug|x86
 		{6FE5EA11-CAF7-461D-AA42-D0AB59AE3BF0}.Debug|x86.Build.0 = Debug|x86
-		{6FE5EA11-CAF7-461D-AA42-D0AB59AE3BF0}.Default|Any CPU.ActiveCfg = Debug|x86
-		{6FE5EA11-CAF7-461D-AA42-D0AB59AE3BF0}.Default|Any CPU.Build.0 = Debug|x86
+		{6FE5EA11-CAF7-461D-AA42-D0AB59AE3BF0}.Default|Any CPU.ActiveCfg = Release|x86
+		{6FE5EA11-CAF7-461D-AA42-D0AB59AE3BF0}.Default|Any CPU.Build.0 = Release|x86
+		{6FE5EA11-CAF7-461D-AA42-D0AB59AE3BF0}.Default|x86.ActiveCfg = Debug|x86
+		{6FE5EA11-CAF7-461D-AA42-D0AB59AE3BF0}.Default|x86.Build.0 = Debug|x86
+		{6FE5EA11-CAF7-461D-AA42-D0AB59AE3BF0}.Release|Any CPU.ActiveCfg = Release|x86
 		{6FE5EA11-CAF7-461D-AA42-D0AB59AE3BF0}.Release|x86.ActiveCfg = Release|x86
 		{6FE5EA11-CAF7-461D-AA42-D0AB59AE3BF0}.Release|x86.Build.0 = Release|x86
+		{7EC9B87C-8066-4A00-9285-65C7D17778B1}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{7EC9B87C-8066-4A00-9285-65C7D17778B1}.Debug|x86.ActiveCfg = Debug|x86
+		{7EC9B87C-8066-4A00-9285-65C7D17778B1}.Debug|x86.Build.0 = Debug|x86
+		{7EC9B87C-8066-4A00-9285-65C7D17778B1}.Default|Any CPU.ActiveCfg = Release|x86
+		{7EC9B87C-8066-4A00-9285-65C7D17778B1}.Default|Any CPU.Build.0 = Release|x86
+		{7EC9B87C-8066-4A00-9285-65C7D17778B1}.Default|x86.ActiveCfg = Debug|x86
+		{7EC9B87C-8066-4A00-9285-65C7D17778B1}.Default|x86.Build.0 = Debug|x86
+		{7EC9B87C-8066-4A00-9285-65C7D17778B1}.Release|Any CPU.ActiveCfg = Release|x86
+		{7EC9B87C-8066-4A00-9285-65C7D17778B1}.Release|x86.ActiveCfg = Release|x86
+		{7EC9B87C-8066-4A00-9285-65C7D17778B1}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FED5F7D1-D606-481C-A1FB-90691B09D2EA}
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		Policies = $0
-		$0.TextStylePolicy = $1
+		$0.TextStylePolicy = $32
 		$1.inheritsSet = VisualStudio
 		$1.inheritsScope = text/plain
 		$1.scope = text/x-csharp
@@ -78,12 +92,10 @@ Global
 		$2.inheritsSet = Mono
 		$2.inheritsScope = text/x-csharp
 		$2.scope = text/x-csharp
-		$0.TextStylePolicy = $3
 		$3.FileWidth = 120
 		$3.inheritsSet = VisualStudio
 		$3.inheritsScope = text/plain
 		$3.scope = text/plain
-		$0.TextStylePolicy = $4
 		$4.inheritsSet = null
 		$4.scope = text/x-mgcb
 		$0.StandardHeader = $5
@@ -91,21 +103,19 @@ Global
 		$5.IncludeInNewFiles = True
 		$0.NameConventionPolicy = $6
 		$6.Rules = $7
-		$7.NamingRule = $8
+		$7.NamingRule = $27
 		$8.Name = Namespaces
 		$8.AffectedEntity = Namespace
 		$8.VisibilityMask = VisibilityMask
 		$8.NamingStyle = PascalCase
 		$8.IncludeInstanceMembers = True
 		$8.IncludeStaticEntities = True
-		$7.NamingRule = $9
 		$9.Name = Types
 		$9.AffectedEntity = Class, Struct, Enum, Delegate
 		$9.VisibilityMask = Public
 		$9.NamingStyle = PascalCase
 		$9.IncludeInstanceMembers = True
 		$9.IncludeStaticEntities = True
-		$7.NamingRule = $10
 		$10.Name = Interfaces
 		$10.RequiredPrefixes = $11
 		$11.String = I
@@ -114,7 +124,6 @@ Global
 		$10.NamingStyle = PascalCase
 		$10.IncludeInstanceMembers = True
 		$10.IncludeStaticEntities = True
-		$7.NamingRule = $12
 		$12.Name = Attributes
 		$12.RequiredSuffixes = $13
 		$13.String = Attribute
@@ -123,7 +132,6 @@ Global
 		$12.NamingStyle = PascalCase
 		$12.IncludeInstanceMembers = True
 		$12.IncludeStaticEntities = True
-		$7.NamingRule = $14
 		$14.Name = Event Arguments
 		$14.RequiredSuffixes = $15
 		$15.String = EventArgs
@@ -132,7 +140,6 @@ Global
 		$14.NamingStyle = PascalCase
 		$14.IncludeInstanceMembers = True
 		$14.IncludeStaticEntities = True
-		$7.NamingRule = $16
 		$16.Name = Exceptions
 		$16.RequiredSuffixes = $17
 		$17.String = Exception
@@ -141,70 +148,60 @@ Global
 		$16.NamingStyle = PascalCase
 		$16.IncludeInstanceMembers = True
 		$16.IncludeStaticEntities = True
-		$7.NamingRule = $18
 		$18.Name = Methods
 		$18.AffectedEntity = Methods
 		$18.VisibilityMask = Protected, Public
 		$18.NamingStyle = PascalCase
 		$18.IncludeInstanceMembers = True
 		$18.IncludeStaticEntities = True
-		$7.NamingRule = $19
 		$19.Name = Static Readonly Fields
 		$19.AffectedEntity = ReadonlyField
 		$19.VisibilityMask = Protected, Public
 		$19.NamingStyle = PascalCase
 		$19.IncludeInstanceMembers = False
 		$19.IncludeStaticEntities = True
-		$7.NamingRule = $20
 		$20.Name = Fields
 		$20.AffectedEntity = Field
 		$20.VisibilityMask = Protected, Public
 		$20.NamingStyle = PascalCase
 		$20.IncludeInstanceMembers = True
 		$20.IncludeStaticEntities = True
-		$7.NamingRule = $21
 		$21.Name = ReadOnly Fields
 		$21.AffectedEntity = ReadonlyField
 		$21.VisibilityMask = Protected, Public
 		$21.NamingStyle = PascalCase
 		$21.IncludeInstanceMembers = True
 		$21.IncludeStaticEntities = False
-		$7.NamingRule = $22
 		$22.Name = Constant Fields
 		$22.AffectedEntity = ConstantField
 		$22.VisibilityMask = Protected, Public
 		$22.NamingStyle = PascalCase
 		$22.IncludeInstanceMembers = True
 		$22.IncludeStaticEntities = True
-		$7.NamingRule = $23
 		$23.Name = Properties
 		$23.AffectedEntity = Property
 		$23.VisibilityMask = Protected, Public
 		$23.NamingStyle = PascalCase
 		$23.IncludeInstanceMembers = True
 		$23.IncludeStaticEntities = True
-		$7.NamingRule = $24
 		$24.Name = Events
 		$24.AffectedEntity = Event
 		$24.VisibilityMask = Protected, Public
 		$24.NamingStyle = PascalCase
 		$24.IncludeInstanceMembers = True
 		$24.IncludeStaticEntities = True
-		$7.NamingRule = $25
 		$25.Name = Enum Members
 		$25.AffectedEntity = EnumMember
 		$25.VisibilityMask = VisibilityMask
 		$25.NamingStyle = PascalCase
 		$25.IncludeInstanceMembers = True
 		$25.IncludeStaticEntities = True
-		$7.NamingRule = $26
 		$26.Name = Parameters
 		$26.AffectedEntity = Parameter
 		$26.VisibilityMask = VisibilityMask
 		$26.NamingStyle = CamelCase
 		$26.IncludeInstanceMembers = True
 		$26.IncludeStaticEntities = True
-		$7.NamingRule = $27
 		$27.Name = Type Parameters
 		$27.RequiredPrefixes = $28
 		$28.String = T
@@ -216,26 +213,17 @@ Global
 		$0.DotNetNamingPolicy = $29
 		$29.DirectoryNamespaceAssociation = PrefixedHierarchical
 		$29.ResourceNamePolicy = FileFormatDefault
-		$0.TextStylePolicy = $30
 		$30.inheritsSet = null
 		$30.scope = application/config+xml
-		$0.XmlFormattingPolicy = $31
+		$0.XmlFormattingPolicy = $33
 		$31.inheritsSet = null
 		$31.scope = application/config+xml
-		$0.TextStylePolicy = $32
 		$32.inheritsSet = null
 		$32.scope = application/xml
-		$0.XmlFormattingPolicy = $33
 		$33.inheritsSet = Mono
 		$33.inheritsScope = application/xml
 		$33.scope = application/xml
 		$0.VersionControlPolicy = $34
 		$34.inheritsSet = Mono
-	EndGlobalSection
-	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		GrayHorizons\GrayHorizons.projitems*{5233519b-059f-4442-88c2-ce20800707b8}*SharedItemsImports = 13
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 EndGlobal

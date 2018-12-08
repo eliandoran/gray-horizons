@@ -79,7 +79,7 @@ namespace GrayHorizons
             graphics = new GraphicsDeviceManager(this);
             graphics.PreferredBackBufferWidth = GameData.Configuration.WindowedModeResolution.Width;
             graphics.PreferredBackBufferHeight = GameData.Configuration.WindowedModeResolution.Height;
-            graphics.CreateDevice();
+            graphics.ApplyChanges();
 
             CenterWindow(this);
 
