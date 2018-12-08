@@ -1,6 +1,5 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
-using Microsoft.Office.Interop.PowerPoint;
 using GrayHorizons.ThirdParty.GameStateManagement;
 using Microsoft.Xna.Framework.Graphics;
 using System.Diagnostics;

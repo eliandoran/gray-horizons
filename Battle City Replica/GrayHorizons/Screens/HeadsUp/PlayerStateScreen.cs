@@ -3,7 +3,6 @@ using GrayHorizons.ThirdParty.GameStateManagement;
 using GrayHorizons.Logic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using SharpNav;
 using GrayHorizons.UI;
 using System.ComponentModel;
 
