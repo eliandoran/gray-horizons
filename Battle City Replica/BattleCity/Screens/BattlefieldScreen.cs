@@ -3,6 +3,7 @@ using System.Diagnostics;
 using BattleCity.Entities;
 using BattleCity.Extensions;
 using BattleCity.Input;
+using BattleCity.Input.Actions;
 using BattleCity.Logic;
 using BattleCity.StaticObjects;
 using BattleCity.ThirdParty;
@@ -10,6 +11,7 @@ using BattleCity.ThirdParty.GameStateManagement;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 
 namespace BattleCity.Screens
 {
@@ -77,49 +79,46 @@ namespace BattleCity.Screens
             WallLine (map, 0, 9, 9);
             WallLine (map, 0, 9, 0);
 
-//            var moveForwardKeyBinding = new KeyBinding (gameData, null, Keys.W, true);
-//            moveForwardKeyBinding.BoundAction = new MoveForwardAction (player, moveForwardKeyBinding);
-//
-//            var moveBackwardKeyBinding = new KeyBinding (gameData, null, Keys.S, true);
-//            moveBackwardKeyBinding.BoundAction = new MoveBackwardAction (player, moveBackwardKeyBinding);
-//
-//            var turnLeftKeyBinding = new KeyBinding (gameData, null, Keys.A, true);
-//            turnLeftKeyBinding.BoundAction = new TurnLeftAction (player, turnLeftKeyBinding);
-//
-//            var turnRightKeyBinding = new KeyBinding (gameData, null, Keys.D, true);
-//            turnRightKeyBinding.BoundAction = new TurnRightAction (player, turnRightKeyBinding);
-//
-//            var turretAxisBinding = new MouseAxisBinding (gameData);
-//            turretAxisBinding.BoundAction = new TankMouseTurretControl (gameData, player, turretAxisBinding);
-//
-//            gameData.InputBindings.AddRange (new InputBinding[] {
-//                moveForwardKeyBinding,
-//                moveBackwardKeyBinding,
-//                turnLeftKeyBinding,
-//                turnRightKeyBinding,
-//                new KeyBinding (gameData, new ShootAction (player)),
-//                turretAxisBinding,
-//
-//                new KeyBinding (gameData, new ToggleGuidesTraceAction (gameData)),
-//                new KeyBinding (gameData, new MetamorphosizeTank (gameData, player)),
-//                new KeyBinding (gameData, new ToggleFullScreenAction (gameData)),
-//                new KeyBinding (gameData, new ZoomInAction (gameData), allowContinousPress: true),
-//                new KeyBinding (gameData, new ZoomOutAction (gameData), allowContinousPress: true),
-//                new KeyBinding (gameData, new TogglePauseAction (gameData))
-//            });                
-//
-//            player.AssignedVehicle.Moved += (sender,
-//                                             e) => gameData.Map.CenterViewportAt (player.AssignedVehicle);
+            var player = gameData.ActivePlayer;
+            var moveForwardKeyBinding = new KeyBinding(gameData, null, Keys.W, true);
+            moveForwardKeyBinding.BoundAction = new MoveForwardAction(player, moveForwardKeyBinding);
 
-//
-//            if (gameData.Configuration == null)
-//            {
-//                var config = new Configuration ();
-//                foreach (InputBinding binding in gameData.InputBindings)
-//                    config.InputBindings.Add (binding);
-//                config.FullScreenResolution = new Size (1280, 800);
-//                gameData.Configuration = config;
-//            }
+            var moveBackwardKeyBinding = new KeyBinding(gameData, null, Keys.S, true);
+            moveBackwardKeyBinding.BoundAction = new MoveBackwardAction(player, moveBackwardKeyBinding);
+
+            var turnLeftKeyBinding = new KeyBinding(gameData, null, Keys.A, true);
+            turnLeftKeyBinding.BoundAction = new TurnLeftAction(player, turnLeftKeyBinding);
+
+            var turnRightKeyBinding = new KeyBinding(gameData, null, Keys.D, true);
+            turnRightKeyBinding.BoundAction = new TurnRightAction(player, turnRightKeyBinding);
+
+            var turretAxisBinding = new MouseAxisBinding(gameData);
+            turretAxisBinding.BoundAction = new TankMouseTurretControl(gameData, player, turretAxisBinding);
+
+            gameData.InputBindings.AddRange(new InputBinding[] {
+                moveForwardKeyBinding,
+                moveBackwardKeyBinding,
+                turnLeftKeyBinding,
+                turnRightKeyBinding,
+                new KeyBinding (gameData, new ShootAction (player)),
+                turretAxisBinding,
+
+                new KeyBinding (gameData, new ToggleGuidesTraceAction (gameData)),
+                new KeyBinding (gameData, new MetamorphosizeTank (gameData, player)),
+                new KeyBinding (gameData, new ToggleFullScreenAction (gameData)),
+                new KeyBinding (gameData, new ZoomInAction (gameData), allowContinousPress: true),
+                new KeyBinding (gameData, new ZoomOutAction (gameData), allowContinousPress: true),
+                new KeyBinding (gameData, new TogglePauseAction (gameData))
+            });
+
+            if (gameData.Configuration == null)
+            {
+                var config = new Configuration();
+                foreach (InputBinding binding in gameData.InputBindings)
+                    config.InputBindings.Add(binding);
+                config.FullScreenResolution = new Size(1280, 800);
+                gameData.Configuration = config;
+            }
 
             if (gameData.Configuration != null)
                 gameData.Configuration.Save (@"config.xml");
