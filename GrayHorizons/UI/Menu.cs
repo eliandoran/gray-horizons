@@ -54,7 +54,7 @@
                 menuItem.Font = font;
                 menuItem.Dimensions = new Rectangle(pos.X, pos.Y, ItemSize.X, ItemSize.Y);
 
-                Debug.WriteLine("\"{0}\" at {1}.".FormatWith(menuItem.Text, menuItem.Dimensions));
+                Debug.WriteLine("#{0}: \"{1}\" at {2}.".FormatWith(index, menuItem.Text, menuItem.Dimensions));
 
                 index++;
             }

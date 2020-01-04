@@ -81,6 +81,7 @@ namespace GrayHorizons.Screens
 
             this.menuItems = menuItems;
 
+            menu.MenuItems.AddRange(menuItems);
             RepositionMenuItems();
             menu.AddComponents();
             menu.SelectedMenuItem = menuItems[0];
@@ -98,7 +99,6 @@ namespace GrayHorizons.Screens
 
             menu.ItemSize = new Point(screenWidth, 60);
             menu.ItemPadding = new Point(0, 15);
-            menu.MenuItems.AddRange(menuItems);
             menu.Position = new Point(0, screenHeight - menu.Height - 50);
             menu.RepositionComponents();
         }
