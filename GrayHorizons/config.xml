@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<GrayHorizons xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <InputBindings>
+    <Bind xsi:type="KeyBinding" with="MoveForwardAction" player="1" key="W" />
+    <Bind xsi:type="KeyBinding" with="MoveBackwardAction" player="1" key="S" />
+    <Bind xsi:type="KeyBinding" with="TurnLeftAction" player="1" key="A" />
+    <Bind xsi:type="KeyBinding" with="TurnRightAction" player="1" key="D" />
+    <Bind xsi:type="KeyBinding" with="ShootAction" player="1" key="Space" />
+    <Bind xsi:type="MouseAxisBinding" with="TankMouseTurretControl" player="1" />
+    <Bind xsi:type="KeyBinding" with="ZoomInAction" player="1" key="OemPlus" />
+    <Bind xsi:type="KeyBinding" with="ZoomOutAction" player="1" key="OemMinus" />
+    <Bind xsi:type="KeyBinding" with="TogglePauseAction" player="1" key="Escape" />
+    <Bind xsi:type="KeyBinding" with="UseAction" player="1" key="F" />
+    <Bind xsi:type="KeyBinding" with="ToggleConsoleAction" player="1" key="OemTilde" />
+    <Bind xsi:type="KeyBinding" with="ToggleGuidesAction" player="1" key="F1" />
+    <Bind xsi:type="KeyBinding" with="MetamorphizeTankAction" player="1" key="F2" />
+    <Bind xsi:type="KeyBinding" with="RemoveUnnecessaryObjectsAction" player="1" key="F3" />
+    <Bind xsi:type="KeyBinding" with="WiggleWiggleAction" player="1" key="F4" />
+    <Bind xsi:type="KeyBinding" with="SavePositionAction" player="1" key="F5" />
+    <Bind xsi:type="KeyBinding" with="ToggleMinimapPositionAction" player="1" key="F9" />
+    <Bind xsi:type="KeyBinding" with="ToggleFullScreenAction" player="1" key="F12" />
+  </InputBindings>
+  <FullScreenResolution width="1920" height="1080" />
+  <WindowedModeResolution width="1024" height="600" />
+  <FullScreen>false</FullScreen>
+</GrayHorizons>
