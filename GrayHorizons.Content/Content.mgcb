@@ -454,11 +454,11 @@
 /processorParam:Quality=Best
 /build:Sounds/TankIdle.mp3
 
-#begin Sounds/TankMoving.mp3
-/importer:Mp3Importer
+#begin Sounds/TankMoving.wav
+/importer:WavImporter
 /processor:SoundEffectProcessor
-/processorParam:Quality=Low
-/build:Sounds/TankMoving.mp3
+/processorParam:Quality=Best
+/build:Sounds/TankMoving.wav
 
 #begin Sounds/TankNoAmmo.wav
 /importer:WavImporter
