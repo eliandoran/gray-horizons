@@ -108,6 +108,16 @@
 
         internal void OnResolutionChanged(EventArgs e)
         {
+            Debug.WriteLine("OnResolutionChanged:");
+            Debug.Indent();
+
+            foreach (var del in ResolutionChanged.GetInvocationList())
+            {
+                Debug.WriteLine("{0}#{1}", del.Method.DeclaringType, del.Method.ToString());
+            }
+
+            Debug.Unindent();
+
             if (ResolutionChanged.IsNotNull())
                 ResolutionChanged(this, e);
         }
