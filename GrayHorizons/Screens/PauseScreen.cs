@@ -15,6 +15,7 @@ namespace GrayHorizons.Screens
         readonly Game game;
         readonly GameData gameData;
         SpriteBatch spriteBatch;
+        MenuItem[] menuItems;
 
         public PauseScreen(
             GameData gameData)
@@ -66,6 +67,8 @@ namespace GrayHorizons.Screens
                 e) =>
                 ScreenManager.Game.Exit();
 
+            this.menuItems = menuItems;
+
             foreach (var menuItem in menuItems)
             {
                 menuItem.CenterVertically = true;
@@ -75,17 +78,28 @@ namespace GrayHorizons.Screens
                 menuItem.SelectedBackColor = new Color(204, 102, 0, 50);
             }
 
+            menu.MenuItems.AddRange(menuItems);
+            RepositionMenuItems();
+            menu.AddComponents();
+            menu.SelectedMenuItem = menuItems[0];
+        }
+
+        void RepositionMenuItems()
+        {
+            if (menuItems == null)
+            {
+                return;
+            }
+
             var screenWidth = ScreenManager.Game.GraphicsDevice.Viewport.Width;
             var screenHeight = ScreenManager.Game.GraphicsDevice.Viewport.Height;
 
             menu.ItemSize = new Point(screenWidth, 60);
             menu.ItemPadding = new Point(0, 15);
-            menu.MenuItems.AddRange(menuItems);
-            menu.Position = new Point(0, (screenHeight - menu.Height) / 2);
-            menu.AddComponents();
-            menu.SelectedMenuItem = menuItems[0];
+            menu.Position = new Point(0, screenHeight - menu.Height - 50);
+            menu.RepositionComponents();
         }
-
+        
         public override void Draw(
             GameTime gameTime)
         {
@@ -98,7 +112,8 @@ namespace GrayHorizons.Screens
         public override void Activate(bool instancePreserved)
         {
             spriteBatch = ScreenManager.SpriteBatch;
-        }
+            gameData.ResolutionChanged += GameData_ResolutionChanged;
+        }        
 
         public override void Unload()
         {
@@ -126,6 +141,10 @@ namespace GrayHorizons.Screens
             }
 
             base.Update(gameTime, otherScreenHasFocus, coveredByOtherScreen);
+        }
+        private void GameData_ResolutionChanged(object sender, EventArgs e)
+        {
+            RepositionMenuItems();
         }
     }
 }
