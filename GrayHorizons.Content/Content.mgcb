@@ -247,7 +247,7 @@
 /processorParam:PremultiplyAlpha=True
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
+/processorParam:TextureFormat=Color16Bit
 /build:Maps/Tutorial.png
 
 #begin MinelayerCrosshair.png
