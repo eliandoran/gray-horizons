@@ -1,4 +1,4 @@
-﻿/*
+/*
    _____                   _    _            _                    
   / ____|                 | |  | |          (_)                   
  | |  __ _ __ __ _ _   _  | |__| | ___  _ __ _ _______  _ __  ___ 
@@ -79,8 +79,7 @@ namespace GrayHorizons
             graphics.PreferredBackBufferWidth = GameData.Configuration.WindowedModeResolution.Width;
             graphics.PreferredBackBufferHeight = GameData.Configuration.WindowedModeResolution.Height;
             graphics.ApplyChanges();
-
-            CenterWindow(this);
+            graphics.CreateDevice();
 
             GameData.ContentManager = Content;
             GameData.GraphicsDevice = graphics.GraphicsDevice;
@@ -88,6 +87,8 @@ namespace GrayHorizons
 
             Window.AllowUserResizing = true;
             Window.Title = "Gray Horizons – © 2015 Doran Adoris Elian";
+
+            CenterWindow(this);
 
             #if DEBUG
             Content.RootDirectory = new Uri(Assembly.GetExecutingAssembly().CodeBase + @"/../../../../GrayHorizons.Content/bin/Windows").LocalPath;
