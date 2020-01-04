@@ -8,11 +8,10 @@ using GrayHorizons.ThirdParty;
 using GameStateManagement;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using GrayHorizons.UI;
 
 namespace GrayHorizons.Screens
 {
-    public class BattlefieldScreen: ExtendedGameScreen
+    public class BattlefieldScreen: GameScreen
     {
         bool coveredByOtherScreen;
         bool firstTime = true;
@@ -28,6 +27,7 @@ namespace GrayHorizons.Screens
             Map map)
         {
             this.gameData = gameData;
+            this.gameData.ResolutionChanged += GameData_ResolutionChanged;
             this.map = map;
             gameData.Map = map;
             gameData.Map.Viewport = new Rectangle(
@@ -40,7 +40,7 @@ namespace GrayHorizons.Screens
             TransitionOffTime = TimeSpan.FromMilliseconds(1000);
 
             Debug.WriteLine("[BINDINGS] Count: {0}.".FormatWith(gameData.Configuration.InputBindings.Count));
-        }
+        }   
 
         static void WallLine(
             Map map,
@@ -126,8 +126,9 @@ namespace GrayHorizons.Screens
             base.Update(gameTime, otherScreenHasFocus, coveredByOtherScreen);
         }
 
-        public override void OnClientSizeChanged()
+        private void GameData_ResolutionChanged(object sender, EventArgs e)
         {
+            // Recreate the original and scaled viewport to fit the new window size.
             gameData.Map.Viewport = new Rectangle(
                     0, 0,
                     gameData.GraphicsDevice.Viewport.Width,

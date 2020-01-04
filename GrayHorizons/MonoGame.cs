@@ -106,13 +106,7 @@ namespace GrayHorizons
 
         private void Window_ClientSizeChanged(object sender, EventArgs e)
         {
-            foreach (var screen in screenManager.GetScreens())
-            {
-                if (screen is ExtendedGameScreen)
-                {
-                    ((ExtendedGameScreen)screen).OnClientSizeChanged();
-                }
-            }
+            GameData.OnResolutionChanged(EventArgs.Empty);
         }
 
         public void InitScreens()
