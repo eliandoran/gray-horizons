@@ -42,27 +42,33 @@
             Enabled = true;
         }
 
-        public void AddComponents()
+        public void RepositionComponents()
         {
-            Debug.WriteLine("Adding components:", "MENU");
-
             int index = 0;
             foreach (var menuItem in menuItems)
             {
                 var pos = new Point(
                               Position.X + index + ItemPadding.X,
                               Position.Y + index * (ItemSize.Y + ItemPadding.Y));
-                
+
                 menuItem.Font = font;
                 menuItem.Dimensions = new Rectangle(pos.X, pos.Y, ItemSize.X, ItemSize.Y);
-
-                ScreenManager.AddScreen(menuItem, null);
 
                 Debug.WriteLine("\"{0}\" at {1}.".FormatWith(menuItem.Text, menuItem.Dimensions));
 
                 index++;
             }
         }
+
+        public void AddComponents()
+        {
+            Debug.WriteLine("Adding components:", "MENU");
+
+            RepositionComponents();
+            foreach (var menuItem in menuItems) { 
+                ScreenManager.AddScreen(menuItem, null);
+            }
+        }     
 
         public List<MenuItem> MenuItems
         {

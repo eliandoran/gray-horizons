@@ -5,6 +5,7 @@ using GrayHorizons.UI;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
+using System.Diagnostics;
 
 namespace GrayHorizons.Screens
 {
@@ -16,6 +17,7 @@ namespace GrayHorizons.Screens
         readonly GameData gameData;
         SpriteBatch spriteBatch;
         Texture2D backgroundImage;
+        MenuItem[] menuItems;
 
         public Menu Menu
         {
@@ -77,15 +79,28 @@ namespace GrayHorizons.Screens
                 menuItem.SelectedBackColor = new Color(204, 102, 0, 50);
             }
 
+            this.menuItems = menuItems;
+
+            RepositionMenuItems();
+            menu.AddComponents();
+            menu.SelectedMenuItem = menuItems[0];
+        }
+
+        void RepositionMenuItems()
+        {
+            if (menuItems == null)
+            {
+                return;
+            }
+
             var screenWidth = ScreenManager.Game.GraphicsDevice.Viewport.Width;
             var screenHeight = ScreenManager.Game.GraphicsDevice.Viewport.Height;
-                
+
             menu.ItemSize = new Point(screenWidth, 60);
             menu.ItemPadding = new Point(0, 15);
             menu.MenuItems.AddRange(menuItems);
             menu.Position = new Point(0, screenHeight - menu.Height - 50);
-            menu.AddComponents();
-            menu.SelectedMenuItem = menuItems[0];
+            menu.RepositionComponents();
         }
 
         void DrawFooter()
@@ -144,6 +159,13 @@ namespace GrayHorizons.Screens
             backgroundImage = ScreenManager.Game.Content.Load<Texture2D>("TankWallpaper");
             Sound.UISounds.MenuSelect = new GrayHorizons.Sound.SoundEffect();
             Sound.UISounds.MenuSelect.Sounds.Add(ScreenManager.Game.Content.Load<SoundEffect>("Sounds\\MenuSelect"));
+
+            gameData.ResolutionChanged += GameData_ResolutionChanged;
+        }   
+
+        private void GameData_ResolutionChanged(object sender, EventArgs e)
+        {
+            RepositionMenuItems();
         }
     }
 }
