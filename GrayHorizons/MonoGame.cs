@@ -87,6 +87,7 @@ namespace GrayHorizons
 
             Window.AllowUserResizing = true;
             Window.Title = "Gray Horizons – © 2015 Doran Adoris Elian";
+            Window.ClientSizeChanged += Window_ClientSizeChanged;
 
             CenterWindow(this);
 
@@ -100,6 +101,21 @@ namespace GrayHorizons
 
             IsMouseVisible = true;
             IsFixedTimeStep = true;
+        }
+
+        private void Window_ClientSizeChanged(object sender, EventArgs e)
+        {
+            var gameData = GameData;
+
+            if (gameData.Map != null)
+            {
+                gameData.Map.Viewport = new Rectangle(
+                    0, 0,
+                    gameData.GraphicsDevice.Viewport.Width,
+                    gameData.GraphicsDevice.Viewport.Height);
+                gameData.Map.ScaledViewport = gameData.Map.Viewport.ScaleTo(GameData.ViewportScale);
+                gameData.Map.CenterViewportAt(gameData.ActivePlayer.AssignedEntity);
+            }
         }
 
         public void InitScreens()
