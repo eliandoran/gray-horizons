@@ -1,4 +1,6 @@
-# <img src="./etc/README/AppIcon.png" style="width:64px; height:64px; vertical-align: middle"> Gray Horizons
+# Gray Horizons
+
+<img src="./etc/README/AppIcon.png" width="64" height="64" align="right" />
 
 _Demonstrative 2D top-down video game with realistic graphics created for a software contest. Custom game engine written in C# and based on MonoGame._
 
