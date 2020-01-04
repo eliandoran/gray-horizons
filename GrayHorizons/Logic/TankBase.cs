@@ -158,9 +158,6 @@
             {
                 tankIdleSoundInstance = Sound.TankSounds.Idle.GetInstance();
                 tankIdleSoundInstance.IsLooped = true;
-
-                tankIdleSoundInstance.Play();
-                //tankIdleSoundInstance.Apply3D (listener, emitter);
             }
             else
             {
