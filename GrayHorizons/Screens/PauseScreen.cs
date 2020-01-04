@@ -96,7 +96,9 @@ namespace GrayHorizons.Screens
 
             menu.ItemSize = new Point(screenWidth, 60);
             menu.ItemPadding = new Point(0, 15);
-            menu.Position = new Point(0, screenHeight - menu.Height - 50);
+
+            var menuHeight = (menuItems.Length * menu.ItemSize.Y);
+            menu.Position = new Point(0, screenHeight / 2 - menuHeight / 2);
             menu.RepositionComponents();
         }
         
