@@ -152,9 +152,9 @@
 /processorParam:ColorKeyEnabled=True
 /processorParam:GenerateMipmaps=False
 /processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=True
+/processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
-/processorParam:TextureFormat=Compressed
+/processorParam:TextureFormat=NoChange
 /build:DummyTarget.png
 
 #begin Explosion.png
@@ -166,7 +166,7 @@
 /processorParam:PremultiplyAlpha=True
 /processorParam:ResizeToPowerOfTwo=True
 /processorParam:MakeSquare=False
-/processorParam:TextureFormat=Compressed
+/processorParam:TextureFormat=NoChange
 /build:Explosion.png
 
 #begin Fonts/Large.spritefont
