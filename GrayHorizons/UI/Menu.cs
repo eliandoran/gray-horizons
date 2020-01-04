@@ -48,7 +48,7 @@
             foreach (var menuItem in menuItems)
             {
                 var pos = new Point(
-                              Position.X + index + ItemPadding.X,
+                              Position.X + ItemPadding.X,
                               Position.Y + index * (ItemSize.Y + ItemPadding.Y));
 
                 menuItem.Font = font;
