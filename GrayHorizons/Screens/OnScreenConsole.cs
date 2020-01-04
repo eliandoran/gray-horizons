@@ -28,9 +28,17 @@ namespace GrayHorizons.Screens
         public OnScreenConsole(GameData gameData)
         {
             this.gameData = gameData;
-            IsPopup = true;
+            IsPopup = true;            
+        }
 
+        public override void Activate(bool instancePreserved)
+        {
             gameData.ResolutionChanged += GameData_ResolutionChanged;
+        }
+
+        public override void Unload()
+        {
+            gameData.ResolutionChanged -= GameData_ResolutionChanged;
         }
 
         void GameData_ResolutionChanged(object sender, EventArgs e)

@@ -119,8 +119,8 @@ namespace GrayHorizons.Screens
 
         public override void Unload()
         {
+            gameData.ResolutionChanged -= GameData_ResolutionChanged;
             menu.ExitScreen();
-            base.Unload();
         }
 
         public override void HandleInput(GameTime gameTime, InputState input)

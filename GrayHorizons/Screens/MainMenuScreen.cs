@@ -161,7 +161,12 @@ namespace GrayHorizons.Screens
             Sound.UISounds.MenuSelect.Sounds.Add(ScreenManager.Game.Content.Load<SoundEffect>("Sounds\\MenuSelect"));
 
             gameData.ResolutionChanged += GameData_ResolutionChanged;
-        }   
+        }
+
+        public override void Unload()
+        {
+            gameData.ResolutionChanged -= GameData_ResolutionChanged;
+        }
 
         private void GameData_ResolutionChanged(object sender, EventArgs e)
         {

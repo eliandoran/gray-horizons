@@ -26,8 +26,7 @@ namespace GrayHorizons.Screens
             GameData gameData,
             Map map)
         {
-            this.gameData = gameData;
-            this.gameData.ResolutionChanged += GameData_ResolutionChanged;
+            this.gameData = gameData;            
             this.map = map;
             gameData.Map = map;
             gameData.Map.Viewport = new Rectangle(
@@ -80,6 +79,13 @@ namespace GrayHorizons.Screens
             gameData.Map = map;
             gameData.IsPaused = false;
             gameData.Map.CenterViewportAt(gameData.ActivePlayer.AssignedEntity);
+
+            gameData.ResolutionChanged += GameData_ResolutionChanged;
+        }
+
+        public override void Unload()
+        {
+            gameData.ResolutionChanged -= GameData_ResolutionChanged;
         }
 
         public override void Draw(

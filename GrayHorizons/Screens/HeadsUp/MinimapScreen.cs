@@ -50,8 +50,7 @@ namespace GrayHorizons.Screens.HeadsUp
             Size = new Point(256, 256);
             Padding = new Point(10, 10);
             Position = defaultPosition;
-
-            gameData.ResolutionChanged += GameData_ResolutionChanged;
+            
             CalculatePosition();
         }
 
@@ -141,6 +140,16 @@ namespace GrayHorizons.Screens.HeadsUp
                 Size.X,
                 Size.Y
             );
+        }
+
+        public override void Activate(bool instancePreserved)
+        {
+            gameData.ResolutionChanged += GameData_ResolutionChanged;
+        }
+
+        public override void Unload()
+        {
+            gameData.ResolutionChanged -= GameData_ResolutionChanged;
         }
     }
 }
