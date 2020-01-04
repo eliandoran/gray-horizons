@@ -21,6 +21,7 @@ namespace GrayHorizons
     using GameStateManagement;
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
+    using GrayHorizons.UI;
 
     #endregion
 
@@ -105,16 +106,12 @@ namespace GrayHorizons
 
         private void Window_ClientSizeChanged(object sender, EventArgs e)
         {
-            var gameData = GameData;
-
-            if (gameData.Map != null)
+            foreach (var screen in screenManager.GetScreens())
             {
-                gameData.Map.Viewport = new Rectangle(
-                    0, 0,
-                    gameData.GraphicsDevice.Viewport.Width,
-                    gameData.GraphicsDevice.Viewport.Height);
-                gameData.Map.ScaledViewport = gameData.Map.Viewport.ScaleTo(GameData.ViewportScale);
-                gameData.Map.CenterViewportAt(gameData.ActivePlayer.AssignedEntity);
+                if (screen is ExtendedGameScreen)
+                {
+                    ((ExtendedGameScreen)screen).OnClientSizeChanged();
+                }
             }
         }
 

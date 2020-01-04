@@ -80,6 +80,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)StaticObjects\Wall.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)StaticObjects\Wreck.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ThirdParty\RotatedRectangle.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\ExtendedGameScreen.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UI\Menu.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UI\MenuItem.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MonoGame.cs" />

@@ -8,10 +8,11 @@ using GrayHorizons.ThirdParty;
 using GameStateManagement;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using GrayHorizons.UI;
 
 namespace GrayHorizons.Screens
 {
-    public class BattlefieldScreen: GameScreen
+    public class BattlefieldScreen: ExtendedGameScreen
     {
         bool coveredByOtherScreen;
         bool firstTime = true;
@@ -124,6 +125,17 @@ namespace GrayHorizons.Screens
 
             base.Update(gameTime, otherScreenHasFocus, coveredByOtherScreen);
         }
+
+        public override void OnClientSizeChanged()
+        {
+            gameData.Map.Viewport = new Rectangle(
+                    0, 0,
+                    gameData.GraphicsDevice.Viewport.Width,
+                    gameData.GraphicsDevice.Viewport.Height);
+            gameData.Map.ScaledViewport = gameData.Map.Viewport.ScaleTo(gameData.ViewportScale);
+            gameData.Map.CenterViewportAt(gameData.ActivePlayer.AssignedEntity);
+        }
+
     }
 }
 
